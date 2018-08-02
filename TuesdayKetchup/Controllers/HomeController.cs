@@ -10,7 +10,18 @@ namespace TuesdayKetchup.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Home", "Admin");
+            }
+            else if (User.IsInRole("Fan"))
+            {
+                return RedirectToAction("Home", "Employee");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
