@@ -10,12 +10,14 @@ namespace TuesdayKetchup.Models
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("ApplicationUser")]
-        public string UserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        [ForeignKey("Text")]
-        public int TextId { get; set; }
-        public Text Text { get; set; }
+        [Required]
+        [Display(Name ="Episode Link")]
+        public string EpisodeLink { get; set; }
+        [Required]
+        [Display(Name = "Episode Text Message")]
         public string Message { get; set; }
+        [ForeignKey("Show")]
+        public int ShowId { get; set; }
+        public Show Show { get; set; }
     }
 }

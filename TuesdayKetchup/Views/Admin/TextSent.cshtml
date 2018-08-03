@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "TextSent";
+}
+
+<h2>TextSent</h2>
+<h4>Texts were successfully to viewers of '@ViewBag.ShowName'. </h4>
+<div>
+    <p>Would you like to send another text alert?    </p>
+    @Url.Action("Yes","TextAlert") | @Url.Action("Return to Manage", "Manage")
+</div>

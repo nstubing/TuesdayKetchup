@@ -38,6 +38,6 @@ namespace TuesdayKetchup.Models
         public DbSet<CommentFlag> commentFlags { get; set; }
         public DbSet<Event> events { get; set; }
         public DbSet<TextAlert> textAlerts { get; set; }
-        public DbSet<Text> texts { get; set; }
+        public DbSet<Texts> texts { get; set; }
     }
 }
