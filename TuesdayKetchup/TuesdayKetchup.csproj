@@ -285,6 +285,8 @@
     <Content Include="Views\Fan\Layout.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
     <Content Include="Views\Fan\Home.cshtml" />
+    <Content Include="Views\Home\Ketchup.cshtml" />
+    <Content Include="Views\Home\NickNight.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
