@@ -14,10 +14,6 @@ namespace TuesdayKetchup.Controllers
             {
                 return RedirectToAction("Home", "Admin");
             }
-            else if (User.IsInRole("Fan"))
-            {
-                return RedirectToAction("Home", "Employee");
-            }
             else
             {
                 return View();
@@ -35,6 +31,10 @@ namespace TuesdayKetchup.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        public ActionResult Ketchup()
+        {
             return View();
         }
     }

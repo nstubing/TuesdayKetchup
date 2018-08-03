@@ -287,9 +287,14 @@
     <Content Include="Views\Fan\Layout.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
     <Content Include="Views\Fan\Home.cshtml" />
+
     <Content Include="Views\Calendar\CalendarLayout.cshtml" />
     <Content Include="Views\Calendar\_CalendarPartial.cshtml" />
     <Content Include="Views\Calendar\CalendarIndex.cshtml" />
+
+    <Content Include="Views\Home\Ketchup.cshtml" />
+    <Content Include="Views\Home\NickNight.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
