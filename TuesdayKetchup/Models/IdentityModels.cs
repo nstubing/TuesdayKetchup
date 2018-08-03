@@ -29,5 +29,15 @@ namespace TuesdayKetchup.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Comment> comments { get; set; }
+        public DbSet<Post> posts { get; set; }
+        public DbSet<Episode> episodes { get; set; }
+        public DbSet<Show> shows { get; set; }
+        public DbSet<Thread> threads { get; set; }
+        public DbSet<PostFlag> postFlags { get; set; }
+        public DbSet<CommentFlag> commentFlags { get; set; }
+        public DbSet<Event> events { get; set; }
+        public DbSet<TextAlert> textAlerts { get; set; }
+        public DbSet<Text> texts { get; set; }
     }
 }
