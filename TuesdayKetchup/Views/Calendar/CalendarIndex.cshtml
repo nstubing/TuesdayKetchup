@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Event Calendar";
 }
 <head>
     <link rel='stylesheet' type='text/css' href='~/Scripts/jquery-3.3.1.js' />
@@ -71,11 +71,34 @@
                     eventLimit: true,
                     eventColor: '#378006',
                     events: events,
-                    
+                    editable: true,
                     eventClick: function (calEvent) {
                         window.location = '/Calendar/Details/' + calEvent.id;
 
-                    }
+                    },
+                    eventMouseover: function (data, event, view) {
+
+                        tooltip = '<div class="tooltiptopicevent" style="width:auto;height:auto;background:#feb811;position:absolute;z-index:10001;padding:10px 10px 10px 10px ;  line-height: 200%;">' + 'Event: ' + ': ' + data.title + '</div>';
+
+
+                        $("body").append(tooltip);
+                        $(this).mouseover(function (e) {
+                            $(this).css('z-index', 10000);
+                            $('.tooltiptopicevent').fadeIn('500');
+                            $('.tooltiptopicevent').fadeTo('10', 1.9);
+                        }).mousemove(function (e) {
+                            $('.tooltiptopicevent').css('top', e.pageY + 10);
+                            $('.tooltiptopicevent').css('left', e.pageX + 20);
+                        });
+
+
+                    },
+                    eventMouseout: function (data, event, view) {
+                        $(this).css('z-index', 8);
+
+                        $('.tooltiptopicevent').remove();
+
+                    },
                 })
             }
         })
