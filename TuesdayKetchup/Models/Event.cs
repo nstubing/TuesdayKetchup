@@ -16,7 +16,7 @@ namespace TuesdayKetchup.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
         public DateTime? Start { get; set; }
-       
+
         public string EventTime { get; set; }
         public string Details { get; set; }
         public string Image { get; set; }
@@ -24,6 +24,5 @@ namespace TuesdayKetchup.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
-       
     }
 }

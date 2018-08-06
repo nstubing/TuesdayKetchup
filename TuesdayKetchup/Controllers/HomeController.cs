@@ -52,5 +52,9 @@ namespace TuesdayKetchup.Controllers
             //Can we do this by date?
             return 1;
         }
+        public ActionResult NickAtNight()
+        {
+            return View();
+        }
     }
 }

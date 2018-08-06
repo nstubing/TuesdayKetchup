@@ -1,5 +1,4 @@
-﻿
-using TuesdayKetchup.Models;
+﻿using TuesdayKetchup.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,8 @@ namespace TuesdayKetchup.Controllers
     {
         #region Index method  
 
-        ApplicationDbContext db = new ApplicationDbContext();  
+        ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult CalendarIndex()
 
         {
@@ -37,10 +37,10 @@ namespace TuesdayKetchup.Controllers
 
         #endregion
 
-       
+
         public JsonResult GetEvents()
         {
-            
+
             {
                 var events = db.events.ToList();
                 return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -89,8 +89,7 @@ namespace TuesdayKetchup.Controllers
             ViewBag.City = eventFound.City;
             ViewBag.State = eventFound.State;
             ViewBag.ZipCode = eventFound.Zipcode;
-            ViewBag.APIKey = Keys.APIKeys.GOOGLEAPIKEY;
-             
+            ViewBag.APIKey = MyKeys.GOOGLEAPIKEY;
             return View(eventFound);
         }
 
