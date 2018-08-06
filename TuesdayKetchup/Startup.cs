@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System.Linq;
 using TuesdayKetchup.Models;
 
 [assembly: OwinStartupAttribute(typeof(TuesdayKetchup.Startup))]
@@ -46,5 +47,7 @@ namespace TuesdayKetchup
 
 
         }
+
+
     }
 }

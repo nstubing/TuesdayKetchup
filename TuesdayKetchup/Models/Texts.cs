@@ -7,17 +7,16 @@ using System.Web;
 
 namespace TuesdayKetchup.Models
 {
-    public class Text
+    public class Texts
     {
         [Key]
         public int Id { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        [ForeignKey("Episode")]
-        public int EpisodeId { get; set; }
-        public Episode Episode { get; set; }
-        public string Message { get; set; }
-        public string ItunesLink { get; set; }
+        [ForeignKey("Show")]
+        public int ShowId { get; set; }
+        public Show Show { get; set; }
+
     }
 }

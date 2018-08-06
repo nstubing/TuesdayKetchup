@@ -1,0 +1,29 @@
+﻿@model TuesdayKetchup.Models.TextAlert
+@{
+    ViewBag.Title = "SendAlert";
+}
+
+<h2>Send a text alert</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(m => m.EpisodeLink, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.EpisodeLink, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EpisodeLink, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+    </div>
+    <span>
+        Select Show
+        @Html.DropDownList("showName", new SelectList(@ViewBag.ShowNames))
+    </span>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Send Text" />
+        </div>
+    </div>
+</div>
+
