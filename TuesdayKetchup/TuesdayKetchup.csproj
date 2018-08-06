@@ -332,6 +332,7 @@
     <Content Include="Views\Admin\ManageHome.cshtml" />
     <Content Include="Views\Admin\TextAlert.cshtml" />
     <Content Include="Views\Admin\AddEpisode.cshtml" />
+    <Content Include="Views\Admin\lissst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
