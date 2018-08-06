@@ -44,13 +44,19 @@ namespace TuesdayKetchup.Controllers
         {
             int EpisodeId = GetMostRecentEpisodeId();
             List<Comment> episodeComments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
-            return View();
+            return View(episodeComments);
         }
 
         private int GetMostRecentEpisodeId()
         {
             //Can we do this by date?
             return 1;
+        }
+
+        public PartialViewResult GetEpisodeComments(int id)
+        {
+            List<Comment> comments = context.comments.Where(c => c.EpisodeId == id).ToList();
+            return PartialView("_Comments", comments);
         }
         public ActionResult NickAtNight()
         {
