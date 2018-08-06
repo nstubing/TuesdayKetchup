@@ -7,13 +7,13 @@ namespace TuesdayKetchup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Reboot : IMigrationMetadata
+    public sealed partial class eventsUploaded : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Reboot));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(eventsUploaded));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808042020338_Reboot"; }
+            get { return "201808061655478_eventsUploaded"; }
         }
         
         string IMigrationMetadata.Source

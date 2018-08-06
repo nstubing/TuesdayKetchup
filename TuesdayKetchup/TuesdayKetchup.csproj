@@ -215,10 +215,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808042020338_Reboot.cs" />
-    <Compile Include="Migrations\201808042020338_Reboot.Designer.cs">
-      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201808031848088_UpdatedTextModel.cs" />
     <Compile Include="Migrations\201808031848088_UpdatedTextModel.Designer.cs">
       <DependentUpon>201808031848088_UpdatedTextModel.cs</DependentUpon>
@@ -242,6 +238,10 @@
     <Compile Include="Migrations\201808052218349_showlink.cs" />
     <Compile Include="Migrations\201808052218349_showlink.Designer.cs">
       <DependentUpon>201808052218349_showlink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061655478_eventsUploaded.cs" />
+    <Compile Include="Migrations\201808061655478_eventsUploaded.Designer.cs">
+      <DependentUpon>201808061655478_eventsUploaded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -358,9 +358,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808042020338_Reboot.resx">
-      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808031848088_UpdatedTextModel.resx">
       <DependentUpon>201808031848088_UpdatedTextModel.cs</DependentUpon>
     </EmbeddedResource>
@@ -378,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808052218349_showlink.resx">
       <DependentUpon>201808052218349_showlink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061655478_eventsUploaded.resx">
+      <DependentUpon>201808061655478_eventsUploaded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
