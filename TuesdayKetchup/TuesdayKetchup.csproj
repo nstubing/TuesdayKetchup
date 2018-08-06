@@ -215,9 +215,36 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808061257150_test.cs" />
-    <Compile Include="Migrations\201808061257150_test.Designer.cs">
-      <DependentUpon>201808061257150_test.cs</DependentUpon>
+
+    <Compile Include="Keys.cs" />
+    <Compile Include="Migrations\201808042020338_Reboot.cs" />
+    <Compile Include="Migrations\201808042020338_Reboot.Designer.cs">
+      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808031848088_UpdatedTextModel.cs" />
+    <Compile Include="Migrations\201808031848088_UpdatedTextModel.Designer.cs">
+      <DependentUpon>201808031848088_UpdatedTextModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808031851204_FinishedTextAlert.cs" />
+    <Compile Include="Migrations\201808031851204_FinishedTextAlert.Designer.cs">
+      <DependentUpon>201808031851204_FinishedTextAlert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808031858385_UpdatedDisplayNameForTExts.cs" />
+    <Compile Include="Migrations\201808031858385_UpdatedDisplayNameForTExts.Designer.cs">
+      <DependentUpon>201808031858385_UpdatedDisplayNameForTExts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808031951405_TextSignup.cs" />
+    <Compile Include="Migrations\201808031951405_TextSignup.Designer.cs">
+      <DependentUpon>201808031951405_TextSignup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808032034457_ItToldMeTo.cs" />
+    <Compile Include="Migrations\201808032034457_ItToldMeTo.Designer.cs">
+      <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
+
+    </Compile>
+    <Compile Include="Migrations\201808052218349_showlink.cs" />
+    <Compile Include="Migrations\201808052218349_showlink.Designer.cs">
+      <DependentUpon>201808052218349_showlink.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -244,6 +271,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\gravyDrip.png" />
+    <Content Include="Content\greenDrip.png" />
+    <Content Include="Content\ketchupred.png" />
+    <Content Include="Content\NickAtNight.PNG" />
+    <Content Include="Content\truegravytrain.png" />
+    <Content Include="Content\TuesdayKetchup.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -263,7 +296,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\script-custom-calendar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -308,9 +341,9 @@
     <Content Include="Views\Calendar\CalendarIndex.cshtml" />
     <Content Include="Views\Home\Ketchup.cshtml" />
     <Content Include="Views\Home\NickNight.cshtml" />
-    <Content Include="Views\Admin\TextAlert.cshtml" />
-    <Content Include="Views\Admin\TextSent.cshtml" />
-    <Content Include="Views\Admin\Manage.cshtml" />
+    <Content Include="Views\Calendar\EventList.cshtml" />
+    <Content Include="Views\Calendar\CreateEvent.cshtml" />
+    <Content Include="Views\Calendar\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,8 +362,26 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808061257150_test.resx">
-      <DependentUpon>201808061257150_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808042020338_Reboot.resx">
+      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808031848088_UpdatedTextModel.resx">
+      <DependentUpon>201808031848088_UpdatedTextModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808031851204_FinishedTextAlert.resx">
+      <DependentUpon>201808031851204_FinishedTextAlert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808031858385_UpdatedDisplayNameForTExts.resx">
+      <DependentUpon>201808031858385_UpdatedDisplayNameForTExts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808031951405_TextSignup.resx">
+      <DependentUpon>201808031951405_TextSignup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808032034457_ItToldMeTo.resx">
+      <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808052218349_showlink.resx">
+      <DependentUpon>201808052218349_showlink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

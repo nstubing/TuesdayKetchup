@@ -9,7 +9,12 @@ namespace TuesdayKetchup.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext;
+        ApplicationDbContext context = new ApplicationDbContext();
+
+        public ActionResult GetCalendarIndex()
+        {
+            return RedirectToAction("GetCalendarIndex", "Calendar");
+        }
         public ActionResult Index()
         {
             if (User.IsInRole("Admin"))

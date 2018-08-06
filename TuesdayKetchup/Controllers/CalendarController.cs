@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -14,106 +15,84 @@ namespace TuesdayKetchup.Controllers
     {
         #region Index method  
 
-        /// <summary>  
-        /// GET: Home/Index method.  
-        /// </summary>  
-        /// <returns>Returns - index view page</returns>   
+        ApplicationDbContext db = new ApplicationDbContext();  
         public ActionResult CalendarIndex()
+
         {
-            // Info.  
-            return this.View();
+            var events = db.events.ToList();
+            ViewBag.Events = events;
+            var startDates =
+                (from u in db.events
+                 where u.Start != null
+                 select u.Start).First();
+            ViewBag.StartDates = startDates;
+            var details =
+                (from u in db.events
+                 where u.Subject != null
+                 select u.Subject).First();
+            ViewBag.Details = details;
+
+            return View();
         }
 
         #endregion
 
-        #region Get Calendar data method.  
-
-        /// <summary>  
-        /// GET: /Home/GetCalendarData  
-        /// </summary>  
-        /// <returns>Return data</returns>  
-        public ActionResult GetCalendarData()
+       
+        public JsonResult GetEvents()
         {
-            // Initialization.  
-            JsonResult result = new JsonResult();
-
+            
+            {
+                var events = db.events.ToList();
+                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public ActionResult EventList()
+        {
+            return View();
+        }
+        public ActionResult CreateEvent()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEvent([Bind(Include = "Start, End, Description, Subject, Details, Image, StreetAddress, City, State, Zipcode")]Event eventEntered)
+        {
             try
             {
-                // Loading.  
-                //List<Event> data = this.LoadData();
-
-                // Processing.  
-                //result = this.Json(data, JsonRequestBehavior.AllowGet);
+                if (ModelState.IsValid)
+                {
+                    db.events.Add(eventEntered);
+                    db.SaveChanges();
+                    return RedirectToAction("CalendarIndex");
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                // Info  
-                Console.Write(ex);
+                ModelState.AddModelError("", "Unable to save changes.");
             }
-
-            // Return info.  
-            return result;
+            return View(eventEntered);
+        }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Event eventFound = db.events.Find(id);
+            if (eventFound == null)
+            {
+                return HttpNotFound();
+            }
+            var eventToMap = db.events.Find(eventFound.Id);
+            ViewBag.Address = eventFound.StreetAddress;
+            ViewBag.City = eventFound.City;
+            ViewBag.State = eventFound.State;
+            ViewBag.ZipCode = eventFound.Zipcode;
+            ViewBag.APIKey = Keys.APIKeys.GOOGLEAPIKEY;
+             
+            return View(eventFound);
         }
 
-        #endregion
-
-        #region Helpers  
-
-        #region Load Data  
-
-        /// <summary>  
-        /// Load data method.  
-        /// </summary>  
-        /// <returns>Returns - Data</returns>  
-        //private List<Event> LoadData()
-        //{
-        //    Initialization.
-        //   List<Event> lst = new List<Event>();
-
-        //    try
-        //    {
-        //        Initialization.
-        //        string line = string.Empty;
-        //        string srcFilePath = "Content/files/Event.txt";
-        //        var rootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-        //        var fullPath = Path.Combine(rootPath, srcFilePath);
-        //        string filePath = new Uri(fullPath).LocalPath;
-        //        StreamReader sr = new StreamReader(new FileStream(filePath, FileMode.Open, FileAccess.Read));
-
-        //        Read file.  
-        //        while ((line = sr.ReadLine()) != null)
-        //        {
-        //            Initialization.
-        //           Event infoObj = new Event();
-        //            string[] info = line.Split(',');
-
-        //            Setting.
-        //           infoObj.Sr = Convert.ToInt32(info[0].ToString());
-        //            infoObj.Title = info[1].ToString();
-        //            infoObj.Desc = info[2].ToString();
-        //            infoObj.Start_Date = info[3].ToString();
-        //            infoObj.End_Date = info[4].ToString();
-
-        //            Adding.
-        //           lst.Add(infoObj);
-        //        }
-
-        //        Closing.
-        //       sr.Dispose();
-        //        sr.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        info.
-        //       Console.Write(ex);
-        //    }
-
-        //    info.
-        //    return lst;
-        //}
-
-        #endregion
-
-        #endregion
     }
 }
