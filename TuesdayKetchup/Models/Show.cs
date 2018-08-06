@@ -14,7 +14,7 @@ namespace TuesdayKetchup.Models
         public string Title { get; set; }
         public string Details { get; set; }
         public string Image { get; set; }
-        public string ItunesName { get; set; }
+        public string SoundCloudLink { get; set; }
         public string PatreonId { get; set; }
         public string TwitterAccount { get; set; }
         public string NavImage { get; set; }

@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201808032034457_ItToldMeTo.Designer.cs">
       <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808052218349_showlink.cs" />
+    <Compile Include="Migrations\201808052218349_showlink.Designer.cs">
+      <DependentUpon>201808052218349_showlink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -263,6 +267,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\gravyDrip.png" />
+    <Content Include="Content\greenDrip.png" />
+    <Content Include="Content\ketchupred.png" />
+    <Content Include="Content\NickAtNight.PNG" />
+    <Content Include="Content\truegravytrain.png" />
+    <Content Include="Content\TuesdayKetchup.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -365,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808032034457_ItToldMeTo.resx">
       <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808052218349_showlink.resx">
+      <DependentUpon>201808052218349_showlink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
