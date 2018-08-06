@@ -215,9 +215,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808031417206_Initial.cs" />
-    <Compile Include="Migrations\201808031417206_Initial.Designer.cs">
-      <DependentUpon>201808031417206_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201808042020338_Reboot.cs" />
+    <Compile Include="Migrations\201808042020338_Reboot.Designer.cs">
+      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201808031848088_UpdatedTextModel.cs" />
     <Compile Include="Migrations\201808031848088_UpdatedTextModel.Designer.cs">
@@ -292,7 +292,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\script-custom-calendar.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -337,9 +337,9 @@
     <Content Include="Views\Calendar\CalendarIndex.cshtml" />
     <Content Include="Views\Home\Ketchup.cshtml" />
     <Content Include="Views\Home\NickNight.cshtml" />
-    <Content Include="Views\Admin\TextAlert.cshtml" />
-    <Content Include="Views\Admin\TextSent.cshtml" />
-    <Content Include="Views\Admin\Manage.cshtml" />
+    <Content Include="Views\Calendar\EventList.cshtml" />
+    <Content Include="Views\Calendar\CreateEvent.cshtml" />
+    <Content Include="Views\Calendar\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,8 +358,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808031417206_Initial.resx">
-      <DependentUpon>201808031417206_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808042020338_Reboot.resx">
+      <DependentUpon>201808042020338_Reboot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808031848088_UpdatedTextModel.resx">
       <DependentUpon>201808031848088_UpdatedTextModel.cs</DependentUpon>

@@ -15,6 +15,7 @@ namespace TuesdayKetchup.Controllers
         #region Index method  
 
         ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult CalendarIndex()
 
         {
@@ -88,8 +89,7 @@ namespace TuesdayKetchup.Controllers
             ViewBag.City = eventFound.City;
             ViewBag.State = eventFound.State;
             ViewBag.ZipCode = eventFound.Zipcode;
-            ViewBag.APIKey = Keys.APIKeys.GOOGLEAPIKEY;
-
+            ViewBag.APIKey = MyKeys.GOOGLEAPIKEY;
             return View(eventFound);
         }
 
