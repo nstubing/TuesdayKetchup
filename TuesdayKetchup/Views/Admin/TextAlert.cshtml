@@ -1,29 +1,50 @@
 ﻿@model TuesdayKetchup.Models.TextAlert
+
 @{
-    ViewBag.Title = "SendAlert";
+    ViewBag.Title = "TextAlert";
 }
 
-<h2>Send a text alert</h2>
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="form-group">
-    @Html.LabelFor(m => m.EpisodeLink, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.TextBoxFor(m => m.EpisodeLink, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.EpisodeLink, "", new { @class = "text-danger" })
-    </div>
-    @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
-    </div>
-    <span>
-        Select Show
-        @Html.DropDownList("showName", new SelectList(@ViewBag.ShowNames))
-    </span>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Send Text" />
+<h2>TextAlert</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TextAlert</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EpisodeLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EpisodeLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EpisodeLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>Show:</p>
+            <div class="col-md-10">
+                @Html.DropDownList("ShowName", new SelectList(ViewBag.ShowNames));
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
+}
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

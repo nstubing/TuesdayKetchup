@@ -234,7 +234,6 @@
     <Compile Include="Migrations\201808032034457_ItToldMeTo.cs" />
     <Compile Include="Migrations\201808032034457_ItToldMeTo.Designer.cs">
       <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Migrations\201808052218349_showlink.cs" />
     <Compile Include="Migrations\201808052218349_showlink.Designer.cs">
@@ -243,6 +242,18 @@
     <Compile Include="Migrations\201808061655478_eventsUploaded.cs" />
     <Compile Include="Migrations\201808061655478_eventsUploaded.Designer.cs">
       <DependentUpon>201808061655478_eventsUploaded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061856092_ItunesLinkAdded.cs" />
+    <Compile Include="Migrations\201808061856092_ItunesLinkAdded.Designer.cs">
+      <DependentUpon>201808061856092_ItunesLinkAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061920085_SoundcloudLinkInEp.cs" />
+    <Compile Include="Migrations\201808061920085_SoundcloudLinkInEp.Designer.cs">
+      <DependentUpon>201808061920085_SoundcloudLinkInEp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061932146_ShowAddedToEpisode.cs" />
+    <Compile Include="Migrations\201808061932146_ShowAddedToEpisode.Designer.cs">
+      <DependentUpon>201808061932146_ShowAddedToEpisode.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -342,6 +353,9 @@
     <Content Include="Views\Calendar\EventList.cshtml" />
     <Content Include="Views\Calendar\CreateEvent.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
+    <Content Include="Views\Admin\ManageHome.cshtml" />
+    <Content Include="Views\Admin\TextAlert.cshtml" />
+    <Content Include="Views\Admin\AddEpisode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -380,6 +394,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808061655478_eventsUploaded.resx">
       <DependentUpon>201808061655478_eventsUploaded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061856092_ItunesLinkAdded.resx">
+      <DependentUpon>201808061856092_ItunesLinkAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061920085_SoundcloudLinkInEp.resx">
+      <DependentUpon>201808061920085_SoundcloudLinkInEp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061932146_ShowAddedToEpisode.resx">
+      <DependentUpon>201808061932146_ShowAddedToEpisode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
