@@ -3,7 +3,7 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RedoingMigrations : DbMigration
+    public partial class JahnekeUpdate : DbMigration
     {
         public override void Up()
         {
@@ -103,7 +103,26 @@ namespace TuesdayKetchup.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
                         Details = c.String(),
+                        SoundCloudLink = c.String(),
+                        ShowId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Shows", t => t.ShowId, cascadeDelete: true)
+                .Index(t => t.ShowId);
+            
+            CreateTable(
+                "dbo.Shows",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        Details = c.String(),
                         Image = c.String(),
+                        SoundCloudLink = c.String(),
+                        PatreonId = c.String(),
+                        TwitterAccount = c.String(),
+                        NavImage = c.String(),
+                        ItunesLink = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -176,21 +195,6 @@ namespace TuesdayKetchup.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
-                "dbo.Shows",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Details = c.String(),
-                        Image = c.String(),
-                        SoundCloudLink = c.String(),
-                        PatreonId = c.String(),
-                        TwitterAccount = c.String(),
-                        NavImage = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.TextAlerts",
                 c => new
                     {
@@ -231,6 +235,7 @@ namespace TuesdayKetchup.Migrations
             DropForeignKey("dbo.PostFlags", "UserID", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentFlags", "CommentID", "dbo.Comments");
             DropForeignKey("dbo.Comments", "EpisodeId", "dbo.Episodes");
+            DropForeignKey("dbo.Episodes", "ShowId", "dbo.Shows");
             DropForeignKey("dbo.Comments", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentFlags", "UserID", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -244,6 +249,7 @@ namespace TuesdayKetchup.Migrations
             DropIndex("dbo.Posts", new[] { "UserId" });
             DropIndex("dbo.PostFlags", new[] { "UserID" });
             DropIndex("dbo.PostFlags", new[] { "PostID" });
+            DropIndex("dbo.Episodes", new[] { "ShowId" });
             DropIndex("dbo.Comments", new[] { "EpisodeId" });
             DropIndex("dbo.Comments", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -255,12 +261,12 @@ namespace TuesdayKetchup.Migrations
             DropIndex("dbo.CommentFlags", new[] { "CommentID" });
             DropTable("dbo.Texts");
             DropTable("dbo.TextAlerts");
-            DropTable("dbo.Shows");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Threads");
             DropTable("dbo.Posts");
             DropTable("dbo.PostFlags");
             DropTable("dbo.Events");
+            DropTable("dbo.Shows");
             DropTable("dbo.Episodes");
             DropTable("dbo.Comments");
             DropTable("dbo.AspNetUserRoles");
