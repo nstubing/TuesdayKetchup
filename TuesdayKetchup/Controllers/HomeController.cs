@@ -37,5 +37,9 @@ namespace TuesdayKetchup.Controllers
         {
             return View();
         }
+        public ActionResult NickAtNight()
+        {
+            return View();
+        }
     }
 }
