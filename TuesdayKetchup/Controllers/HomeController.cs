@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TuesdayKetchup.Models;
 
 namespace TuesdayKetchup.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext context = new ApplicationDbContext();
 
         public ActionResult GetCalendarIndex()
         {
@@ -40,7 +42,15 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Ketchup()
         {
+            int EpisodeId = GetMostRecentEpisodeId();
+            List<Comment> episodeComments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
             return View();
+        }
+
+        private int GetMostRecentEpisodeId()
+        {
+            //Can we do this by date?
+            return 1;
         }
         public ActionResult NickAtNight()
         {

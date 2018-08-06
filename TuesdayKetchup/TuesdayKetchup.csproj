@@ -234,6 +234,7 @@
     <Compile Include="Migrations\201808032034457_ItToldMeTo.cs" />
     <Compile Include="Migrations\201808032034457_ItToldMeTo.Designer.cs">
       <DependentUpon>201808032034457_ItToldMeTo.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\201808052218349_showlink.cs" />
     <Compile Include="Migrations\201808052218349_showlink.Designer.cs">
@@ -259,6 +260,7 @@
     <Compile Include="Models\TextAlert.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="MyKeys.cs" />
+    <Compile Include="PatreonMessenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
