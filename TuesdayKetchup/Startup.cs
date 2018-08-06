@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System.Collections.Generic;
 using TuesdayKetchup.Models;
 
 [assembly: OwinStartupAttribute(typeof(TuesdayKetchup.Startup))]

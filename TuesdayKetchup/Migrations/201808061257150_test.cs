@@ -3,7 +3,7 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class test : DbMigration
     {
         public override void Up()
         {
@@ -24,6 +24,64 @@ namespace TuesdayKetchup.Migrations
                 .Index(t => t.UserID);
             
             CreateTable(
+                "dbo.AspNetUsers",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Email = c.String(maxLength: 256),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        UserName = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserClaims",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserLogins",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
                 "dbo.Comments",
                 c => new
                     {
@@ -34,7 +92,7 @@ namespace TuesdayKetchup.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.Episodes", t => t.EpisodeId, cascadeDelete: false)
+                .ForeignKey("dbo.Episodes", t => t.EpisodeId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.EpisodeId);
             
@@ -101,6 +159,16 @@ namespace TuesdayKetchup.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
                 "dbo.Shows",
                 c => new
                     {
@@ -120,15 +188,13 @@ namespace TuesdayKetchup.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(maxLength: 128),
-                        TextId = c.Int(nullable: false),
-                        Message = c.String(),
+                        EpisodeLink = c.String(nullable: false),
+                        Message = c.String(nullable: false),
+                        ShowId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.Texts", t => t.TextId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.TextId);
+                .ForeignKey("dbo.Shows", t => t.ShowId, cascadeDelete: true)
+                .Index(t => t.ShowId);
             
             CreateTable(
                 "dbo.Texts",
@@ -136,24 +202,22 @@ namespace TuesdayKetchup.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(maxLength: 128),
-                        EpisodeId = c.Int(nullable: false),
-                        Message = c.String(),
-                        ItunesLink = c.String(),
+                        ShowId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.Episodes", t => t.EpisodeId, cascadeDelete: true)
+                .ForeignKey("dbo.Shows", t => t.ShowId, cascadeDelete: true)
                 .Index(t => t.UserId)
-                .Index(t => t.EpisodeId);
+                .Index(t => t.ShowId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.TextAlerts", "TextId", "dbo.Texts");
-            DropForeignKey("dbo.Texts", "EpisodeId", "dbo.Episodes");
+            DropForeignKey("dbo.Texts", "ShowId", "dbo.Shows");
             DropForeignKey("dbo.Texts", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.TextAlerts", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TextAlerts", "ShowId", "dbo.Shows");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.PostFlags", "PostID", "dbo.Posts");
             DropForeignKey("dbo.Posts", "ThreadId", "dbo.Threads");
             DropForeignKey("dbo.Posts", "UserId", "dbo.AspNetUsers");
@@ -162,27 +226,40 @@ namespace TuesdayKetchup.Migrations
             DropForeignKey("dbo.Comments", "EpisodeId", "dbo.Episodes");
             DropForeignKey("dbo.Comments", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentFlags", "UserID", "dbo.AspNetUsers");
-            DropIndex("dbo.Texts", new[] { "EpisodeId" });
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropIndex("dbo.Texts", new[] { "ShowId" });
             DropIndex("dbo.Texts", new[] { "UserId" });
-            DropIndex("dbo.TextAlerts", new[] { "TextId" });
-            DropIndex("dbo.TextAlerts", new[] { "UserId" });
+            DropIndex("dbo.TextAlerts", new[] { "ShowId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Posts", new[] { "ThreadId" });
             DropIndex("dbo.Posts", new[] { "UserId" });
             DropIndex("dbo.PostFlags", new[] { "UserID" });
             DropIndex("dbo.PostFlags", new[] { "PostID" });
             DropIndex("dbo.Comments", new[] { "EpisodeId" });
             DropIndex("dbo.Comments", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.CommentFlags", new[] { "UserID" });
             DropIndex("dbo.CommentFlags", new[] { "CommentID" });
             DropTable("dbo.Texts");
             DropTable("dbo.TextAlerts");
             DropTable("dbo.Shows");
+            DropTable("dbo.AspNetRoles");
             DropTable("dbo.Threads");
             DropTable("dbo.Posts");
             DropTable("dbo.PostFlags");
             DropTable("dbo.Events");
             DropTable("dbo.Episodes");
             DropTable("dbo.Comments");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
             DropTable("dbo.CommentFlags");
         }
     }
