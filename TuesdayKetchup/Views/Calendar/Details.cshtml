@@ -1,0 +1,138 @@
+﻿@model TuesdayKetchup.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zipcode)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Back to Event Calendar", "Index", "Calendar")
+</div>
+<h2>Map</h2>
+<div id="modal-map2" style="height: 76%;width: 76%; position: absolute; overflow: hidden;"></div>
+
+<script>
+        var geocoder;
+
+        function initMap (callback) {
+            var coordinates;
+            geocoder = new google.maps.Geocoder();
+            var latitude = 52.0000000;
+            var longitute = 9.7000000;
+            geocoder.geocode({ 'address': "@ViewBag.Address @ViewBag.City @ViewBag.State @ViewBag.ZipCode" }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    latitude = results[0].geometry.location.lat();
+                    longitude = results[0].geometry.location.lng();
+                }
+
+                //callback(coordinates);
+                var uluru = new google.maps.LatLng(latitude, longitude);
+                var map = new google.maps.Map(document.getElementById('modal-map2'), {
+                    zoom: 15,
+                    center: uluru,
+                    mapTypeId: google.maps.MapTypeId.HYBRID,
+
+                    zoomControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_BOTTOM
+                    },
+                    streetViewControl: true,
+                    streetViewControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_BOTTOM
+                    },
+                });
+                var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(latitude, longitude) });
+            })
+
+        }
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.APIKey&callback=initMap"
+        async defer type="text/javascript"></script>

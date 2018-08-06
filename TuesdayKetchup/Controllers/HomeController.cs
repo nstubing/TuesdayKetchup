@@ -8,6 +8,11 @@ namespace TuesdayKetchup.Controllers
 {
     public class HomeController : Controller
     {
+
+        public ActionResult GetCalendarIndex()
+        {
+            return RedirectToAction("GetCalendarIndex", "Calendar");
+        }
         public ActionResult Index()
         {
             if (User.IsInRole("Admin"))
