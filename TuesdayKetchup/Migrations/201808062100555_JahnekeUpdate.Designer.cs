@@ -7,13 +7,13 @@ namespace TuesdayKetchup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ItunesLinkAdded : IMigrationMetadata
+    public sealed partial class JahnekeUpdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ItunesLinkAdded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(JahnekeUpdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808061856092_ItunesLinkAdded"; }
+            get { return "201808062100555_JahnekeUpdate"; }
         }
         
         string IMigrationMetadata.Source

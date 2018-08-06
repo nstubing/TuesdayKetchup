@@ -216,21 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808061849254_RedoingMigrations.cs" />
-    <Compile Include="Migrations\201808061849254_RedoingMigrations.Designer.cs">
-      <DependentUpon>201808061849254_RedoingMigrations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808061856092_ItunesLinkAdded.cs" />
-    <Compile Include="Migrations\201808061856092_ItunesLinkAdded.Designer.cs">
-      <DependentUpon>201808061856092_ItunesLinkAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808061920085_SoundcloudLinkInEp.cs" />
-    <Compile Include="Migrations\201808061920085_SoundcloudLinkInEp.Designer.cs">
-      <DependentUpon>201808061920085_SoundcloudLinkInEp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808061932146_ShowAddedToEpisode.cs" />
-    <Compile Include="Migrations\201808061932146_ShowAddedToEpisode.Designer.cs">
-      <DependentUpon>201808061932146_ShowAddedToEpisode.cs</DependentUpon>
+    <Compile Include="Migrations\201808062100555_JahnekeUpdate.cs" />
+    <Compile Include="Migrations\201808062100555_JahnekeUpdate.Designer.cs">
+      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -357,17 +345,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808061849254_RedoingMigrations.resx">
-      <DependentUpon>201808061849254_RedoingMigrations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808061856092_ItunesLinkAdded.resx">
-      <DependentUpon>201808061856092_ItunesLinkAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808061920085_SoundcloudLinkInEp.resx">
-      <DependentUpon>201808061920085_SoundcloudLinkInEp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808061932146_ShowAddedToEpisode.resx">
-      <DependentUpon>201808061932146_ShowAddedToEpisode.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808062100555_JahnekeUpdate.resx">
+      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
