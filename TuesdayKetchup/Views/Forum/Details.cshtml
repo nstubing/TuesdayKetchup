@@ -20,7 +20,17 @@
 
     </dl>
 </div>
+@foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
+{
+<div>
+    @Html.DisplayFor(modelItem => item.Message)
+
+    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+</div>
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Add Post", "CreatePost", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

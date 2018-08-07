@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -32,6 +33,7 @@ namespace TuesdayKetchup.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Posts = db.posts.Where(p => p.ThreadId == id).ToList();
             return View(thread);
         }
 
@@ -52,7 +54,7 @@ namespace TuesdayKetchup.Controllers
             {
                 db.threads.Add(thread);
                 db.SaveChanges();
-                return RedirectToAction("CreatePost");
+                return RedirectToAction("Index");
             }
 
             return View(thread);
@@ -65,16 +67,15 @@ namespace TuesdayKetchup.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost([Bind(Include = "Id,UserId,ThreadId,Message")] Post post)
+        public ActionResult CreatePost(int id, [Bind(Include = "Id,UserId,ThreadId,Message")] Post post)
         {
-            if (ModelState.IsValid)
-            {
-                db.posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            var newPost = new Post { UserId = User.Identity.GetUserId(), ThreadId = id, Message = post.Message };
 
-            return View(post);
+            db.posts.Add(newPost);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+            //return View(newPost);
         }
 
         // GET: Forum/Edit/5
