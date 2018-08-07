@@ -16,6 +16,7 @@ namespace TuesdayKetchup
         {
             ConfigureAuth(app);
             CreateRolesandUsers();
+            //SeedPods();
         }
         private void CreateRolesandUsers()
         {
@@ -49,6 +50,26 @@ namespace TuesdayKetchup
 
         }
 
-
+        private void SeedPods()
+        {
+            var thisShow = context.shows.FirstOrDefault(s => s.Id == 1);
+            //context.shows.Remove(thisShow);
+            Show Ttk = new Show();
+            Ttk.Title = "The Tuesday Ketchup";
+            Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
+            Ttk.Image = "~/Content/TuesdayKetchup.jpg";
+            Ttk.TwitterAccount = "@Tuesday_Ketchup";
+            Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
+            Ttk.NavImage = "~/Content/ketchupred.png";
+            context.shows.Add(Ttk);
+            Show Nick = new Show();
+            Nick.Title = "Nick @ Night";
+            Nick.Details = "Just laugh a little bit.";
+            Nick.Image = "~/Content/NickAtNight.PNG";
+            Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
+            Nick.NavImage = "~/Content/greenDrip.png";
+            context.shows.Add(Nick);
+            context.SaveChanges();
+        }
     }
 }

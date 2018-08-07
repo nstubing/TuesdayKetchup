@@ -113,8 +113,58 @@ namespace TuesdayKetchup.Controllers
             {
                 flag.Counter = 1;
                 flag.IsRemoved = false;
+                db.postFlags.Add(flag);
             }
-            db.postFlags.Add(flag);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost([Bind(Include = "Id,UserId,UserName,ThreadId,Message")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(post);
+        }
+
+        public ActionResult DeletePost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        [HttpPost]
+        public ActionResult DeletePost(int id)
+        {
+            Post post = db.posts.Find(id);
+            db.posts.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
