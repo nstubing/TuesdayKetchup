@@ -210,6 +210,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +219,9 @@
     <Compile Include="Migrations\201808061928107_NewMigration.cs" />
     <Compile Include="Migrations\201808061928107_NewMigration.Designer.cs">
       <DependentUpon>201808061928107_NewMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201808062100555_JahnekeUpdate.cs" />
+    <Compile Include="Migrations\201808062100555_JahnekeUpdate.Designer.cs">
+      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -320,6 +324,16 @@
     <Content Include="Views\Calendar\CreateEvent.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Forum\Create.cshtml" />
+    <Content Include="Views\Forum\Delete.cshtml" />
+    <Content Include="Views\Forum\Details.cshtml" />
+    <Content Include="Views\Forum\Edit.cshtml" />
+    <Content Include="Views\Forum\Index.cshtml" />
+    <Content Include="Views\Forum\CreatePost.cshtml" />
+    <Content Include="Views\Admin\ManageHome.cshtml" />
+    <Content Include="Views\Admin\TextAlert.cshtml" />
+    <Content Include="Views\Admin\AddEpisode.cshtml" />
+    <Content Include="Views\Admin\lissst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +354,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808061928107_NewMigration.resx">
       <DependentUpon>201808061928107_NewMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808062100555_JahnekeUpdate.resx">
+      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

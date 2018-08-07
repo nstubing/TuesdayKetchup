@@ -18,6 +18,10 @@ namespace TuesdayKetchup.Controllers
         {
             return View();
         }
+        public ActionResult ManageHome()
+        {
+            return View();
+        }
         public ActionResult TextAlert()
         {
             var ShowNames = db.shows.Select(s => s.Title);
@@ -59,5 +63,27 @@ namespace TuesdayKetchup.Controllers
             ViewBag.ShowName = TempData["ShowName"].ToString();
             return View();
         }
+        public ActionResult AddEpisode()
+        {
+            ViewBag.Message = TempData["saved"];
+            var ShowNames = db.shows.Select(s => s.Title);
+            ViewBag.ShowNames = ShowNames;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddEpisode(Episode episode,string ShowName)
+        {
+            var thisShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
+            Episode thisEpisode = new Episode();
+            thisEpisode.Title = episode.Title;
+            thisEpisode.Details = episode.Details;
+            thisEpisode.SoundCloudLink = episode.SoundCloudLink;
+            thisEpisode.ShowId = thisShowId;
+            db.episodes.Add(thisEpisode);
+            db.SaveChanges();
+            TempData["saved"] = "Episode saved succesfully";
+            return RedirectToAction("AddEpisode");
+        }
     }
+
 }

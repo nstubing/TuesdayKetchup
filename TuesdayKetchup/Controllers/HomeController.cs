@@ -42,6 +42,13 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Ketchup()
         {
+            var ShowId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
+            var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
+            var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
+            string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
+            ViewBag.ShowUrl = showUrl;
+            var previousShows = Episodes.Skip(1).ToList();
+            ViewBag.PreviousShows = previousShows;
             int EpisodeId = GetMostRecentEpisodeId();
             List<Comment> episodeComments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
             return View(episodeComments);

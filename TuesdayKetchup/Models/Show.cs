@@ -18,5 +18,6 @@ namespace TuesdayKetchup.Models
         public string PatreonId { get; set; }
         public string TwitterAccount { get; set; }
         public string NavImage { get; set; }
+        public string ItunesLink { get; set; }
     }
 }

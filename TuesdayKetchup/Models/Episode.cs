@@ -13,6 +13,10 @@ namespace TuesdayKetchup.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Details { get; set; }
-        public string Image { get; set; }
+        [Display(Name = "Soundcloud link")]
+        public string SoundCloudLink { get; set; }
+        [ForeignKey("Show")]
+        public int ShowId { get; set; }
+        public Show Show { get; set; }
     }
 }
