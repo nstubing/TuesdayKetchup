@@ -1,0 +1,30 @@
+﻿@model TuesdayKetchup.Models.Episode
+
+@{
+    if (Model.ratings.Count > 0)
+    {
+        < p > Overall Rating for @Model.Title is @Model.OverallRating </ p >
+    }
+    else
+    {
+        <p> Be the first to rate @Model.Title!</p>
+    }
+}
+@{
+    for (int i = 0; i < 4; i++)
+    {
+        <a href="#" name="Rank" data-rank="@i" data-episodeid="@Model.Id"> <i class="glyphicon glyphicon-star@(Model.OverallRating<i ? "-empty" : "")"></i></a>
+    }
+}
+@using (Html.BeginForm("SetRating", "Ratings"))
+{
+    @Html.HiddenFor(q => q.Id)
+    for (int i = 0; i < 4; i++)
+    {
+        <input type="radio" id="Star" name="Star" value="@i" /> @i
+    }
+    <input type="submit" value="Submit" />
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

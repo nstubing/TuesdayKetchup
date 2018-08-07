@@ -18,14 +18,8 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Home", "Admin");
-            }
-            else
-            {
-                return View();
-            }
+            ViewBag.Announcement = TempData["Announcement"];
+            return View();
         }
 
         public ActionResult About()
@@ -43,6 +37,7 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Ketchup()
         {
+//<<<<<<< HEAD
             ShowViewModel showVM = new ShowViewModel();
             var ShowId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
             var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
@@ -57,6 +52,23 @@ namespace TuesdayKetchup.Controllers
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
             showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
             return View(showVM);
+//=======
+//            var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
+//            var ShowId = Show.Id;
+//            var ShowDetails = Show.Details;
+//            ViewBag.ShowDetails = ShowDetails;
+//            var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
+//            var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
+//            var latestShowDetails = Episodes.FirstOrDefault().Details;
+//            ViewBag.Details = latestShowDetails;
+//            string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
+//            ViewBag.ShowUrl = showUrl;
+//            var previousShows = Episodes.Skip(1).ToList();
+//            ViewBag.PreviousShows = previousShows;
+//            int EpisodeId = GetMostRecentEpisodeId();
+//            List<Comment> episodeComments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
+//            return View();
+//>>>>>>> c196f71fb12b2bc63d1afb7ddea4e7eff3cd016c
         }
 
         private int GetMostRecentEpisodeId(int showId)

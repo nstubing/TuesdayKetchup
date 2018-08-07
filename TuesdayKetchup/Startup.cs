@@ -42,7 +42,7 @@ namespace TuesdayKetchup
             if (!roleManager.RoleExists("Fan"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
+                role.Name = "Fan";
                 roleManager.Create(role);
             }
 
