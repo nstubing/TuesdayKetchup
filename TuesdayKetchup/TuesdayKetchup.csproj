@@ -332,6 +332,7 @@
     <Content Include="Views\Admin\AddEpisode.cshtml" />
     <Content Include="Views\Admin\lissst.cshtml" />
     <Content Include="Views\Shared\_EpisodePlayer.cshtml" />
+    <Content Include="Views\Shared\_EpisodePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
