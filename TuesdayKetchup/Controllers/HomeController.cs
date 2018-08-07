@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -83,6 +84,17 @@ namespace TuesdayKetchup.Controllers
             episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
             episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
             return PartialView("_EpisodePartial", episodeVM);
+        }
+
+        [HttpPost]
+        public void AddComment(string CommentString, string UserId, int EpisodeId)
+        {
+            Comment comment = new Comment();
+            comment.Message = CommentString;
+            comment.UserId = UserId;
+            comment.EpisodeId = EpisodeId;
+            context.comments.Add(comment);
+            context.SaveChanges();
         }
     }
 }

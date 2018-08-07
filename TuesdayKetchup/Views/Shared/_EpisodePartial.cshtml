@@ -1,15 +1,27 @@
 ﻿@using TuesdayKetchup.Models
+@using Microsoft.AspNet.Identity;
 @model EpisodeViewModel
 
 <iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+<div id="new-comment-box">
+    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form" }))
+    {
+        @Html.TextArea("CommentString")
+        @Html.Hidden("UserId", User.Identity.GetUserId())
+        @Html.Hidden("EpisodeId", Model.episode.Id)
+        <p><input type="submit" value="Post"/></p>
+    }
+</div>
+}
+
+
 <h5>Comments</h5>
 <table class="table">
         @foreach (Comment comment in Model.comments)
-    {
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
@@ -18,7 +30,7 @@
                 @Html.DisplayFor(modelItem => comment.Message)
             </td>
         </tr>
-    }
+         }
 
 </table>
 
