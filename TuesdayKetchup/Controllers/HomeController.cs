@@ -81,7 +81,7 @@ namespace TuesdayKetchup.Controllers
         {
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
-            episodeVM.comments = context.comments.Include("User").Where(c => c.EpisodeId == id).ToList();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
             return PartialView("_EpisodePartial", episodeVM);
         }
     }

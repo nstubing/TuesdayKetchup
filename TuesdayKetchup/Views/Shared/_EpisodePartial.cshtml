@@ -1,37 +1,21 @@
-﻿@model string
+﻿@using TuesdayKetchup.Models
+@model EpisodeViewModel
 
-@model IEnumerable<TuesdayKetchup.Models.Comment>
-
-<iframe id="sc-widget" src=@(Model) width="500" scrolling="no" frameborder="0"></iframe>
+<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<h5>Comments</h5>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EpisodeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Message)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+        @foreach (Comment comment in Model.comments)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EpisodeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message)
+                @Html.DisplayFor(modelItem => comment.Message)
             </td>
         </tr>
     }
