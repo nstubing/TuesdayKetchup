@@ -216,9 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808062100555_JahnekeUpdate.cs" />
-    <Compile Include="Migrations\201808062100555_JahnekeUpdate.Designer.cs">
-      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
+    <Compile Include="Migrations\201808071532089_ScherrerMigration.cs" />
+    <Compile Include="Migrations\201808071532089_ScherrerMigration.Designer.cs">
+      <DependentUpon>201808071532089_ScherrerMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -328,6 +328,7 @@
     <Content Include="Views\Admin\TextAlert.cshtml" />
     <Content Include="Views\Admin\AddEpisode.cshtml" />
     <Content Include="Views\Admin\lissst.cshtml" />
+    <Content Include="Views\Forum\FlagPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,8 +347,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808062100555_JahnekeUpdate.resx">
-      <DependentUpon>201808062100555_JahnekeUpdate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808071532089_ScherrerMigration.resx">
+      <DependentUpon>201808071532089_ScherrerMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

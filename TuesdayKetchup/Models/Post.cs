@@ -14,6 +14,7 @@ namespace TuesdayKetchup.Models
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+        public string UserName { get; set; }
         [ForeignKey("Thread")]
         public int ThreadId { get; set; }
         public Thread Thread { get; set; }
