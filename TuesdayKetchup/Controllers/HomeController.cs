@@ -55,7 +55,7 @@ namespace TuesdayKetchup.Controllers
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
-            showVM.episodeVM.comments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
             return View(showVM);
         }
 
