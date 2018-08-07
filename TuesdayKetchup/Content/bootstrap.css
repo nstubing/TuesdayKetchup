@@ -492,6 +492,7 @@ mark,
 .img-fluid {
   max-width: 110%;
   height: auto;
+  padding:0;
 }
 
 .img-thumbnail {
@@ -4135,14 +4136,14 @@ input[type="button"].btn-block {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding-left: 0;
+  padding:0;
   margin-bottom: 0;
   list-style: none;
 }
 
 .nav-link {
   display: block;
-  padding: 0.5rem 1rem;
+  padding-left:1em;
   font-size:1em;
 }
 
@@ -4238,7 +4239,7 @@ input[type="button"].btn-block {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding:3px;
+  padding:0;
 }
 
 .navbar > .container,
@@ -4295,8 +4296,8 @@ input[type="button"].btn-block {
 
 .navbar-text {
   display: inline-block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
 }
 
 .navbar-collapse {

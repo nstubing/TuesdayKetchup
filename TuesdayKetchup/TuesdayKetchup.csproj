@@ -314,7 +314,7 @@
     <Content Include="Views\Calendar\_CalendarPartial.cshtml" />
     <Content Include="Views\Calendar\CalendarIndex.cshtml" />
     <Content Include="Views\Home\Ketchup.cshtml" />
-    <Content Include="Views\Home\NickNight.cshtml" />
+    <Content Include="Views\Home\NickAtNight.cshtml" />
     <Content Include="Views\Calendar\EventList.cshtml" />
     <Content Include="Views\Calendar\CreateEvent.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
@@ -329,6 +329,8 @@
     <Content Include="Views\Admin\AddEpisode.cshtml" />
     <Content Include="Views\Admin\lissst.cshtml" />
     <Content Include="Views\Forum\FlagPost.cshtml" />
+    <Content Include="Views\Home\redLayout.cshtml" />
+    <Content Include="Views\Home\greenLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
