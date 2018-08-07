@@ -29,6 +29,7 @@ namespace TuesdayKetchup.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Rating> ratings { get; set; }
         public DbSet<Comment> comments { get; set; }
         public DbSet<Post> posts { get; set; }
         public DbSet<Episode> episodes { get; set; }

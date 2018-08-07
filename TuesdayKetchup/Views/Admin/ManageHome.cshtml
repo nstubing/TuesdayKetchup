@@ -6,8 +6,17 @@
 <h2>ManageHome</h2>
 
 <div>
-    @Html.ActionLink("Send Alert Text", "AlertText");
+    @Html.ActionLink("Send Alert Text", "AlertText", "Admin")
 </div>
 <div>
-    @Html.ActionLink("Add An Episode", "AddEpisode");
+    @Html.ActionLink("Add An Episode", "AddEpisode", "Admin")
+</div>
+<div>
+    @Html.ActionLink("View Episodes","ListEpisodes","Admin")
+</div>
+<div>
+    @Html.ActionLink("Add An Event", "CreateEvent", "Calandar");
+</div>
+<div>
+    @Html.ActionLink("View Events", "EventList", "Calendar");
 </div>

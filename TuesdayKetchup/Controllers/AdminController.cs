@@ -28,6 +28,11 @@ namespace TuesdayKetchup.Controllers
             ViewBag.ShowNames = ShowNames;
             return View();
         }
+        public ActionResult ListEpisodes()
+        {
+            var episodes = db.episodes.Select(u => u).Include(u=>u.Show);
+            return View(episodes);
+        }
 
         [HttpPost]
         public ActionResult TextAlert(TextAlert textAlert, string ShowName)
