@@ -69,6 +69,7 @@ namespace TuesdayKetchup.Controllers
         public PartialViewResult GetEpisodePlayer(int id)
         {
             string podcastURL = context.episodes.Where(e => e.Id == id).Select(e => e.SoundCloudLink).FirstOrDefault();
+            podcastURL = "https://w.soundcloud.com/player/?url=" + podcastURL;
             return PartialView("_EpisodePlayer", podcastURL);
         }
         public ActionResult NickAtNight()
