@@ -330,6 +330,7 @@
     <Content Include="Views\Admin\TextAlert.cshtml" />
     <Content Include="Views\Admin\AddEpisode.cshtml" />
     <Content Include="Views\Admin\lissst.cshtml" />
+    <Content Include="Views\Forum\FlagPost.cshtml" />
     <Content Include="Views\Home\redLayout.cshtml" />
     <Content Include="Views\Home\greenLayout.cshtml" />
     <Content Include="Views\Admin\ListEpisodes.cshtml" />
