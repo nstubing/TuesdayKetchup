@@ -4,6 +4,11 @@
     ViewBag.Title = "Tuesday";
     Layout = "redLayout.cshtml";
 }
+<style>
+    li a {
+        color: white;
+    }
+</style>
 
 <h2>Tuesday</h2>
 
@@ -67,7 +72,7 @@
             <ul>
                 @foreach(Episode episode in Model.episodes)
                 {
-                    <li >
+                    <li>
                         @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
                         <hr />
                     </li>
