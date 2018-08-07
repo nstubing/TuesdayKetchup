@@ -233,6 +233,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostFlag.cs" />
     <Compile Include="Models\Show.cs" />
+    <Compile Include="Models\ShowViewModel.cs" />
     <Compile Include="Models\Texts.cs" />
     <Compile Include="Models\TextAlert.cs" />
     <Compile Include="Models\Thread.cs" />
