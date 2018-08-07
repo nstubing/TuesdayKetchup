@@ -65,6 +65,12 @@ namespace TuesdayKetchup.Controllers
             List<Comment> comments = context.comments.Where(c => c.EpisodeId == id).ToList();
             return PartialView("_Comments", comments);
         }
+        
+        public PartialViewResult GetEpisodePlayer(int id)
+        {
+            string podcastURL = context.episodes.Where(e => e.Id == id).Select(e => e.SoundCloudLink).FirstOrDefault();
+            return PartialView("_EpisodePlayer", podcastURL);
+        }
         public ActionResult NickAtNight()
         {
             return View();
