@@ -17,14 +17,8 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Home", "Admin");
-            }
-            else
-            {
-                return View();
-            }
+            ViewBag.Announcement = TempData["Announcement"];
+            return View();
         }
 
         public ActionResult About()

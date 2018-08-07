@@ -5,7 +5,10 @@
 }
 
 <h2>Episodes</h2>
-
+@if (ViewBag.Message != null)
+{
+    <h5>@ViewBag.Message</h5>
+}
 <table class="table">
     <tr>
         <th>
@@ -50,8 +53,8 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditEpisode", new { id = item.Id }) <br />
+                @Html.ActionLink("Delete", "DeleteEpisode", new { id = item.Id })
             </td>
         </tr>
     }
