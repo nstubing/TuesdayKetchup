@@ -1,50 +1,54 @@
 ﻿@using TuesdayKetchup.Models
 @using Microsoft.AspNet.Identity;
 @model EpisodeViewModel
-@Model.rating = 5;
+@(Model.rating = 5)
 
 <style>
     .commentBox {
         background-color: #efefef;
         padding: 10px;
         border-radius: 10px;
+        background-color: black;
     }
 
     .starFade {
-        background-image: url('https://i.imgur.com/NPoumic.png');
-        min-width: 30px;
-        min-height: 30px;
+        content: url(https://i.imgur.com/NPoumic.png);
+        width: 40px;
+        height: 40px;
+        
         display: inline-block;
         cursor: pointer;
     }
 
     .starFadeN {
-        background-image: url('https://i.imgur.com/NPoumic.png');
-        min-width: 30px;
-        min-height: 30px;
+        content: url(https://i.imgur.com/NPoumic.png);
+        width: 40px;
+        height: 40px;
+       
         display: inline-block;
     }
 
     .starGlow {
-        background-image: url('https://i.imgur.com/cAYEnBR.png');
-        min-width: 30px;
-        min-height: 30px;
+        content: url(https://i.imgur.com/cAYEnBR.png);
+        width: 40px;
+        height: 40px;
+        
         display: inline-block;
         cursor: pointer;
     }
 
     .starGlowN {
-        background-image: url('https://i.imgur.com/cAYEnBR.png');
-        min-width: 30px;
-        min-height: 30px;
+        content: url(https://i.imgur.com/cAYEnBR.png);
+        width: 40px;
+        height: 40px;
+
         display: inline-block;
     }
+
 </style>
 
 <iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
-<div>
-    <span class="starFadeN" id="sRate1"></span><span class="starFadeN" id="sRate2"></span><span class="starFadeN" id="sRate3"></span><span class="starFadeN" id="sRate4"></span><span class="starFadeN" id="sRate5"></span>
-</div>
+
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -58,18 +62,18 @@
             <div class="col-md-7">
                 <div onmouseout="CRateSelected()">
                     <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+                    
                 </div>
             </div>
         </div>
         @Html.TextArea("CommentString")
         @Html.Hidden("UserId", User.Identity.GetUserId())
         @Html.Hidden("EpisodeId", Model.episode.Id)
+        @Html.Hidden("Rating")
         <p><input type="submit" value="Post" /></p>
     }
 </div>
 }
-
-<img src="https://i.imgur.com/cAYEnBR.png" />
 
 
 <h5>Comments</h5>
@@ -93,6 +97,12 @@
                     <span class="starFadeN"></span>
                 }
             </td>
+            @if (User.IsInRole("Fan"))
+            {
+                <td>
+                    @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id})
+                </td>
+            }
         </tr>
          }
 

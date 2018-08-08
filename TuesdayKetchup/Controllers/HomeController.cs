@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TuesdayKetchup.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -33,12 +35,40 @@ namespace TuesdayKetchup.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string message)
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = message;
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Contact([Bind(Include = "Id,Subject,Message")] Email emailEntered)
+        {
+            ApplicationUser user = context.Users.Find(User.Identity.GetUserId());
+            Email email = new Email { Id = emailEntered.Id, Subject = emailEntered.Subject, Message = emailEntered.Message };
+            email.FanEmail = user.Email;
+            email.RecipientEmail = "thetuesdayketchup@gmail.com";
+            email.SenderEmail = "GravyTrainFanEmails@gmail.com";
+            email.SenderPassword = "poiuyt1!";
+            
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress(email.SenderEmail);
+            mail.To.Add(email.RecipientEmail);
+            mail.Subject = email.Subject ;
+            mail.Body = email.Message + "\n\nReply to: " + email.FanEmail;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(email.SenderEmail, email.SenderPassword);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+
+            return View("Index");
+        }
+
         public ActionResult Ketchup()
         {
             ShowViewModel showVM = new ShowViewModel();
@@ -109,15 +139,57 @@ namespace TuesdayKetchup.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId)
+        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId, int? Rating)
         {
             Comment comment = new Comment();
             comment.Message = CommentString;
             comment.UserId = UserId;
             comment.EpisodeId = EpisodeId;
+            comment.Rating = Rating;
             context.comments.Add(comment);
             context.SaveChanges();
-            return View("Ketchup");
+            return RedirectToAction("Ketchup");
+        }
+
+        public ActionResult FlagComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = context.comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        [HttpPost]
+        public ActionResult FlagComment(int id)
+        {
+            CommentFlag flag = new CommentFlag { CommentID = id, UserID = User.Identity.GetUserId() };
+            CommentFlag originalFlag = context.commentFlags.Where(p => p.CommentID == id && p.UserID != flag.UserID).FirstOrDefault();
+            if (originalFlag != null)
+            {
+                originalFlag.Counter++;
+                if (originalFlag.Counter >= 5)
+                {
+                    originalFlag.IsRemoved = true;
+                    Comment comment = context.comments.Where(p => p.Id == id).FirstOrDefault();
+                    context.comments.Remove(comment);
+                }
+                flag.Counter = originalFlag.Counter;
+                flag.IsRemoved = originalFlag.IsRemoved;
+            }
+            else
+            {
+                flag.Counter = 1;
+                flag.IsRemoved = false;
+                context.commentFlags.Add(flag);
+            }
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

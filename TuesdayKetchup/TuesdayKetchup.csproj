@@ -229,6 +229,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentFlag.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\EpisodeViewModel.cs" />
     <Compile Include="Models\Event.cs" />
