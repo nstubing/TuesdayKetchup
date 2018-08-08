@@ -43,7 +43,7 @@ namespace TuesdayKetchup.Controllers
         [HttpPost]
         public ActionResult DeleteEpisode(Episode episode)
         {
-            var thisEp = db.episodes.FirstOrDefault(e => e.Title == episode.Title);
+            var thisEp = db.episodes.FirstOrDefault(e => e.Id == episode.Id);
             db.episodes.Remove(thisEp);
             db.SaveChanges();
             TempData["Message"] = "The episode titled " + thisEp.Title + " has been deleted.";
@@ -181,7 +181,7 @@ namespace TuesdayKetchup.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddAnnouncement(string message)
+        public ActionResult AddAnnouncement(string Announcement)
         {
             //HomeInfo firstHomeInfo = new HomeInfo();
             //firstHomeInfo.Announcement = "Welcome to Gravy Train Productions";
@@ -191,7 +191,7 @@ namespace TuesdayKetchup.Controllers
             //db.homeInfos.Add(firstHomeInfo);
 
             var HomeInf = db.homeInfos.Select(h => h).FirstOrDefault();
-            HomeInf.Announcement = message;
+            HomeInf.Announcement = Announcement;
             db.SaveChanges();
             TempData["Message"] = "Your announcement has been saved to the home page.";
             return RedirectToAction("AddAnnouncement");
