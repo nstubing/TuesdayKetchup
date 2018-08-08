@@ -13,15 +13,19 @@ namespace TuesdayKetchup.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Ratings
-        public ActionResult Index()
+        public ActionResult Index(int episodeId)
         {
-            return View();
+            
+            Episode episode = db.episodes.Find(episodeId);
+            return View(episode);
         }
-        public Rating SetRating(int episodeId, int star)
+
+        [HttpPost]
+        public Rating SetRating(int? episodeId, int? star)
         {
             Rating rating = new Rating();
-            rating.Star = star;
-            rating.EpisodeId = episodeId;
+            //rating.Star = star;
+            //rating.EpisodeId = episodeId;
             rating.UserId = User.Identity.GetUserId();
             //Episode episode = db.episodes.Find(episodeId);
             //episode.OverallRating = star;

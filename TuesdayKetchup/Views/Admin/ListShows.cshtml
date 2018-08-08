@@ -56,8 +56,8 @@
                 @Html.DisplayFor(modelItem => item.ItunesLink)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditShow", new { id = item.Id }) <br />
+                @Html.ActionLink("Delete", "DeleteShow", new { id = item.Id })
             </td>
         </tr>
     }

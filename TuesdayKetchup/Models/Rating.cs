@@ -17,7 +17,7 @@ namespace TuesdayKetchup.Models
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        [Range(0, 4)]
+        [Range(0,4)]
         [Display(Name = "Star")]
         public double Star { get; set; }
     }
