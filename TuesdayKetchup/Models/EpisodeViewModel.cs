@@ -9,5 +9,6 @@ namespace TuesdayKetchup.Models
     {
         public Episode episode;
         public List<Comment> comments;
+        public int? rating;
     }
 }
