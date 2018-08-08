@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,14 +18,8 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Home", "Admin");
-            }
-            else
-            {
-                return View();
-            }
+            ViewBag.Announcement = TempData["Announcement"];
+            return View();
         }
 
         public ActionResult About()
@@ -42,31 +37,70 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Ketchup()
         {
-            var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
-            var ShowId = Show.Id;
-            var ShowDetails = Show.Details;
-            ViewBag.ShowDetails = ShowDetails;
+            ShowViewModel showVM = new ShowViewModel();
+            var ShowId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
             var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
-            var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
-            var latestShowDetails = Episodes.FirstOrDefault().Details;
-            ViewBag.Details = latestShowDetails;
-            string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
-            ViewBag.ShowUrl = showUrl;
-            var previousShows = Episodes.Skip(1).ToList();
-            ViewBag.PreviousShows = previousShows;
-            int EpisodeId = GetMostRecentEpisodeId();
-            List<Comment> episodeComments = context.comments.Where(c => c.EpisodeId == EpisodeId).ToList();
-            return View();
+            //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
+            //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
+            //ViewBag.ShowUrl = showUrl;
+            var previousShows = Episodes.ToList();
+            //ViewBag.PreviousShows 
+            showVM.episodes = previousShows;
+            int EpisodeId = GetMostRecentEpisodeId(ShowId);
+            //List<Comment> episodeComments
+            showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            return View(showVM);
         }
 
-        private int GetMostRecentEpisodeId()
+        private int GetMostRecentEpisodeId(int showId)
         {
             //Can we do this by date?
-            return 1;
+            var episodes = context.episodes.Where(e => e.ShowId == showId).OrderBy(e => e.Id).Select(e => e.Id).ToList();
+            return episodes.Last();
+        }
+
+        public PartialViewResult GetEpisodeComments(int id)
+        {
+            List<Comment> comments = context.comments.Where(c => c.EpisodeId == id).ToList();
+            return PartialView("_Comments", comments);
+        }
+        
+        public PartialViewResult GetEpisodePlayer(int id)
+        {
+            string podcastURL = context.episodes.Where(e => e.Id == id).Select(e => e.SoundCloudLink).FirstOrDefault();
+            podcastURL = "https://w.soundcloud.com/player/?url=" + podcastURL;
+            return PartialView("_EpisodePlayer", podcastURL);
         }
         public ActionResult NickAtNight()
         {
             return View();
+        }
+
+        public PartialViewResult GetEpisodePartial(int id)
+        {
+            int? ratingSum = 0;
+            EpisodeViewModel episodeVM = new EpisodeViewModel();
+            episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
+            foreach(Comment comment in episodeVM.comments)
+            {
+                ratingSum += comment.Rating;
+            }
+            episodeVM.rating = ratingSum / episodeVM.comments.Count;
+            return PartialView("_EpisodePartial", episodeVM);
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId)
+        {
+            Comment comment = new Comment();
+            comment.Message = CommentString;
+            comment.UserId = UserId;
+            comment.EpisodeId = EpisodeId;
+            context.comments.Add(comment);
+            context.SaveChanges();
+            return View("Ketchup");
         }
     }
 }

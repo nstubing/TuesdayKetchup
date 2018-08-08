@@ -4,7 +4,9 @@
 }
 
 <h2>ManageHome</h2>
-
+<div>
+    @Html.ActionLink("Add A HomePage Announcement", "AddAnnouncement","Admin")
+</div>
 <div>
     @Html.ActionLink("Send Alert Text", "AlertText", "Admin")
 </div>
@@ -15,8 +17,8 @@
     @Html.ActionLink("View Episodes","ListEpisodes","Admin")
 </div>
 <div>
-    @Html.ActionLink("Add An Event", "CreateEvent", "Calandar");
+    @Html.ActionLink("Add An Event", "CreateEvent", "Calendar")
 </div>
 <div>
-    @Html.ActionLink("View Events", "EventList", "Calendar");
+    @Html.ActionLink("View Events", "EventList", "Calendar")
 </div>

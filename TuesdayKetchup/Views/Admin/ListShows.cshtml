@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TuesdayKetchup.Models.Show>
+
+<h2>Shows</h2>
+@if (ViewBag.Message != null)
+{
+    <h5>@ViewBag.Message</h5>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoundCloudLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatreonId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TwitterAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItunesLink)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoundCloudLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatreonId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TwitterAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItunesLink)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

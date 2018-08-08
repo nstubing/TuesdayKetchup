@@ -30,10 +30,38 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult ListEpisodes()
         {
+            ViewBag.Message = TempData["Message"];
             var episodes = db.episodes.Select(u => u).Include(u=>u.Show);
             return View(episodes);
         }
-
+        public ActionResult DeleteEpisode(int id)
+        {
+            var thisEp = db.episodes.FirstOrDefault(e => e.Id == id);
+            return View(thisEp);
+        }
+        [HttpPost]
+        public ActionResult DeleteEpisode(Episode episode)
+        {
+            var thisEp = db.episodes.FirstOrDefault(e => e.Title == episode.Title);
+            db.episodes.Remove(thisEp);
+            db.SaveChanges();
+            TempData["Message"] = "The episode titled " + thisEp.Title + " has been deleted.";
+            return RedirectToAction("ListEpisodes");
+        }
+        public ActionResult DeleteShow(int id)
+        {
+            var thisShow = db.shows.FirstOrDefault(s => s.Id == id);
+            return View(thisShow);
+        }
+        [HttpPost]
+        public ActionResult DeleteShow(Show show)
+        {
+            var thisShow = db.shows.FirstOrDefault(s => s.Id == show.Id);
+            db.shows.Remove(thisShow);
+            db.SaveChanges();
+            TempData["Message"] = "The show titled " + thisShow.Title + " has been deleted.";
+            return RedirectToAction("ListShows");
+        }
         [HttpPost]
         public ActionResult TextAlert(TextAlert textAlert, string ShowName)
         {
@@ -89,6 +117,56 @@ namespace TuesdayKetchup.Controllers
             TempData["saved"] = "Episode saved succesfully";
             return RedirectToAction("AddEpisode");
         }
+
+        public ActionResult EditEpisode(int id)
+        {
+            var Episode = db.episodes.FirstOrDefault(e => e.Id == id);
+            var ShowNames = db.shows.Select(s => s.Title);
+            ViewBag.ShowNames = ShowNames;
+            return View(Episode);
+        }
+        [HttpPost]
+        public ActionResult EditEpisode(Episode episode, string ShowName)
+        {
+            var ShowNames = db.shows.Select(s => s.Title);
+            ViewBag.ShowNames = ShowNames;
+            ViewBag.Message = "Changes have been saved.";
+            var EpisodeToChange = db.episodes.FirstOrDefault(e => e.Id == episode.Id);
+            EpisodeToChange.Title = episode.Title;
+            EpisodeToChange.Details = episode.Details;
+            EpisodeToChange.SoundCloudLink = episode.SoundCloudLink;
+            var ShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
+            EpisodeToChange.ShowId = ShowId;
+            db.SaveChanges();
+            return View();
+        }
+        public ActionResult ListShows()
+        {
+            ViewBag.Message = TempData["Message"];
+            var shows = db.shows.Select(s => s);
+            return View(shows);
+        }
+        public ActionResult EditShow(int id)
+        {
+            var show = db.shows.FirstOrDefault(s => s.Id == id);
+            return View(show);
+        }
+        [HttpPost]
+        public ActionResult EditShow(Show show)
+        {
+            var thisShow = db.shows.FirstOrDefault(s => s.Id == show.Id);
+            thisShow.Title = show.Title;
+            thisShow.Details = show.Details;
+            thisShow.Image = show.Image;
+            thisShow.SoundCloudLink = show.SoundCloudLink;
+            thisShow.PatreonId = show.PatreonId;
+            thisShow.ItunesLink = show.ItunesLink;
+            db.SaveChanges();
+            ViewBag.Message = "Changes have been saved";
+            return View();
+        }
+
+
     }
 
 }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TuesdayKetchup.Models.Episode>
 
 @{
-    ViewBag.Title = "lissst";
+    ViewBag.Title = "Index";
 }
 
-<h2>lissst</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.SoundCloudLink)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OverallRating)
+        </th>
         <th></th>
     </tr>
 
@@ -39,6 +42,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SoundCloudLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OverallRating)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
