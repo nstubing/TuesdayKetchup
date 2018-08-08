@@ -18,9 +18,23 @@ namespace TuesdayKetchup.Controllers
         {
             return RedirectToAction("GetCalendarIndex", "Calendar");
         }
-        public ActionResult Index()
+        public ActionResult Index(Episode episode)
         {
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
+            var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
+            var ShowId = Show.Id;
+            var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
+            var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
+            var ShowIdTwo = Show.Id;
+            var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
+            if(KetchupEpisode !=null)
+            {
+                ViewBag.TuesdayKetchupEp = KetchupEpisode;
+            }
+            if (NickEpisode != null)
+            {
+                ViewBag.NickNightEp = NickEpisode;
+            }
             if (Announce !=null)
             {
                 ViewBag.Announcement = Announce.Announcement;
@@ -102,9 +116,11 @@ namespace TuesdayKetchup.Controllers
 
         private int GetMostRecentEpisodeId(int showId)
         {
-            //Can we do this by date?
+
+            
             var episodes = context.episodes.Where(e => e.ShowId == showId).OrderBy(e => e.Id).Select(e => e.Id).ToList();
             return episodes.Last();
+
         }
 
         public PartialViewResult GetEpisodeComments(int id)

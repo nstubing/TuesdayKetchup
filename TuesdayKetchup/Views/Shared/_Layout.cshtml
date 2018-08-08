@@ -35,6 +35,7 @@
                 <li class="nav-item">
                     <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Index","Forum")">Forums</a>
                 </li>
+
                 @if (User.IsInRole("Admin"))
                 {
                     <li class="nav-item">
