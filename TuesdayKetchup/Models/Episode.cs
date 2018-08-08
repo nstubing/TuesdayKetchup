@@ -17,30 +17,8 @@ namespace TuesdayKetchup.Models
         public string SoundCloudLink { get; set; }
         [ForeignKey("Show")]
         public int ShowId { get; set; }
-<<<<<<< HEAD
         public Show Show { get; set; }
-=======
-        public virtual Show Show { get; set; }
->>>>>>> fcae6d448707a7131d84963581d93aa1626fcb15
-        [NotMapped]
-        public double OverallRating
-        {
-            get
-            {
-                if (ratings.Count > 0)
-                {
-                    return (ratings.Average(x => x.Star));
-                }
-                return (4);
-            }
-        }
-        [Display(Name = "Ratings")]
-        [InverseProperty("Episode")]
-        public ICollection<Rating> ratings { get; set; } = new HashSet<Rating>();
-<<<<<<< HEAD
-        
-
-=======
->>>>>>> fcae6d448707a7131d84963581d93aa1626fcb15
     }
+
+
 }

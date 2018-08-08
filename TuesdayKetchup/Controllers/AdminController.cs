@@ -163,11 +163,10 @@ namespace TuesdayKetchup.Controllers
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/Content"), pic);
                 file.SaveAs(path);
-                thisShow.Image = path;
+                thisShow.Image = "/Content/"+pic;
             }
             thisShow.Title = show.Title;
             thisShow.Details = show.Details;
-            thisShow.Image = 
             thisShow.SoundCloudLink = show.SoundCloudLink;
             thisShow.PatreonId = show.PatreonId;
             thisShow.ItunesLink = show.ItunesLink;
