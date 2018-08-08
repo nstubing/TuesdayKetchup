@@ -97,6 +97,12 @@
                     <span class="starFadeN"></span>
                 }
             </td>
+            @if (User.IsInRole("Fan"))
+            {
+                <td>
+                    @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id})
+                </td>
+            }
         </tr>
          }
 

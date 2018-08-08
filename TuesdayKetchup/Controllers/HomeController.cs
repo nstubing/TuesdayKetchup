@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using TuesdayKetchup.Models;
 using System.Net.Mail;
+using System.Net;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -138,6 +139,47 @@ namespace TuesdayKetchup.Controllers
             context.comments.Add(comment);
             context.SaveChanges();
             return RedirectToAction("Ketchup");
+        }
+
+        public ActionResult FlagComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = context.comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+        [HttpPost]
+        public ActionResult FlagComment(int id)
+        {
+            CommentFlag flag = new CommentFlag { CommentID = id, UserID = User.Identity.GetUserId() };
+            CommentFlag originalFlag = context.commentFlags.Where(p => p.CommentID == id && p.UserID != flag.UserID).FirstOrDefault();
+            if (originalFlag != null)
+            {
+                originalFlag.Counter++;
+                if (originalFlag.Counter >= 5)
+                {
+                    originalFlag.IsRemoved = true;
+                    Comment comment = context.comments.Where(p => p.Id == id).FirstOrDefault();
+                    context.comments.Remove(comment);
+                }
+                flag.Counter = originalFlag.Counter;
+                flag.IsRemoved = originalFlag.IsRemoved;
+            }
+            else
+            {
+                flag.Counter = 1;
+                flag.IsRemoved = false;
+                context.commentFlags.Add(flag);
+            }
+            context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
