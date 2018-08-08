@@ -217,12 +217,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
     <Compile Include="Migrations\201808071239137_MigrateAgain.cs" />
     <Compile Include="Migrations\201808071239137_MigrateAgain.Designer.cs">
       <DependentUpon>201808071239137_MigrateAgain.cs</DependentUpon>
     </Compile>
-
     <Compile Include="Migrations\201808071700096_AddedRating.cs" />
     <Compile Include="Migrations\201808071700096_AddedRating.Designer.cs">
       <DependentUpon>201808071700096_AddedRating.cs</DependentUpon>
@@ -238,7 +236,6 @@
     <Compile Include="Migrations\201808072027473_HomeInfo.cs" />
     <Compile Include="Migrations\201808072027473_HomeInfo.Designer.cs">
       <DependentUpon>201808072027473_HomeInfo.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -270,11 +267,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\gravyDrip.png" />
+    <Content Include="Content\gravytrainBanner.jpg" />
     <Content Include="Content\greenDrip.png" />
     <Content Include="Content\ketchupred.png" />
     <Content Include="Content\NickAtNight.PNG" />
+    <Content Include="Content\nicknightbanner.jpg" />
     <Content Include="Content\truegravytrain.png" />
     <Content Include="Content\TuesdayKetchup.jpg" />
+    <Content Include="Content\tuesdayketchupBanner.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -6,10 +6,14 @@
 <h2>Add Announcement</h2>
 @using (Html.BeginForm())
 {
+    if(ViewBag.Message !=null)
+    {
+        <h5>@ViewBag.Message</h5>
+    }
     <div class="form-group">
         <h5>HomePage Announcement</h5>
         <div class="col-md-10">
-            <textarea class="form-control" cols="40" id="Announcement" name="Announcement" rows="4">Announcement</textarea>
+            <textarea style="width:100%;"class="form-control" cols="40" id="Announcement" name="Announcement" rows="4">Announcement</textarea>
         </div>
     </div>
     <div class="form-group">
