@@ -112,5 +112,15 @@ namespace TuesdayKetchup.Controllers
             context.SaveChanges();
             return RedirectToAction("Ketchup");
         }
+
+        [HttpPost]
+        public ActionResult AddRating(string userId, int episodeId, int score)
+        {
+            Rating rating = new Rating() { UserId = userId, EpisodeId = episodeId, Score = score };
+            context.Ratings.Add(rating);
+            context.SaveChanges();
+            return RedirectToAction("Ketchup");
+        }
+        
     }
 }
