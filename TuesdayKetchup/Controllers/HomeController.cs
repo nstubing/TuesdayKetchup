@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TuesdayKetchup.Models;
+using System.Net.Mail;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -29,12 +30,40 @@ namespace TuesdayKetchup.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string message)
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = message;
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Contact([Bind(Include = "Id,Subject,Message")] Email emailEntered)
+        {
+            ApplicationUser user = context.Users.Find(User.Identity.GetUserId());
+            Email email = new Email { Id = emailEntered.Id, Subject = emailEntered.Subject, Message = emailEntered.Message };
+            email.FanEmail = user.Email;
+            email.RecipientEmail = "thetuesdayketchup@gmail.com";
+            email.SenderEmail = "GravyTrainFanEmails@gmail.com";
+            email.SenderPassword = "poiuyt1!";
+            
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress(email.SenderEmail);
+            mail.To.Add(email.RecipientEmail);
+            mail.Subject = email.Subject ;
+            mail.Body = email.Message + "\n\nReply to: " + email.FanEmail;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(email.SenderEmail, email.SenderPassword);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+
+            return View("Index");
+        }
+
         public ActionResult Ketchup()
         {
             ShowViewModel showVM = new ShowViewModel();

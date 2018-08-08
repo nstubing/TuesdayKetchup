@@ -35,16 +35,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index","Forum")">Forums</a>
                 </li>
-<<<<<<< HEAD
-
-=======
                 @if (User.IsInRole("Admin"))
                 {
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("ManageHome","Admin")">Manage</a>
                     </li>
                 }
->>>>>>> fcae6d448707a7131d84963581d93aa1626fcb15
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Contact","Home")">Contact Us</a>
+                </li>
 
             </ul>
             @Html.Partial("_LoginPartial")
