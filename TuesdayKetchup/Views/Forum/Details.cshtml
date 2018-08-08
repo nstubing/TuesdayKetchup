@@ -20,12 +20,12 @@
         </font>
     </div>
     <font color="red">
-        @if (ViewBag.ActiveUserId == item.UserId)
+        @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
         {
             @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: | 
             @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
         }
-        @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null)
+        @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
         {
             @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
         }

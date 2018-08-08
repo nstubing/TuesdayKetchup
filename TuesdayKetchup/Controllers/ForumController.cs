@@ -18,6 +18,7 @@ namespace TuesdayKetchup.Controllers
         // GET: Forum
         public ActionResult Index()
         {
+            ViewBag.ActiveUserId = User.Identity.GetUserId();
             return View(db.threads.ToList());
         }
 
