@@ -18,5 +18,22 @@ namespace TuesdayKetchup.Models
         [ForeignKey("Show")]
         public int ShowId { get; set; }
         public Show Show { get; set; }
+        [NotMapped]
+        public double OverallRating
+        {
+            get
+            {
+                if (ratings.Count > 0)
+                {
+                    return (ratings.Average(x => x.Star));
+                }
+                return (4);
+            }
+        }
+        [Display(Name = "Ratings")]
+        [InverseProperty("Episode")]
+        public ICollection<Rating> ratings { get; set; } = new HashSet<Rating>();
+        
+
     }
 }

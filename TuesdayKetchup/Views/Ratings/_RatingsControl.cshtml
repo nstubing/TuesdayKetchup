@@ -1,0 +1,90 @@
+﻿<html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+@model TuesdayKetchup.Models.Episode
+
+
+
+
+
+
+
+
+@{
+    if (Model.ratings.Count > 0)
+    {
+        < p > Overall Rating for @Model.Title is @Model.OverallRating </ p >
+    }
+    else
+    {
+        <p> Be the first to rate @Model.Title!</p>
+    }
+}
+
+@{
+    for (int i = 0; i < 4; i++)
+    {
+        <a href="#" name="Rank" data-rank="@i" data-episodeid="@Model.Id"> <i class="glyphicon glyphicon-star@(Model.OverallRating<i ? "-empty" : "")"></i></a>
+    }
+}
+@using (Html.BeginForm("SetRating", "Ratings"))
+{
+    @Html.HiddenFor(q => q.Id)
+    for (int i = 0; i < 4; i++)
+    {
+        <input type="radio" id="Rank" name="Rank" value="@i" /> @i
+    }
+    <input type="submit" value="Submit" />
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+<script>
+    function SetRatingControllCallBacks(e) {
+        var rank = $(#RatingsControl a[name = 'Rank']);
+        rank.on('click', SetRating);
+
+    }
+
+    function SetRating(e) {
+        var data = { Id: $(this).data("episodeid"), rank: $(this).data("rank") };
+
+        $.post("@Url.Action("SetRating", "Rating")", data)
+
+            .done(function (response, status, jqxhr) {
+                var url = "@Url.Action("RatingsControl", "Ratings")";
+                $("#RatingsControl").load(url, { Id: data.Id },
+                function (responseText, statusText, xhr) {
+                    switch (statusText) {
+                        case "success":
+                            SetRatingColtrolCalbacks();
+                            break;
+                        default:
+                            break;
+                    }
+                    if (responseText.length == 0) {
+
+                    }
+                });
+            })
+            .fail(function (jqxhr, status, error) {
+
+})
+    }
+
+    $(document).ready(SetRatingColtrolCalbacks);
+
+</script>
+
+</html>
+
+
+
+
+
+

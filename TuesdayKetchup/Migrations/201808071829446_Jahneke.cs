@@ -3,7 +3,7 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class JahnekeUpdate : DbMigration
+    public partial class Jahneke : DbMigration
     {
         public override void Up()
         {
@@ -109,6 +109,21 @@ namespace TuesdayKetchup.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Shows", t => t.ShowId, cascadeDelete: true)
                 .Index(t => t.ShowId);
+            
+            CreateTable(
+                "dbo.Ratings",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        EpisodeId = c.Int(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                        Star = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.Episodes", t => t.EpisodeId, cascadeDelete: true)
+                .Index(t => t.EpisodeId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.Shows",
@@ -236,6 +251,8 @@ namespace TuesdayKetchup.Migrations
             DropForeignKey("dbo.CommentFlags", "CommentID", "dbo.Comments");
             DropForeignKey("dbo.Comments", "EpisodeId", "dbo.Episodes");
             DropForeignKey("dbo.Episodes", "ShowId", "dbo.Shows");
+            DropForeignKey("dbo.Ratings", "EpisodeId", "dbo.Episodes");
+            DropForeignKey("dbo.Ratings", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentFlags", "UserID", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -249,6 +266,8 @@ namespace TuesdayKetchup.Migrations
             DropIndex("dbo.Posts", new[] { "UserId" });
             DropIndex("dbo.PostFlags", new[] { "UserID" });
             DropIndex("dbo.PostFlags", new[] { "PostID" });
+            DropIndex("dbo.Ratings", new[] { "UserId" });
+            DropIndex("dbo.Ratings", new[] { "EpisodeId" });
             DropIndex("dbo.Episodes", new[] { "ShowId" });
             DropIndex("dbo.Comments", new[] { "EpisodeId" });
             DropIndex("dbo.Comments", new[] { "UserId" });
@@ -267,6 +286,7 @@ namespace TuesdayKetchup.Migrations
             DropTable("dbo.PostFlags");
             DropTable("dbo.Events");
             DropTable("dbo.Shows");
+            DropTable("dbo.Ratings");
             DropTable("dbo.Episodes");
             DropTable("dbo.Comments");
             DropTable("dbo.AspNetUserRoles");

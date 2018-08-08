@@ -39,5 +39,6 @@ namespace TuesdayKetchup.Models
         public DbSet<Event> events { get; set; }
         public DbSet<TextAlert> textAlerts { get; set; }
         public DbSet<Texts> texts { get; set; }
+        public DbSet<Rating> ratings{ get; set; }
     }
 }
