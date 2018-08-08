@@ -40,9 +40,6 @@ namespace TuesdayKetchup.Models
         public DbSet<TextAlert> textAlerts { get; set; }
         public DbSet<Texts> texts { get; set; }
         public DbSet<HomeInfo> homeInfos { get; set; }
-<<<<<<< HEAD
         public DbSet<Email> emails { get; set; }
-=======
->>>>>>> e48d9c2ccd82d32a4c84382ff2488636aa466464
     }
 }
