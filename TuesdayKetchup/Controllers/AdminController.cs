@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -152,12 +153,20 @@ namespace TuesdayKetchup.Controllers
             return View(show);
         }
         [HttpPost]
-        public ActionResult EditShow(Show show)
+        public ActionResult EditShow(Show show, HttpPostedFileBase file)
         {
             var thisShow = db.shows.FirstOrDefault(s => s.Id == show.Id);
+
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file.SaveAs(path);
+                thisShow.Image = "/Content/"+pic;
+            }
             thisShow.Title = show.Title;
             thisShow.Details = show.Details;
-            thisShow.Image = show.Image;
             thisShow.SoundCloudLink = show.SoundCloudLink;
             thisShow.PatreonId = show.PatreonId;
             thisShow.ItunesLink = show.ItunesLink;
@@ -166,7 +175,40 @@ namespace TuesdayKetchup.Controllers
             return View();
         }
 
+        public ActionResult AddAnnouncement()
+        {
+            ViewBag.Message = TempData["Message"];
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddAnnouncement(string message)
+        {
+            //HomeInfo firstHomeInfo = new HomeInfo();
+            //firstHomeInfo.Announcement = "Welcome to Gravy Train Productions";
+            //firstHomeInfo.SliderPic1 = "~/Content/tuesdayKetchupBanner.jpg";
+            //firstHomeInfo.SliderPic2 = "~/Content/nicknightbanner.jpg";
+            //firstHomeInfo.SliderPic3 = "~/Content/gravytrainBanner.jpg";
+            //db.homeInfos.Add(firstHomeInfo);
 
+            var HomeInf = db.homeInfos.Select(h => h).FirstOrDefault();
+            HomeInf.Announcement = message;
+            db.SaveChanges();
+            TempData["Message"] = "Your announcement has been saved to the home page.";
+            return RedirectToAction("AddAnnouncement");
+        }
+
+        public ActionResult FileUpload(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file.SaveAs(path);
+            }
+            // after successfully uploading redirect the user
+            return RedirectToAction("actionname", "controller name");
+        }
     }
 
 }

@@ -214,17 +214,16 @@
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081430404_NewMigration.cs" />
-    <Compile Include="Migrations\201808081430404_NewMigration.Designer.cs">
-      <DependentUpon>201808081430404_NewMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201808081532234_needed.cs" />
+    <Compile Include="Migrations\201808081532234_needed.Designer.cs">
+      <DependentUpon>201808081532234_needed.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081532373_EmailMigration.cs" />
-    <Compile Include="Migrations\201808081532373_EmailMigration.Designer.cs">
-      <DependentUpon>201808081532373_EmailMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201808081538224_Shitfixed.cs" />
+    <Compile Include="Migrations\201808081538224_Shitfixed.Designer.cs">
+      <DependentUpon>201808081538224_Shitfixed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -257,11 +256,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\gravyDrip.png" />
+    <Content Include="Content\gravytrainBanner.jpg" />
     <Content Include="Content\greenDrip.png" />
     <Content Include="Content\ketchupred.png" />
     <Content Include="Content\NickAtNight.PNG" />
+    <Content Include="Content\nicknightbanner.jpg" />
     <Content Include="Content\truegravytrain.png" />
     <Content Include="Content\TuesdayKetchup.jpg" />
+    <Content Include="Content\tuesdayketchupBanner.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -376,11 +378,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808081430404_NewMigration.resx">
-      <DependentUpon>201808081430404_NewMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808081532234_needed.resx">
+      <DependentUpon>201808081532234_needed.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081532373_EmailMigration.resx">
-      <DependentUpon>201808081532373_EmailMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808081538224_Shitfixed.resx">
+      <DependentUpon>201808081538224_Shitfixed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

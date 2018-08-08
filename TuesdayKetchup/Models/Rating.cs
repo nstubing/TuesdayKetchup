@@ -14,7 +14,6 @@ namespace TuesdayKetchup.Models
         [ForeignKey("Episode")]
         public int EpisodeId { get; set; }
         public Episode Episode { get; set; }
-
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

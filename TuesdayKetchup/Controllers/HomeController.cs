@@ -19,7 +19,11 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index()
         {
-            ViewBag.Announcement = TempData["Announcement"];
+            var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
+            if (Announce !=null)
+            {
+                ViewBag.Announcement = Announce.Announcement;
+            }
             return View();
         }
 
@@ -67,13 +71,16 @@ namespace TuesdayKetchup.Controllers
         public ActionResult Ketchup()
         {
             ShowViewModel showVM = new ShowViewModel();
-            var ShowId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
+            var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
+            var ShowId = Show.Id;
             var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
             //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
             //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
             //ViewBag.ShowUrl = showUrl;
             var previousShows = Episodes.ToList();
-            //ViewBag.PreviousShows 
+            //ViewBag.PreviousShows
+            ViewBag.Img = Show.Image;
+            ViewBag.ShowDetails = Show.Details;
             showVM.episodes = previousShows;
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
