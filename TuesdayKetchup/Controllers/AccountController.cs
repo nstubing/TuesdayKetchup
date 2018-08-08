@@ -139,6 +139,7 @@ namespace TuesdayKetchup.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Message = TempData["Message"];
             return View();
         }
 
@@ -164,7 +165,7 @@ namespace TuesdayKetchup.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await UserManager.AddToRoleAsync(user.Id,"Fan");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }

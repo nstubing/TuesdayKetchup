@@ -18,6 +18,7 @@ namespace TuesdayKetchup.Models
         [ForeignKey("Show")]
         public int ShowId { get; set; }
 
+
         public Show Show { get; set; }
 
     
@@ -28,5 +29,9 @@ namespace TuesdayKetchup.Models
         
 
 
+
+
     }
+
+
 }

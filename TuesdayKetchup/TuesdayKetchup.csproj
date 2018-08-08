@@ -225,6 +225,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentFlag.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\EpisodeViewModel.cs" />
     <Compile Include="Models\Event.cs" />
@@ -353,6 +354,7 @@
     <Content Include="Views\Admin\DeleteEpisode.cshtml" />
     <Content Include="Views\Admin\DeleteShow.cshtml" />
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
+    <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
