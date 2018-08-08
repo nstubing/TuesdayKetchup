@@ -1,22 +1,12 @@
 ﻿@model TuesdayKetchup.Models.Thread
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
 
 <div>
-    <h4>Thread</h4>
+    <h4>@Model.Title</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-    </dl>
 </div>
 @foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
 {
@@ -30,12 +20,12 @@
         </font>
     </div>
     <font color="red">
-        @if (ViewBag.ActiveUserId == item.UserId)
+        @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @: | 
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: | 
+            @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
         }
-        @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null)
+        @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
         {
             @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
         }
@@ -44,7 +34,9 @@
 </div>
 }
 <font color="red">
-
-    @Html.ActionLink("Add Post", "CreatePost", new { id = Model.Id }) |
+    @if (User.IsInRole("Fan") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Add Post", "CreatePost", new { id = Model.Id }) @: |
+    }
     @Html.ActionLink("Back to List", "Index")
 </font>

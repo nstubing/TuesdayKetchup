@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TuesdayKetchup.Models;
@@ -72,6 +73,21 @@ namespace TuesdayKetchup
 
         }
 
+        private void SeedEvents()
+        {
+            Event e = new Event();
+            e.Subject = "Test Event and Map";
+            e.Description = "This is a test";
+            e.Start = DateTime.Now;
+            e.EventTime = "Now";
+            e.Details = "Testing, testing";
+            e.StreetAddress = "3720 Forest Heights Drive";
+            e.City = "Eau Claire";
+            e.State = "WI";
+            e.Zipcode = "54701";
 
+            context.events.Add(e);
+            context.SaveChanges();
+        }
     }
 }

@@ -250,11 +250,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\gravyDrip.png" />
+    <Content Include="Content\gravytrainBanner.jpg" />
     <Content Include="Content\greenDrip.png" />
     <Content Include="Content\ketchupred.png" />
     <Content Include="Content\NickAtNight.PNG" />
+    <Content Include="Content\nicknightbanner.jpg" />
     <Content Include="Content\truegravytrain.png" />
     <Content Include="Content\TuesdayKetchup.jpg" />
+    <Content Include="Content\tuesdayketchupBanner.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -342,6 +345,9 @@
     <Content Include="Views\Home\greenLayout.cshtml" />
     <Content Include="Views\Admin\ListEpisodes.cshtml" />
     <Content Include="Views\Admin\EditEpisode.cshtml" />
+    <Content Include="Views\Ratings\_RatingsControl.cshtml" />
+    <Content Include="Views\Forum\EditPost.cshtml" />
+    <Content Include="Views\Forum\DeletePost.cshtml" />
     <Content Include="Views\Admin\ListShows.cshtml" />
     <Content Include="Views\Admin\EditShow.cshtml" />
     <Content Include="Views\Admin\DeleteEpisode.cshtml" />
