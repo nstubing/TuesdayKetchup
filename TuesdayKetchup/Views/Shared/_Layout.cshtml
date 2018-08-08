@@ -35,12 +35,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index","Forum")">Forums</a>
                 </li>
+<<<<<<< HEAD
 
+=======
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ManageHome","Admin")">Manage</a>
+                    </li>
+                }
+>>>>>>> fcae6d448707a7131d84963581d93aa1626fcb15
 
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
+    <span>
+
+        <img src="~/Content/gravyDrip.png" style="width:100%;" />
+    </span>
     <div class="container body-content">
         @RenderBody()
         <hr />

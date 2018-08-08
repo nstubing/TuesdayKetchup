@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -32,6 +33,8 @@ namespace TuesdayKetchup.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Posts = db.posts.Where(p => p.ThreadId == id).ToList();
+            ViewBag.ActiveUserId = User.Identity.GetUserId();
             return View(thread);
         }
 
@@ -52,7 +55,7 @@ namespace TuesdayKetchup.Controllers
             {
                 db.threads.Add(thread);
                 db.SaveChanges();
-                return RedirectToAction("CreatePost");
+                return RedirectToAction("Index");
             }
 
             return View(thread);
@@ -65,16 +68,55 @@ namespace TuesdayKetchup.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost([Bind(Include = "Id,UserId,ThreadId,Message")] Post post)
+        public ActionResult CreatePost(int id, [Bind(Include = "Id,UserId,ThreadId,Message")] Post post)
         {
-            if (ModelState.IsValid)
-            {
-                db.posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            var newPost = new Post { UserId = User.Identity.GetUserId(), ThreadId = id, Message = post.Message };
+            newPost.UserName = db.Users.Where(u => u.Id == newPost.UserId).FirstOrDefault().UserName;
 
+            db.posts.Add(newPost);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult FlagPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
             return View(post);
+        }
+
+        [HttpPost]
+        public ActionResult FlagPost(int id)
+        {
+            PostFlag flag = new PostFlag { PostID = id, UserID = User.Identity.GetUserId() };
+            PostFlag originalFlag = db.postFlags.Where(p => p.PostID == id && p.UserID != flag.UserID).FirstOrDefault();
+            if(originalFlag != null)
+            {
+                originalFlag.Counter++;
+                if(originalFlag.Counter >= 5)
+                {
+                    originalFlag.IsRemoved = true;
+                    Post post = db.posts.Where(p => p.Id == id).FirstOrDefault();
+                    db.posts.Remove(post);
+                }
+                flag.Counter = originalFlag.Counter;
+                flag.IsRemoved = originalFlag.IsRemoved;
+            }
+            else
+            {
+                flag.Counter = 1;
+                flag.IsRemoved = false;
+            }
+            db.postFlags.Add(flag);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Forum/Edit/5

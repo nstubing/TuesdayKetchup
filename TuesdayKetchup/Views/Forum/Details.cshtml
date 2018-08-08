@@ -4,8 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
     <h4>Thread</h4>
     <hr />
@@ -20,7 +18,33 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+@foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
+{
+<div>
+    <div>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </div>
+    <div>
+        <font color="black">
+            @Html.DisplayFor(modelItem => item.Message)
+        </font>
+    </div>
+    <font color="red">
+        @if (ViewBag.ActiveUserId == item.UserId)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @: | 
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        }
+        @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null)
+        {
+            @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
+        }
+    </font>
+    <hr />
+</div>
+}
+<font color="red">
+
+    @Html.ActionLink("Add Post", "CreatePost", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</font>

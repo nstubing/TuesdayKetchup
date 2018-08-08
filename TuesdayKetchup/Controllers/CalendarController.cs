@@ -48,7 +48,8 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult EventList()
         {
-            return View();
+            var Events = db.events.Select(e => e);
+            return View(Events);
         }
         public ActionResult CreateEvent()
         {

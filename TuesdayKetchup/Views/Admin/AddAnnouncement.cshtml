@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "AddAnnouncement";
+}
+
+<h2>Add Announcement</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <h5>HomePage Announcement</h5>
+        <div class="col-md-10">
+            <textarea class="form-control" cols="40" id="Announcement" name="Announcement" rows="4">Announcement</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit Announcement" class="btn btn-default" />
+        </div>
+    </div>
+}
+

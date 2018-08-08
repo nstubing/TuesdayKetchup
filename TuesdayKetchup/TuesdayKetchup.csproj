@@ -214,20 +214,42 @@
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RatingsController.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808071829446_Jahneke.cs" />
-    <Compile Include="Migrations\201808071829446_Jahneke.Designer.cs">
-      <DependentUpon>201808071829446_Jahneke.cs</DependentUpon>
+    <Compile Include="Migrations\201808071239137_MigrateAgain.cs" />
+    <Compile Include="Migrations\201808071239137_MigrateAgain.Designer.cs">
+      <DependentUpon>201808071239137_MigrateAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808071700096_AddedRating.cs" />
+    <Compile Include="Migrations\201808071700096_AddedRating.Designer.cs">
+      <DependentUpon>201808071700096_AddedRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808071853193_newMig.cs" />
+    <Compile Include="Migrations\201808071853193_newMig.Designer.cs">
+      <DependentUpon>201808071853193_newMig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808072026148_HomeInfoAdded.cs" />
+    <Compile Include="Migrations\201808072026148_HomeInfoAdded.Designer.cs">
+      <DependentUpon>201808072026148_HomeInfoAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808072027473_HomeInfo.cs" />
+    <Compile Include="Migrations\201808072027473_HomeInfo.Designer.cs">
+      <DependentUpon>201808072027473_HomeInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808081227288_commentrating.cs" />
+    <Compile Include="Migrations\201808081227288_commentrating.Designer.cs">
+      <DependentUpon>201808081227288_commentrating.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentFlag.cs" />
     <Compile Include="Models\Episode.cs" />
+    <Compile Include="Models\EpisodeViewModel.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\HomeInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -235,6 +257,7 @@
     <Compile Include="Models\PostFlag.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Show.cs" />
+    <Compile Include="Models\ShowViewModel.cs" />
     <Compile Include="Models\Texts.cs" />
     <Compile Include="Models\TextAlert.cs" />
     <Compile Include="Models\Thread.cs" />
@@ -269,6 +292,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -317,10 +342,11 @@
     <Content Include="Views\Calendar\_CalendarPartial.cshtml" />
     <Content Include="Views\Calendar\CalendarIndex.cshtml" />
     <Content Include="Views\Home\Ketchup.cshtml" />
-    <Content Include="Views\Home\NickNight.cshtml" />
+    <Content Include="Views\Home\NickAtNight.cshtml" />
     <Content Include="Views\Calendar\EventList.cshtml" />
     <Content Include="Views\Calendar\CreateEvent.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Forum\Create.cshtml" />
     <Content Include="Views\Forum\Delete.cshtml" />
     <Content Include="Views\Forum\Details.cshtml" />
@@ -330,16 +356,26 @@
     <Content Include="Views\Admin\ManageHome.cshtml" />
     <Content Include="Views\Admin\TextAlert.cshtml" />
     <Content Include="Views\Admin\AddEpisode.cshtml" />
-    <Content Include="Views\Episodes\Create.cshtml" />
-    <Content Include="Views\Episodes\Delete.cshtml" />
-    <Content Include="Views\Episodes\Details.cshtml" />
-    <Content Include="Views\Episodes\Edit.cshtml" />
-    <Content Include="Views\Episodes\Index.cshtml" />
+
+    <Content Include="Views\Admin\lissst.cshtml" />
+    <Content Include="Views\Shared\_EpisodePlayer.cshtml" />
+    <Content Include="Views\Shared\_EpisodePartial.cshtml" />
+    <Content Include="Views\Forum\FlagPost.cshtml" />
+    <Content Include="Views\Home\redLayout.cshtml" />
+    <Content Include="Views\Home\greenLayout.cshtml" />
+    <Content Include="Views\Admin\ListEpisodes.cshtml" />
+    <Content Include="Views\Admin\EditEpisode.cshtml" />
     <Content Include="Views\Ratings\_RatingsControl.cshtml" />
-    <Content Include="Views\Calendar\EditEvent.cshtml" />
+    <Content Include="Views\Admin\ListShows.cshtml" />
+    <Content Include="Views\Admin\EditShow.cshtml" />
+    <Content Include="Views\Admin\DeleteEpisode.cshtml" />
+    <Content Include="Views\Admin\DeleteShow.cshtml" />
+    <Content Include="Views\Admin\AddAnnouncement.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Rating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -355,8 +391,23 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808071829446_Jahneke.resx">
-      <DependentUpon>201808071829446_Jahneke.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808071239137_MigrateAgain.resx">
+      <DependentUpon>201808071239137_MigrateAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071700096_AddedRating.resx">
+      <DependentUpon>201808071700096_AddedRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071853193_newMig.resx">
+      <DependentUpon>201808071853193_newMig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808072026148_HomeInfoAdded.resx">
+      <DependentUpon>201808072026148_HomeInfoAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808072027473_HomeInfo.resx">
+      <DependentUpon>201808072027473_HomeInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081227288_commentrating.resx">
+      <DependentUpon>201808081227288_commentrating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
