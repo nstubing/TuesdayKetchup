@@ -52,6 +52,16 @@ namespace TuesdayKetchup.Controllers
             //ViewBag.PreviousShows
             ViewBag.Img = Show.Image;
             ViewBag.ShowDetails = Show.Details;
+            var UserId = User.Identity.GetUserId();
+            if (UserId != null)
+            {
+                var textSignups = context.texts.Where(t => t.UserId == UserId);
+                var isSignedUp = textSignups.Where(t => t.ShowId == ShowId).FirstOrDefault();
+                if (isSignedUp != null)
+                {
+                    ViewBag.SignedUp = true;
+                }
+            }
             showVM.episodes = previousShows;
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
@@ -108,6 +118,66 @@ namespace TuesdayKetchup.Controllers
             context.comments.Add(comment);
             context.SaveChanges();
             return View("Ketchup");
+        }
+
+        [HttpPost]
+        public ActionResult TextKetchup()
+        {
+            var currentUser = User.Identity.GetUserId();
+            if(currentUser==null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            else
+            {
+                TempData["Show"] = "Ketchup";
+                return RedirectToAction("UpdatePhoneNumber", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult TextNick()
+        {
+            var currentUser = User.Identity.GetUserId();
+            if (currentUser == null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            else
+            {
+                TempData["Show"] = "Nick";
+                return RedirectToAction("UpdatePhoneNumber", "Home");
+            }
+        }
+        public ActionResult UpdatePhoneNumber()
+        {
+            ViewBag.Show = TempData["Show"];
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdatePhoneNumber(ApplicationUser user,string show)
+        {
+            var ketchupId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
+            var nickId = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night").Id;
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = context.Users.Where(u => u.Id == currentUserId).FirstOrDefault();
+            currentUser.PhoneNumber = user.PhoneNumber;
+            Texts newSignup = new Texts();
+            newSignup.UserId = currentUserId;
+            if (show =="Ketchup")
+            {
+                newSignup.ShowId = ketchupId;
+                context.texts.Add(newSignup);
+                context.SaveChanges();
+                return RedirectToAction("Ketchup");
+            }
+            else
+            {
+                newSignup.ShowId = nickId;
+                context.texts.Add(newSignup);
+                context.SaveChanges();
+                return RedirectToAction("Nick");
+            }
+            
         }
     }
 }

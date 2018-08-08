@@ -139,6 +139,7 @@ namespace TuesdayKetchup.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Message = TempData["Message"];
             return View();
         }
 

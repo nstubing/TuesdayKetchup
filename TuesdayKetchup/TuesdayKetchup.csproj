@@ -358,6 +358,7 @@
     <Content Include="Views\Admin\DeleteEpisode.cshtml" />
     <Content Include="Views\Admin\DeleteShow.cshtml" />
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
+    <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

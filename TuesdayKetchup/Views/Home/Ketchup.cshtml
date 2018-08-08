@@ -70,7 +70,7 @@
         <div class="card-body">
             <h4 class="card-title">Episodes</h4>
             <ul>
-                @foreach(Episode episode in Model.episodes)
+                @foreach (Episode episode in Model.episodes)
                 {
                     <li>
                         @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
@@ -81,6 +81,24 @@
         </div>
     </div>
 </div>
+
+@if (@ViewBag.SignedUp != null)
+{
+    <div class="col-md-4">
+        <input type="submit" value="Already signed up for text alerts" class="btn btn-default" />
+    </div>
+}
+else
+{
+    using (Html.BeginForm("TextKetchup", "Home"))
+    {
+        <div class="col-md-4">
+            <input type="submit" value="Sign up for text alerts!" class="btn btn-default" />
+        </div>
+    }
+}
+
+
 
 
 <div class="col-md-4">
