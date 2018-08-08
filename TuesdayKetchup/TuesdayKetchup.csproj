@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201808081659490_CommentRating.Designer.cs">
       <DependentUpon>201808081659490_CommentRating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808081834302_RatingsTable.cs" />
+    <Compile Include="Migrations\201808081834302_RatingsTable.Designer.cs">
+      <DependentUpon>201808081834302_RatingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -375,6 +379,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808081659490_CommentRating.resx">
       <DependentUpon>201808081659490_CommentRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081834302_RatingsTable.resx">
+      <DependentUpon>201808081834302_RatingsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
