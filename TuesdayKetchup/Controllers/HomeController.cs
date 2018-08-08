@@ -92,7 +92,10 @@ namespace TuesdayKetchup.Controllers
             episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
             foreach(Comment comment in episodeVM.comments)
             {
-                ratingSum += comment.Rating;
+                if (comment.Rating != null)
+                {
+                    ratingSum = ratingSum + comment.Rating;
+                }
             }
             episodeVM.rating = ratingSum / episodeVM.comments.Count;
             return PartialView("_EpisodePartial", episodeVM);

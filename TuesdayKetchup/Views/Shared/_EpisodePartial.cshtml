@@ -1,7 +1,6 @@
 ﻿@using TuesdayKetchup.Models
 @using Microsoft.AspNet.Identity;
 @model EpisodeViewModel
-@(Model.rating = 5)
 
 <style>
     .commentBox {
@@ -49,6 +48,12 @@
 
 <iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
 
+<div class="col-md-2">
+    @for(int i = 0; i < Model.rating; i++)
+    {
+        <span class="starGlow"></span>
+    }
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -57,7 +62,7 @@
     {
         <div class="form-group">
             <label class="col-md-4 control-label">
-                Your rating <span style="font-weight:normal;">(1 start is bad, 5 star is good)</span>
+                Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
             </label>
             <div class="col-md-7">
                 <div onmouseout="CRateSelected()">
