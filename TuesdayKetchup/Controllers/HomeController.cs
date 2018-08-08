@@ -55,9 +55,11 @@ namespace TuesdayKetchup.Controllers
 
         private int GetMostRecentEpisodeId(int showId)
         {
-            //Can we do this by date?
+
+            
             var episodes = context.episodes.Where(e => e.ShowId == showId).OrderBy(e => e.Id).Select(e => e.Id).ToList();
             return episodes.Last();
+
         }
 
         public PartialViewResult GetEpisodeComments(int id)

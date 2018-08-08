@@ -1,7 +1,7 @@
 ﻿@using TuesdayKetchup.Models
 @using Microsoft.AspNet.Identity;
 @model EpisodeViewModel
-@Model.rating = 5;
+
 
 <style>
     .commentBox {
@@ -12,6 +12,7 @@
 
     .starFade {
         background-image: url('https://i.imgur.com/NPoumic.png');
+        background-color: blue;
         min-width: 30px;
         min-height: 30px;
         display: inline-block;
@@ -20,6 +21,7 @@
 
     .starFadeN {
         background-image: url('https://i.imgur.com/NPoumic.png');
+        background-color: blue;
         min-width: 30px;
         min-height: 30px;
         display: inline-block;
@@ -27,6 +29,7 @@
 
     .starGlow {
         background-image: url('https://i.imgur.com/cAYEnBR.png');
+        background-color: gold;
         min-width: 30px;
         min-height: 30px;
         display: inline-block;
@@ -35,6 +38,7 @@
 
     .starGlowN {
         background-image: url('https://i.imgur.com/cAYEnBR.png');
+        background-color: gold;
         min-width: 30px;
         min-height: 30px;
         display: inline-block;
@@ -69,7 +73,7 @@
 </div>
 }
 
-<img src="https://i.imgur.com/cAYEnBR.png" />
+
 
 
 <h5>Comments</h5>
