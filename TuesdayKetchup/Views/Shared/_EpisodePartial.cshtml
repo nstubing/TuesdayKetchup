@@ -110,16 +110,6 @@
             <td>
                 @Html.DisplayFor(modelItem => comment.Message)
             </td>
-            <td>
-                @for (var i = 1; i <= comment.Rating; i++)
-                {
-                    <span class="starGlowN"></span>
-                }
-                @for (var i = (comment.Rating + 1); i <= 5; i++)
-                {
-                    <span class="starFadeN"></span>
-                }
-            </td>
         </tr>
          }
 

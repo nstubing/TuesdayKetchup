@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201808081901368_Rate.ScoreDataType.Designer.cs">
       <DependentUpon>201808081901368_Rate.ScoreDataType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808081954364_DetachRatingsFromComments.cs" />
+    <Compile Include="Migrations\201808081954364_DetachRatingsFromComments.Designer.cs">
+      <DependentUpon>201808081954364_DetachRatingsFromComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -389,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808081901368_Rate.ScoreDataType.resx">
       <DependentUpon>201808081901368_Rate.ScoreDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081954364_DetachRatingsFromComments.resx">
+      <DependentUpon>201808081954364_DetachRatingsFromComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

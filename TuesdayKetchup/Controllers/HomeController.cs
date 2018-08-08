@@ -105,13 +105,9 @@ namespace TuesdayKetchup.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId, int? Rating)
+        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId)
         {
-            Comment comment = new Comment();
-            comment.Message = CommentString;
-            comment.UserId = UserId;
-            comment.EpisodeId = EpisodeId;
-            comment.Rating = Rating;
+            Comment comment = new Comment() {Message = CommentString, UserId = UserId, EpisodeId = EpisodeId };
             context.comments.Add(comment);
             context.SaveChanges();
             return RedirectToAction("Ketchup");
@@ -130,6 +126,5 @@ namespace TuesdayKetchup.Controllers
             context.SaveChanges();
             return RedirectToAction("Ketchup");
         }
-        
     }
 }
