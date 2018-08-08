@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TuesdayKetchup.Models;
@@ -16,7 +17,31 @@ namespace TuesdayKetchup
         {
             ConfigureAuth(app);
             CreateRolesandUsers();
+            //SeedPods();
+            //SeedEvents();
+
         }
+        private void SeedPods()
+        {
+            
+            Show Ttk = new Show();
+            Ttk.Title = "The Tuesday Ketchup";
+            Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
+            Ttk.Image = "~/Content/TuesdayKetchup.jpg";
+            Ttk.TwitterAccount = "@Tuesday_Ketchup";
+            Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
+            Ttk.NavImage = "~/Content/ketchupred.png";
+            context.shows.Add(Ttk);
+            Show Nick = new Show();
+            Nick.Title = "Nick @ Night";
+            Nick.Details = "Just laugh a little bit.";
+            Nick.Image = "~/Content/NickAtNight.PNG";
+            Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
+            Nick.NavImage = "~/Content/greenDrip.png";
+            context.shows.Add(Nick);
+            context.SaveChanges();
+        }
+
         private void CreateRolesandUsers()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -49,6 +74,21 @@ namespace TuesdayKetchup
 
         }
 
+        private void SeedEvents()
+        {
+            Event e = new Event();
+            e.Subject = "Test Event and Map";
+            e.Description = "This is a test";
+            e.Start = DateTime.Now;
+            e.EventTime = "Now";
+            e.Details = "Testing, testing";
+            e.StreetAddress = "3720 Forest Heights Drive";
+            e.City = "Eau Claire";
+            e.State = "WI";
+            e.Zipcode = "54701";
 
+            context.events.Add(e);
+            context.SaveChanges();
+        }
     }
 }

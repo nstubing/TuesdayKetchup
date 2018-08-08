@@ -86,9 +86,15 @@ namespace TuesdayKetchup.Controllers
 
         public PartialViewResult GetEpisodePartial(int id)
         {
+            int? ratingSum = 0;
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
             episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
+            foreach(Comment comment in episodeVM.comments)
+            {
+                ratingSum += comment.Rating;
+            }
+            episodeVM.rating = ratingSum / episodeVM.comments.Count;
             return PartialView("_EpisodePartial", episodeVM);
         }
 
