@@ -117,6 +117,11 @@ namespace TuesdayKetchup.Controllers
         public ActionResult AddRating(string userId, int episodeId, int score)
         {
             Rating rating = new Rating() { UserId = userId, EpisodeId = episodeId, Score = score };
+            Rating existingRating = context.Ratings.Where(r => r.UserId == userId).FirstOrDefault();
+            if (existingRating != null)
+            {
+                context.Ratings.Remove(existingRating);
+            }
             context.Ratings.Add(rating);
             context.SaveChanges();
             return RedirectToAction("Ketchup");

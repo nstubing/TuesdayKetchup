@@ -46,36 +46,54 @@
 
 </style>
 
-<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
-
 <div class="col-md-2">
-    @for(int i = 0; i < Model.rating; i++)
+    @for (int i = 0; i < Model.rating; i++)
     {
         <span class="starGlow"></span>
     }
 </div>
+
+<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) width="500" scrolling="no" frameborder="0"></iframe>
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div id="new-rating-box">
+        @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form" }))
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">
+                    Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
+                </label>
+                <div class="col-md-7">
+                    <div onmouseout="CRateSelected()">
+                        <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Rate" />
+            </div>
+            @Html.Hidden("userId", @User.Identity.GetUserId())
+            @Html.Hidden("episodeId", Model.episode.Id)
+            @Html.Hidden("score")
+        }
+    </div>
+}
 
 @if (User.Identity.IsAuthenticated)
 {
 <div id="new-comment-box">
     @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
     {
-        <div class="form-group">
-            <label class="col-md-4 control-label">
-                Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
-            </label>
-            <div class="col-md-7">
-                <div onmouseout="CRateSelected()">
-                    <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
-                    
-                </div>
-            </div>
-        </div>
+        
         @Html.TextArea("CommentString")
         @Html.Hidden("UserId", User.Identity.GetUserId())
         @Html.Hidden("EpisodeId", Model.episode.Id)
-        @Html.Hidden("Rating")
-        <p><input type="submit" value="Post" /></p>
+        
+    <div>
+        <input type="submit" value="Post" />
+    </div>
     }
 </div>
 }
@@ -142,7 +160,7 @@
 </script>
 <script>
     function SubmitComment() {
-        if ($("#Rating").val() == "0") {
+        if ($("#score").val() == "0") {
             alert("Please rate this service provider.");
             return false;
         }
@@ -152,7 +170,7 @@
     }
 
     function CRate(r) {
-        $("#Rating").val(r);
+        $("#score").val(r);
         for (var i = 1; i <= r; i++) {
             $("#Rate" + i).attr('class', 'starGlow');
         }
@@ -175,7 +193,7 @@
     }
 
     function CRateSelected() {
-        var setRating = $("#Rating").val();
+        var setRating = $("#score").val();
         for (var i = 1; i <= setRating; i++) {
             $("#Rate" + i).attr('class', 'starGlow');
         }
