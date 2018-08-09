@@ -3,7 +3,7 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class newmig : DbMigration
+    public partial class RatingsTable : DbMigration
     {
         public override void Up()
         {
@@ -14,27 +14,13 @@ namespace TuesdayKetchup.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         EpisodeId = c.Int(nullable: false),
                         UserId = c.String(maxLength: 128),
-                        Star = c.Double(nullable: false),
+                        Score = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .ForeignKey("dbo.Episodes", t => t.EpisodeId, cascadeDelete: true)
                 .Index(t => t.EpisodeId)
                 .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.Emails",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Subject = c.String(),
-                        Message = c.String(),
-                        RecipientEmail = c.String(),
-                        FanEmail = c.String(),
-                        SenderEmail = c.String(),
-                        SenderPassword = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
         }
         
@@ -44,7 +30,6 @@ namespace TuesdayKetchup.Migrations
             DropForeignKey("dbo.Ratings", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.Ratings", new[] { "UserId" });
             DropIndex("dbo.Ratings", new[] { "EpisodeId" });
-            DropTable("dbo.Emails");
             DropTable("dbo.Ratings");
         }
     }

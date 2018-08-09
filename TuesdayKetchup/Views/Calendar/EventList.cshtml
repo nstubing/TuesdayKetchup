@@ -4,9 +4,12 @@
     ViewBag.Title = "Event List";
 }
 
-<h2>EventList</h2>
+<h2>Event List</h2>
 
-
+@if(@ViewBag.Message !=null)
+{
+    <h5>@ViewBag.Message</h5>
+}
 <table class="table">
     <tr>
         <th>
@@ -69,9 +72,9 @@
             @Html.DisplayFor(modelItem => item.Zipcode)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Edit", "EditEvent", new { id = item.Id }) |
             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Delete", "DeleteEvent", new { id = item.Id })
         </td>
     </tr>
 }

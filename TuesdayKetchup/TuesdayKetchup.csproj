@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.cs" />
-    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.Designer.cs">
-      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
+    <Compile Include="Migrations\201808091251080_newmig.cs" />
+    <Compile Include="Migrations\201808091251080_newmig.Designer.cs">
+      <DependentUpon>201808091251080_newmig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -235,6 +235,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostFlag.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Show.cs" />
     <Compile Include="Models\ShowViewModel.cs" />
     <Compile Include="Models\Texts.cs" />
@@ -354,7 +355,12 @@
     <Content Include="Views\Admin\DeleteEpisode.cshtml" />
     <Content Include="Views\Admin\DeleteShow.cshtml" />
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
+    <Content Include="Views\Home\FlagComment.cshtml" />
+    <Content Include="Views\Shared\_PatreonBannerPartial.cshtml" />
     <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
+    <Content Include="Views\Calendar\EditEvent.cshtml" />
+    <Content Include="Views\Calendar\DeleteEvent.cshtml" />
+    <Content Include="Views\Admin\EditBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -374,8 +380,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.resx">
-      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808091251080_newmig.resx">
+      <DependentUpon>201808091251080_newmig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
