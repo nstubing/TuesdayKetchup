@@ -251,6 +251,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostFlag.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Show.cs" />
     <Compile Include="Models\ShowViewModel.cs" />
     <Compile Include="Models\Texts.cs" />

@@ -184,7 +184,6 @@ namespace TuesdayKetchup.Controllers
             return RedirectToAction("Ketchup");
         }
 
-<<<<<<< HEAD
         [HttpPost]
         public ActionResult AddRating(string userId, int episodeId, int score)
         {
@@ -197,7 +196,7 @@ namespace TuesdayKetchup.Controllers
             context.Ratings.Add(rating);
             context.SaveChanges();
             return RedirectToAction("Ketchup");
-=======
+        }
         public ActionResult FlagComment(int? id)
         {
             if (id == null)
@@ -297,7 +296,6 @@ namespace TuesdayKetchup.Controllers
                 return RedirectToAction("Nick");
             }
             
->>>>>>> 00c6054a490cb04ef7ff564f7d3e30da8384e76b
         }
     }
 }
