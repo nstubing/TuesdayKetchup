@@ -91,7 +91,7 @@
     <div>
         @foreach (Texts subscription in Model.TextSubscriptions)
         {
-            <p>@subscription.Show.Title</p>
+            <span>@subscription.Show.Title | </span>
             @Html.ActionLink("Stop Text Alerts", "RemoveTextAlert", new {id = subscription.Id })
         }
     </div>

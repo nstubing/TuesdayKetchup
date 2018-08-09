@@ -11,18 +11,32 @@
 @foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
 {
 <div>
-    <div>
-        @Html.DisplayFor(modelItem => item.UserName)
-    </div>
-    <div>
-        <font color="black">
-            @Html.DisplayFor(modelItem => item.Message)
-        </font>
-    </div>
+    @if (!ViewBag.IsFirstPost)
+    {
+        <div>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </div>
+        <div>
+            <font color="black">
+                @Html.DisplayFor(modelItem => item.Message)
+            </font>
+        </div>
+    }
+    @if (ViewBag.IsFirstPost)
+    {
+        ViewBag.IsFirstPost = false;
+        <div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+            <div class="card-header">@item.UserName</div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.Title</h4>
+                <p class="card-text">@item.Message</p>
+            </div>
+        </div>
+    }
     <font color="red">
         @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: | 
+            @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
             @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
         }
         @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
