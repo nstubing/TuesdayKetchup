@@ -17,7 +17,20 @@ namespace TuesdayKetchup.Models
         public string SoundCloudLink { get; set; }
         [ForeignKey("Show")]
         public int ShowId { get; set; }
+
+
         public Show Show { get; set; }
+
+    
+
+       
+      
+
+        
+
+
+
+
     }
 
 
