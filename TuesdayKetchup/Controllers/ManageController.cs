@@ -389,5 +389,12 @@ namespace TuesdayKetchup.Controllers
         }
 
 #endregion
+        public ActionResult RemoveTextAlert(int id)
+        {
+            Texts textSubscription = context.texts.Where(t => t.Id == id).FirstOrDefault();
+            context.texts.Remove(textSubscription);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
