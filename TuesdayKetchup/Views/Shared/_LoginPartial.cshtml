@@ -5,8 +5,8 @@
 
 
     .loginLinks {
-        background-color: lightgray;
         color: darkgray;
+        padding-right:.7em;
     }
 
 </style>
@@ -21,21 +21,14 @@
             <li class="list-group-item list-group-item-dark text-center" style="border-radius:6px;">
                 @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
-            </ul>
-        <center>
-            <button type="button" class="btn-light" style="border-radius:6px;"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></button>
-        </center>
-            
-       
+            <li><a href="javascript:document.getElementById('logoutForm').submit()" style="color:white">Log off</a></li>
+        </ul>
     }
 }
 else
 {
-        
-
-
-            <button type="button" class="btn-outline-light, text-light" style="border-radius:6px;">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
-
-            <button type="button" class="btn-outline-light, text-light" style="border-radius:6px;">@Html.ActionLink("Login", "Login","Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</button>
-       
+    <ul class="nav navbar-nav navbar-right">
+        <li class="loginLinks"><a href="@Url.Action("Register","Account")" style="color:white;">Register</a></li>
+        <li class="loginLinks"><a href="@Url.Action("Login","Account")" style="color:white;">Log in</a></li>
+    </ul>
 }
