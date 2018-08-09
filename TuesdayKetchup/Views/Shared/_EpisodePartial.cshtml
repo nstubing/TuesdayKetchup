@@ -65,39 +65,19 @@
 @if (User.Identity.IsAuthenticated)
 {
 
-    <div id="new-comment-box">
-        @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">
-                    Your rating <span style="font-weight:normal;">(1 start is bad, 5 star is good)</span>
-                </label>
-
     <div id="new-rating-box">
         @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form", onload = "CRateSelected()" }))
         {
             <div class="form-group">
                 <label class="col-md-4 control-label">
                     Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
-
                 </label>
                 <div class="col-md-7">
                     <div onmouseout="CRateSelected()">
                         <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
-
-
                     </div>
                 </div>
             </div>
-            @Html.TextArea("CommentString")
-            @Html.Hidden("UserId", User.Identity.GetUserId())
-            @Html.Hidden("EpisodeId", Model.episode.Id)
-            @Html.Hidden("Rating")
-            <p><input type="submit" value="Post" /></p>
-        }
-                    </div>
-                </div>
-           
             <div>
                 <input type="submit" value="Rate" />
             </div>
@@ -117,11 +97,11 @@
     </div>
 }
 
-        <div class="card border-secondary mb-3" style="width:100%; max-height:250px; overflow:auto;">
-            <div class="card-body">
-                <p class="card-text">@Model.episode.Details</p>
-            </div>
-        </div>
+<div class="card border-secondary mb-3" style="width:100%; max-height:250px; overflow:auto;">
+    <div class="card-body">
+        <p class="card-text">@Model.episode.Details</p>
+    </div>
+</div>
 
 
 @if (User.Identity.IsAuthenticated)
@@ -137,20 +117,11 @@
             <div>
                 <input type="submit" value="Post" />
             </div>
-
         }
     </div>
 }
 
 
-<div class="col-md-5">
-    <div class="card border-secondary mb-3" style="width:100%; max-height:250px;">
-        <div class="card-header">Episode Details</div>
-        <div class="card-body">
-            <p class="card-text">@ViewBag.Details</p>
-        </div>
-    </div>
-</div>
 
 <h5>Comments</h5>
 
@@ -161,9 +132,9 @@
             @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
         </div>
         <div>
-           <font color="black">
-               @Html.DisplayFor(modelItem => comment.Message)
-           </font>
+            <font color="black">
+                @Html.DisplayFor(modelItem => comment.Message)
+            </font>
         </div>
         <div>
             @if (User.IsInRole("Fan"))
@@ -174,7 +145,7 @@
             }
         </div>
     }
-    </div>
+</div>
 
 
 
