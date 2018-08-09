@@ -18,10 +18,24 @@ namespace TuesdayKetchup.Controllers
         {
             return RedirectToAction("GetCalendarIndex", "Calendar");
         }
-        public ActionResult Index()
+        public ActionResult Index(Episode episode)
         {
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
-            if (Announce !=null)
+            var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
+            var ShowId = Show.Id;
+            var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
+            var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
+            var ShowIdTwo = Show.Id;
+            var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
+            if (KetchupEpisode != null)
+            {
+                ViewBag.TuesdayKetchupEp = KetchupEpisode;
+            }
+            if (NickEpisode != null)
+            {
+                ViewBag.NickNightEp = NickEpisode;
+            }
+            if (Announce != null)
             {
                 ViewBag.Announcement = Announce.Announcement;
             }
@@ -82,20 +96,48 @@ namespace TuesdayKetchup.Controllers
             //ViewBag.PreviousShows
             ViewBag.Img = Show.Image;
             ViewBag.ShowDetails = Show.Details;
+            var UserId = User.Identity.GetUserId();
+            if (UserId != null)
+            {
+                var textSignups = context.texts.Where(t => t.UserId == UserId);
+                var isSignedUp = textSignups.Where(t => t.ShowId == ShowId).FirstOrDefault();
+                if (isSignedUp != null)
+                {
+                    ViewBag.SignedUp = true;
+                }
+            }
             showVM.episodes = previousShows;
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
+
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == EpisodeId).ToList();
+            int ratingSum = 0;
+            if (ratings.Count > 0)
+            {
+                foreach (Rating rating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                showVM.episodeVM.rating = ratingSum / ratings.Count;
+            }
+
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
             showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            
+            string userId = User.Identity.GetUserId();
+            showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+
             ViewBag.PatreonSupporters = PatreonMessenger.GetPatrons();
             return View(showVM);
         }
 
         private int GetMostRecentEpisodeId(int showId)
         {
-            //Can we do this by date?
+
+            
             var episodes = context.episodes.Where(e => e.ShowId == showId).OrderBy(e => e.Id).Select(e => e.Id).ToList();
             return episodes.Last();
+
         }
 
         public PartialViewResult GetEpisodeComments(int id)
@@ -117,31 +159,47 @@ namespace TuesdayKetchup.Controllers
 
         public PartialViewResult GetEpisodePartial(int id)
         {
-            int? ratingSum = 0;
+            int ratingSum = 0;
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
             episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
-            foreach(Comment comment in episodeVM.comments)
+            string userId = User.Identity.GetUserId();
+            episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId ==id).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == id).ToList();
+            if (ratings.Count > 0)
             {
-                ratingSum += comment.Rating;
+                foreach (Rating rating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                episodeVM.rating = ratingSum / ratings.Count;
             }
-            episodeVM.rating = ratingSum / episodeVM.comments.Count;
+
             return PartialView("_EpisodePartial", episodeVM);
         }
 
         [HttpPost]
-        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId, int? Rating)
+        public ActionResult AddComment(string CommentString, string UserId, int EpisodeId)
         {
-            Comment comment = new Comment();
-            comment.Message = CommentString;
-            comment.UserId = UserId;
-            comment.EpisodeId = EpisodeId;
-            comment.Rating = Rating;
+            Comment comment = new Comment() {Message = CommentString, UserId = UserId, EpisodeId = EpisodeId };
             context.comments.Add(comment);
             context.SaveChanges();
             return RedirectToAction("Ketchup");
         }
 
+        [HttpPost]
+        public ActionResult AddRating(string userId, int episodeId, int score)
+        {
+            Rating rating = new Rating() { UserId = userId, EpisodeId = episodeId, Score = score };
+            Rating existingRating = context.Ratings.Where(r => r.EpisodeId == episodeId).Where(r => r.UserId == userId).FirstOrDefault();
+            if (existingRating != null)
+            {
+                context.Ratings.Remove(existingRating);
+            }
+            context.Ratings.Add(rating);
+            context.SaveChanges();
+            return RedirectToAction("Ketchup");
+        }
         public ActionResult FlagComment(int? id)
         {
             if (id == null)
@@ -181,6 +239,66 @@ namespace TuesdayKetchup.Controllers
             }
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult TextKetchup()
+        {
+            var currentUser = User.Identity.GetUserId();
+            if(currentUser==null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            else
+            {
+                TempData["Show"] = "Ketchup";
+                return RedirectToAction("UpdatePhoneNumber", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult TextNick()
+        {
+            var currentUser = User.Identity.GetUserId();
+            if (currentUser == null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+            else
+            {
+                TempData["Show"] = "Nick";
+                return RedirectToAction("UpdatePhoneNumber", "Home");
+            }
+        }
+        public ActionResult UpdatePhoneNumber()
+        {
+            ViewBag.Show = TempData["Show"];
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdatePhoneNumber(ApplicationUser user,string show)
+        {
+            var ketchupId = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup").Id;
+            var nickId = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night").Id;
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = context.Users.Where(u => u.Id == currentUserId).FirstOrDefault();
+            currentUser.PhoneNumber = user.PhoneNumber;
+            Texts newSignup = new Texts();
+            newSignup.UserId = currentUserId;
+            if (show =="Ketchup")
+            {
+                newSignup.ShowId = ketchupId;
+                context.texts.Add(newSignup);
+                context.SaveChanges();
+                return RedirectToAction("Ketchup");
+            }
+            else
+            {
+                newSignup.ShowId = nickId;
+                context.texts.Add(newSignup);
+                context.SaveChanges();
+                return RedirectToAction("Nick");
+            }
+            
         }
     }
 }

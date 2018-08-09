@@ -3,16 +3,16 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class needed : DbMigration
+    public partial class RateScoreDataType : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Comments", "Rating", c => c.Int());
+            AlterColumn("dbo.Ratings", "Score", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Comments", "Rating");
+            AlterColumn("dbo.Ratings", "Score", c => c.Double(nullable: false));
         }
     }
 }

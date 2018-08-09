@@ -217,13 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081532234_needed.cs" />
-    <Compile Include="Migrations\201808081532234_needed.Designer.cs">
-      <DependentUpon>201808081532234_needed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808081538224_Shitfixed.cs" />
-    <Compile Include="Migrations\201808081538224_Shitfixed.Designer.cs">
-      <DependentUpon>201808081538224_Shitfixed.cs</DependentUpon>
+    <Compile Include="Migrations\201808091340345_BannerDone.cs" />
+    <Compile Include="Migrations\201808091340345_BannerDone.Designer.cs">
+      <DependentUpon>201808091340345_BannerDone.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -361,6 +357,7 @@
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
     <Content Include="Views\Home\FlagComment.cshtml" />
     <Content Include="Views\Shared\_PatreonBannerPartial.cshtml" />
+    <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -380,11 +377,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808081532234_needed.resx">
-      <DependentUpon>201808081532234_needed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081538224_Shitfixed.resx">
-      <DependentUpon>201808081538224_Shitfixed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808091340345_BannerDone.resx">
+      <DependentUpon>201808091340345_BannerDone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,7 @@ namespace TuesdayKetchup.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Shitfixed : DbMigration
+    public partial class CommentRating : DbMigration
     {
         public override void Up()
         {

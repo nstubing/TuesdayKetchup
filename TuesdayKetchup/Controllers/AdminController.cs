@@ -43,7 +43,7 @@ namespace TuesdayKetchup.Controllers
         [HttpPost]
         public ActionResult DeleteEpisode(Episode episode)
         {
-            var thisEp = db.episodes.FirstOrDefault(e => e.Title == episode.Title);
+            var thisEp = db.episodes.FirstOrDefault(e => e.Id == episode.Id);
             db.episodes.Remove(thisEp);
             db.SaveChanges();
             TempData["Message"] = "The episode titled " + thisEp.Title + " has been deleted.";
@@ -68,11 +68,11 @@ namespace TuesdayKetchup.Controllers
         {
             var thisShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
             var signedUpForTexts = db.texts.Where(t => t.ShowId == thisShowId).Include(t=>t.ApplicationUser);
-            var PhoneNumbersChar = signedUpForTexts.SelectMany(s => s.ApplicationUser.PhoneNumber).ToList();
+            var PhoneNumbersChar = signedUpForTexts.Select(s => s.ApplicationUser.PhoneNumber).ToList();
             List<string> phoneNumbers = new List<string>();
-            foreach(Char phoneNumber in PhoneNumbersChar)
+            foreach(string phoneNumber in PhoneNumbersChar)
             {
-                string numberString ="1+"+ phoneNumber.ToString();
+                string numberString ="+1"+phoneNumber.ToString();
                 phoneNumbers.Add(numberString);
             }
             var newTextAlert = new TextAlert() { EpisodeLink = textAlert.EpisodeLink, Message = textAlert.Message, ShowId = thisShowId };
@@ -84,7 +84,7 @@ namespace TuesdayKetchup.Controllers
             {
                 var message = MessageResource.Create(
                     body: thisMessage,
-                    from: new Twilio.Types.PhoneNumber("+15017122661"),
+                    from: new Twilio.Types.PhoneNumber("+15404411403"),
                     to: new Twilio.Types.PhoneNumber(phoneNumber)
                     );
             }
@@ -181,7 +181,7 @@ namespace TuesdayKetchup.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddAnnouncement(string message)
+        public ActionResult AddAnnouncement(string Announcement)
         {
             //HomeInfo firstHomeInfo = new HomeInfo();
             //firstHomeInfo.Announcement = "Welcome to Gravy Train Productions";
@@ -191,7 +191,7 @@ namespace TuesdayKetchup.Controllers
             //db.homeInfos.Add(firstHomeInfo);
 
             var HomeInf = db.homeInfos.Select(h => h).FirstOrDefault();
-            HomeInf.Announcement = message;
+            HomeInf.Announcement = Announcement;
             db.SaveChanges();
             TempData["Message"] = "Your announcement has been saved to the home page.";
             return RedirectToAction("AddAnnouncement");
