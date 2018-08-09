@@ -21,9 +21,12 @@ namespace TuesdayKetchup.Controllers
         public ActionResult Index(Episode episode)
         {
             var HomeInfo = context.homeInfos.Select(h => h).FirstOrDefault();
-            ViewBag.Picture1 = HomeInfo.SliderPic1;
-            ViewBag.Picture2 = HomeInfo.SliderPic2;
-            ViewBag.Picture3 = HomeInfo.SliderPic3;
+            if (HomeInfo != null)
+            {
+                ViewBag.Picture1 = HomeInfo.SliderPic1;
+                ViewBag.Picture2 = HomeInfo.SliderPic2;
+                ViewBag.Picture3 = HomeInfo.SliderPic3;
+            }
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
             ViewBag.KetchupLogo = Show.Image;
