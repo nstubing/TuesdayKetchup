@@ -361,6 +361,8 @@
     <Content Include="Views\Calendar\EditEvent.cshtml" />
     <Content Include="Views\Calendar\DeleteEvent.cshtml" />
     <Content Include="Views\Admin\EditBanner.cshtml" />
+    <Content Include="Views\Admin\TextIndex.cshtml" />
+    <Content Include="Views\Admin\DeleteUserFromTexts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

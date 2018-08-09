@@ -1,0 +1,41 @@
+﻿@model TuesdayKetchup.Models.Texts
+
+@{
+    ViewBag.Title = "Delete User From Texts";
+}
+
+<h2>Delete User From Texts</h2>
+
+<h5>Are you sure you want to remove text alerts for this user for this show?</h5>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Username
+        </dt>
+
+        <dd>
+            @ViewBag.Username
+        </dd>
+
+        <dt>
+            Show
+        </dt>
+
+        <dd>
+            @ViewBag.ShowName
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "TextIndex")
+        </div>
+    }
+</div>

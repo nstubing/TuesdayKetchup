@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TuesdayKetchup.Models.Texts>
+
+@{
+    ViewBag.Title = "Text Index";
+}
+
+<h2>Text Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Show
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @ViewBag.Usernames[ViewBag.Counter]
+        </td>
+        <td>
+            @ViewBag.ShowNames[ViewBag.Counter]
+        </td>
+        <td>
+            @Html.ActionLink("Delete From Table", "DeleteUserFromTexts", new { id=item.Id })
+        </td>
+    </tr>
+
+    ViewBag.Counter = ViewBag.Counter + 1;
+}
+
+</table>

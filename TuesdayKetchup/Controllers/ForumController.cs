@@ -36,6 +36,7 @@ namespace TuesdayKetchup.Controllers
             }
             ViewBag.Posts = db.posts.Where(p => p.ThreadId == id).ToList();
             ViewBag.ActiveUserId = User.Identity.GetUserId();
+            ViewBag.IsFirstPost = true;
             return View(thread);
         }
 
