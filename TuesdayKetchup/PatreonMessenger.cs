@@ -28,7 +28,6 @@ namespace TuesdayKetchup
             string responseBody = await response.Content.ReadAsStringAsync();
             JObject json = JObject.Parse(responseBody);
             return json;
-            
         }
 
         public List<string> GetPatrons()
