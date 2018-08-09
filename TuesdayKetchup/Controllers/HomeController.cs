@@ -90,7 +90,7 @@ namespace TuesdayKetchup.Controllers
 
             SmtpServer.Send(mail);
 
-            return View("Index");
+            return RedirectToAction("Index","Home");
         }
 
         public ActionResult Ketchup()
