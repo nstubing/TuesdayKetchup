@@ -73,7 +73,7 @@ namespace TuesdayKetchup.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                TextSubscriptions = context.texts.Where(t => t.UserId == userId).ToList()
+                TextSubscriptions = context.texts.Include("Show").Where(t => t.UserId == userId).ToList()
 
             };
             return View(model);
