@@ -4,8 +4,11 @@
 {
                 @Html.AntiForgeryToken()
 
-                <h2>Edit Show</h2>
-            
+    <h2>Edit Show</h2>
+    if(ViewBag.Message != null)
+    {
+        <h5>@ViewBag.Message</h5>
+    }
                 <div class="form-horizontal">
         
         <hr />

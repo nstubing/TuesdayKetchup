@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TuesdayKetchup.Models;
@@ -47,6 +48,7 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult ListEpisodes()
         {
+
             if(User.IsInRole("Admin"))
             {
                 ViewBag.Message = TempData["Message"];
@@ -58,6 +60,11 @@ namespace TuesdayKetchup.Controllers
                 return RedirectToAction("Index", "Home");
             }
            
+
+            ViewBag.Message = TempData["Message"];
+            var episodes = db.episodes.Select(u => u).Include(u => u.Show);
+            return View(episodes);
+
         }
         public ActionResult DeleteEpisode(int id)
         {
@@ -115,12 +122,12 @@ namespace TuesdayKetchup.Controllers
         public ActionResult TextAlert(TextAlert textAlert, string ShowName)
         {
             var thisShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
-            var signedUpForTexts = db.texts.Where(t => t.ShowId == thisShowId).Include(t=>t.ApplicationUser);
+            var signedUpForTexts = db.texts.Where(t => t.ShowId == thisShowId).Include(t => t.ApplicationUser);
             var PhoneNumbersChar = signedUpForTexts.Select(s => s.ApplicationUser.PhoneNumber).ToList();
             List<string> phoneNumbers = new List<string>();
-            foreach(string phoneNumber in PhoneNumbersChar)
+            foreach (string phoneNumber in PhoneNumbersChar)
             {
-                string numberString ="+1"+phoneNumber.ToString();
+                string numberString = "+1" + phoneNumber.ToString();
                 phoneNumbers.Add(numberString);
             }
             var newTextAlert = new TextAlert() { EpisodeLink = textAlert.EpisodeLink, Message = textAlert.Message, ShowId = thisShowId };
@@ -128,7 +135,7 @@ namespace TuesdayKetchup.Controllers
             string twilioSid = MyKeys.TwilioSid;
             string authToken = MyKeys.TwilioAuth;
             TwilioClient.Init(twilioSid, authToken);
-            foreach(string phoneNumber in phoneNumbers)
+            foreach (string phoneNumber in phoneNumbers)
             {
                 var message = MessageResource.Create(
                     body: thisMessage,
@@ -153,6 +160,64 @@ namespace TuesdayKetchup.Controllers
             }
 
         }
+
+        public ActionResult TextIndex()
+        {
+            ViewBag.Counter = 0;
+
+            List<string> Usernames = new List<string>();
+            var userIds = db.texts.Select(t => t.UserId).ToList();
+            var users = db.Users;
+            foreach(var id in userIds)
+            {
+                Usernames.Add(users.Find(id).UserName);
+            }
+            ViewBag.Usernames = Usernames;
+
+            List<string> ShowNames = new List<string>();
+            var showIds = db.texts.Select(t => t.ShowId).ToList();
+            var shows = db.shows;
+            foreach(var id in showIds)
+            {
+                ShowNames.Add(shows.Find(id).Title);
+            }
+            ViewBag.ShowNames = ShowNames;
+
+            return View(db.texts.ToList());
+        }
+
+        public ActionResult DeleteUserFromTexts(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Texts text = db.texts.Find(id);
+            if (text == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var users = db.Users;
+            string username = users.Find(text.UserId).UserName;
+            ViewBag.Username = username;
+
+            var shows = db.shows;
+            string showName = shows.Find(text.ShowId).Title;
+            ViewBag.ShowName = showName;
+
+            return View(text);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUserFromTexts(int id)
+        {
+            Texts text = db.texts.Find(id);
+            db.texts.Remove(text);
+            db.SaveChanges();
+            return RedirectToAction("TextIndex");
+        }
+
         public ActionResult AddEpisode()
         {
             if (User.IsInRole("Admin"))
@@ -168,7 +233,7 @@ namespace TuesdayKetchup.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddEpisode(Episode episode,string ShowName)
+        public ActionResult AddEpisode(Episode episode, string ShowName)
         {
             if (User.IsInRole("Admin"))
             {
@@ -255,7 +320,7 @@ namespace TuesdayKetchup.Controllers
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/Content"), pic);
                 file.SaveAs(path);
-                thisShow.Image = "/Content/"+pic;
+                thisShow.Image = "/Content/" + pic;
             }
             thisShow.Title = show.Title;
             thisShow.Details = show.Details;
@@ -282,13 +347,6 @@ namespace TuesdayKetchup.Controllers
         [HttpPost]
         public ActionResult AddAnnouncement(string Announcement)
         {
-            //HomeInfo firstHomeInfo = new HomeInfo();
-            //firstHomeInfo.Announcement = "Welcome to Gravy Train Productions";
-            //firstHomeInfo.SliderPic1 = "~/Content/tuesdayKetchupBanner.jpg";
-            //firstHomeInfo.SliderPic2 = "~/Content/nicknightbanner.jpg";
-            //firstHomeInfo.SliderPic3 = "~/Content/gravytrainBanner.jpg";
-            //db.homeInfos.Add(firstHomeInfo);
-
             var HomeInf = db.homeInfos.Select(h => h).FirstOrDefault();
             HomeInf.Announcement = Announcement;
             db.SaveChanges();
@@ -296,8 +354,9 @@ namespace TuesdayKetchup.Controllers
             return RedirectToAction("AddAnnouncement");
         }
 
-        public ActionResult FileUpload(HttpPostedFileBase file)
+        public ActionResult EditBanner()
         {
+
          if (User.IsInRole("Admin"))
                     {
                         if (file != null)
@@ -316,7 +375,60 @@ namespace TuesdayKetchup.Controllers
             }
 
 
+
+            var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
+            ViewBag.Picture1 = myHome.SliderPic1;
+            ViewBag.Picture2 = myHome.SliderPic2;
+            ViewBag.Picture3 = myHome.SliderPic3;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditBanner1(HomeInfo info, HttpPostedFileBase file1)
+        {
+            var homePage = db.homeInfos.Select(h => h).FirstOrDefault();
+            if (file1 != null)
+            {
+                string pic = System.IO.Path.GetFileName(file1.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file1.SaveAs(path);
+                homePage.SliderPic1 = "/Content/" + pic;
+            }
+            db.SaveChanges();
+            return RedirectToAction("EditBanner");
+
+        }
+        [HttpPost]
+        public ActionResult EditBanner2(HomeInfo info, HttpPostedFileBase file2)
+        {
+            var homePage = db.homeInfos.Select(h => h).FirstOrDefault();
+            if (file2 != null)
+            {
+                string pic = System.IO.Path.GetFileName(file2.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file2.SaveAs(path);
+                homePage.SliderPic2 = "/Content/" + pic;
+            }
+            db.SaveChanges();
+            return RedirectToAction("EditBanner");
+
+        }
+        [HttpPost]
+        public ActionResult EditBanner3(HomeInfo info, HttpPostedFileBase file3)
+        {
+            var homePage = db.homeInfos.Select(h => h).FirstOrDefault();
+            if (file3 != null)
+            {
+                string pic = System.IO.Path.GetFileName(file3.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file3.SaveAs(path);
+                homePage.SliderPic3 = "/Content/" + pic;
+            }
+            db.SaveChanges();
+            return RedirectToAction("EditBanner");
         }
     }
-
 }
+    
