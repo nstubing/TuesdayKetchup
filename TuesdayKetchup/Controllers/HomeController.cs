@@ -55,8 +55,22 @@ namespace TuesdayKetchup.Controllers
             showVM.episodes = previousShows;
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
+
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == EpisodeId).ToList();
+            int ratingSum = 0;
+            if (ratings.Count > 0)
+            {
+                foreach (Rating rating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                showVM.episodeVM.rating = ratingSum / ratings.Count;
+            }
+
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
             showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            string userId = User.Identity.GetUserId();
+            showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
             return View(showVM);
         }
 
@@ -90,7 +104,8 @@ namespace TuesdayKetchup.Controllers
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
             episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
-
+            string userId = User.Identity.GetUserId();
+            episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId ==id).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
             List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == id).ToList();
             if (ratings.Count > 0)
             {
@@ -117,7 +132,7 @@ namespace TuesdayKetchup.Controllers
         public ActionResult AddRating(string userId, int episodeId, int score)
         {
             Rating rating = new Rating() { UserId = userId, EpisodeId = episodeId, Score = score };
-            Rating existingRating = context.Ratings.Where(r => r.UserId == userId).FirstOrDefault();
+            Rating existingRating = context.Ratings.Where(r => r.EpisodeId == episodeId).Where(r => r.UserId == userId).FirstOrDefault();
             if (existingRating != null)
             {
                 context.Ratings.Remove(existingRating);
