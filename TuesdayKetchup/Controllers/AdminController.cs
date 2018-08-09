@@ -22,38 +22,89 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult ManageHome()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
         public ActionResult TextAlert()
         {
-            var ShowNames = db.shows.Select(s => s.Title);
-            ViewBag.ShowNames = ShowNames;
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                var ShowNames = db.shows.Select(s => s.Title);
+                ViewBag.ShowNames = ShowNames;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
+
         public ActionResult ListEpisodes()
         {
-            ViewBag.Message = TempData["Message"];
-            var episodes = db.episodes.Select(u => u).Include(u => u.Show);
-            return View(episodes);
+            if(User.IsInRole("Admin"))
+            {
+                ViewBag.Message = TempData["Message"];
+                var episodes = db.episodes.Select(u => u).Include(u => u.Show);
+                return View(episodes);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+           
+            
+           
+
         }
         public ActionResult DeleteEpisode(int id)
         {
-            var thisEp = db.episodes.FirstOrDefault(e => e.Id == id);
-            return View(thisEp);
+            if (User.IsInRole("Admin"))
+            {
+                var thisEp = db.episodes.FirstOrDefault(e => e.Id == id);
+                return View(thisEp);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
         [HttpPost]
         public ActionResult DeleteEpisode(Episode episode)
         {
-            var thisEp = db.episodes.FirstOrDefault(e => e.Id == episode.Id);
-            db.episodes.Remove(thisEp);
-            db.SaveChanges();
-            TempData["Message"] = "The episode titled " + thisEp.Title + " has been deleted.";
-            return RedirectToAction("ListEpisodes");
+            if (User.IsInRole("Admin"))
+            {
+                var thisEp = db.episodes.FirstOrDefault(e => e.Id == episode.Id);
+                db.episodes.Remove(thisEp);
+                db.SaveChanges();
+                TempData["Message"] = "The episode titled " + thisEp.Title + " has been deleted.";
+                return RedirectToAction("ListEpisodes");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
         public ActionResult DeleteShow(int id)
         {
-            var thisShow = db.shows.FirstOrDefault(s => s.Id == id);
-            return View(thisShow);
+            if (User.IsInRole("Admin"))
+            {
+                var thisShow = db.shows.FirstOrDefault(s => s.Id == id);
+                return View(thisShow);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
         [HttpPost]
         public ActionResult DeleteShow(Show show)
@@ -95,8 +146,16 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult TextSent()
         {
-            ViewBag.ShowName = TempData["ShowName"].ToString();
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ShowName = TempData["ShowName"].ToString();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public ActionResult TextIndex()
@@ -158,32 +217,54 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult AddEpisode()
         {
-            ViewBag.Message = TempData["saved"];
-            var ShowNames = db.shows.Select(s => s.Title);
-            ViewBag.ShowNames = ShowNames;
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Message = TempData["saved"];
+                var ShowNames = db.shows.Select(s => s.Title);
+                ViewBag.ShowNames = ShowNames;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult AddEpisode(Episode episode, string ShowName)
         {
-            var thisShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
-            Episode thisEpisode = new Episode();
-            thisEpisode.Title = episode.Title;
-            thisEpisode.Details = episode.Details;
-            thisEpisode.SoundCloudLink = episode.SoundCloudLink;
-            thisEpisode.ShowId = thisShowId;
-            db.episodes.Add(thisEpisode);
-            db.SaveChanges();
-            TempData["saved"] = "Episode saved succesfully";
-            return RedirectToAction("AddEpisode");
+            if (User.IsInRole("Admin"))
+            {
+                var thisShowId = db.shows.FirstOrDefault(s => s.Title == ShowName).Id;
+                Episode thisEpisode = new Episode();
+                thisEpisode.Title = episode.Title;
+                thisEpisode.Details = episode.Details;
+                thisEpisode.SoundCloudLink = episode.SoundCloudLink;
+                thisEpisode.ShowId = thisShowId;
+                db.episodes.Add(thisEpisode);
+                db.SaveChanges();
+                TempData["saved"] = "Episode saved succesfully";
+                return RedirectToAction("AddEpisode");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public ActionResult EditEpisode(int id)
         {
-            var Episode = db.episodes.FirstOrDefault(e => e.Id == id);
-            var ShowNames = db.shows.Select(s => s.Title);
-            ViewBag.ShowNames = ShowNames;
-            return View(Episode);
+            if (User.IsInRole("Admin"))
+            {
+                var Episode = db.episodes.FirstOrDefault(e => e.Id == id);
+                var ShowNames = db.shows.Select(s => s.Title);
+                ViewBag.ShowNames = ShowNames;
+                return View(Episode);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult EditEpisode(Episode episode, string ShowName)
@@ -202,14 +283,28 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult ListShows()
         {
-            ViewBag.Message = TempData["Message"];
-            var shows = db.shows.Select(s => s);
-            return View(shows);
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Message = TempData["Message"];
+                var shows = db.shows.Select(s => s);
+                return View(shows);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult EditShow(int id)
         {
-            var show = db.shows.FirstOrDefault(s => s.Id == id);
-            return View(show);
+            if (User.IsInRole("Admin"))
+            {
+                var show = db.shows.FirstOrDefault(s => s.Id == id);
+                return View(show);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult EditShow(Show show, HttpPostedFileBase file)
@@ -236,8 +331,15 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult AddAnnouncement()
         {
-            ViewBag.Message = TempData["Message"];
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Message = TempData["Message"];
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult AddAnnouncement(string Announcement)
@@ -251,11 +353,27 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult EditBanner()
         {
-            var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
-            ViewBag.Picture1 = myHome.SliderPic1;
-            ViewBag.Picture2 = myHome.SliderPic2;
-            ViewBag.Picture3 = myHome.SliderPic3;
-            return View();
+
+         if (User.IsInRole("Admin"))
+                    {
+                        
+                        
+                    var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
+                    ViewBag.Picture1 = myHome.SliderPic1;
+                    ViewBag.Picture2 = myHome.SliderPic2;
+                    ViewBag.Picture3 = myHome.SliderPic3;
+                    return View();
+                                        // after successfully uploading redirect the user
+                        
+                    }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+
+           
         }
         [HttpPost]
         public ActionResult EditBanner1(HomeInfo info, HttpPostedFileBase file1)
@@ -271,6 +389,7 @@ namespace TuesdayKetchup.Controllers
             }
             db.SaveChanges();
             return RedirectToAction("EditBanner");
+
         }
         [HttpPost]
         public ActionResult EditBanner2(HomeInfo info, HttpPostedFileBase file2)
