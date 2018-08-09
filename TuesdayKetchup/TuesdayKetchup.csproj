@@ -358,6 +358,8 @@
     <Content Include="Views\Home\FlagComment.cshtml" />
     <Content Include="Views\Shared\_PatreonBannerPartial.cshtml" />
     <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
+    <Content Include="Views\Calendar\EditEvent.cshtml" />
+    <Content Include="Views\Calendar\DeleteEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

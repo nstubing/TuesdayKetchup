@@ -13,7 +13,7 @@ namespace TuesdayKetchup.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808081924222_newmig"; }
+            get { return "201808091251080_newmig"; }
         }
         
         string IMigrationMetadata.Source

@@ -40,6 +40,7 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult EventList()
         {
+            ViewBag.Message = TempData["Message"];
             var Events = db.events.Select(e => e);
             return View(Events);
         }
@@ -78,6 +79,7 @@ namespace TuesdayKetchup.Controllers
                 return HttpNotFound();
             }
             var eventToMap = db.events.Find(eventFound.Id);
+            ViewBag.Image = eventFound.Image;
             ViewBag.Address = eventFound.StreetAddress;
             ViewBag.City = eventFound.City;
             ViewBag.State = eventFound.State;
@@ -85,6 +87,49 @@ namespace TuesdayKetchup.Controllers
             ViewBag.APIKey = MyKeys.GOOGLEAPIKEY;
             return View(eventFound);
         }
-
+        public ActionResult EditEvent(int id)
+        {
+            var myEvent = db.events.FirstOrDefault(e => e.Id == id);
+            return View(myEvent);
+        }
+        [HttpPost]
+        public ActionResult EditEvent(Event thisEvent, HttpPostedFileBase file)
+        {
+            var myEvent = db.events.FirstOrDefault(e => e.Id == thisEvent.Id);
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file.SaveAs(path);
+                myEvent.Image = "/Content/" + pic;
+            }
+            myEvent.Subject = thisEvent.Subject;
+            myEvent.Description = thisEvent.Description;
+            myEvent.Start = thisEvent.Start;
+            myEvent.EventTime = thisEvent.EventTime;
+            myEvent.Details = thisEvent.Details;
+            myEvent.City = thisEvent.City;
+            myEvent.StreetAddress = thisEvent.StreetAddress;
+            myEvent.State = thisEvent.State;
+            myEvent.Zipcode = thisEvent.Zipcode;
+            ViewBag.Message = "Changes have been saved successful.";
+            db.SaveChanges();
+            return View();
+        }
+        public ActionResult DeleteEvent(int id)
+        {
+            var thisEvent = db.events.FirstOrDefault(e => e.Id == id);
+            return View(thisEvent);
+        }
+        [HttpPost]
+        public ActionResult DeleteEvent(Event thisEvent)
+        {
+            var deleteEvent = db.events.FirstOrDefault(e => e.Id == thisEvent.Id);
+            db.events.Remove(deleteEvent);
+            db.SaveChanges();
+            TempData["Message"] = "Your event has been deleted.";
+            return RedirectToAction("EventList");
+        }
     }
 }
