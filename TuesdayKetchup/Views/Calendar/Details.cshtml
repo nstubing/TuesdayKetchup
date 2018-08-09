@@ -5,7 +5,7 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-md-6">
             <h2>Event</h2>
             <h4>Details</h4>
             <hr />
@@ -44,7 +44,7 @@
                     @Html.DisplayNameFor(model => model.Image)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Image)
+                    <img src=@ViewBag.Image style="width:60%;">
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.StreetAddress)

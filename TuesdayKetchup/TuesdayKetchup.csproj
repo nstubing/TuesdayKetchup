@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081924222_newmig.cs" />
-    <Compile Include="Migrations\201808081924222_newmig.Designer.cs">
-      <DependentUpon>201808081924222_newmig.cs</DependentUpon>
+    <Compile Include="Migrations\201808091251080_newmig.cs" />
+    <Compile Include="Migrations\201808091251080_newmig.Designer.cs">
+      <DependentUpon>201808091251080_newmig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -355,10 +355,11 @@
     <Content Include="Views\Admin\DeleteShow.cshtml" />
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
     <Content Include="Views\Home\UpdatePhoneNumber.cshtml" />
+    <Content Include="Views\Calendar\EditEvent.cshtml" />
+    <Content Include="Views\Calendar\DeleteEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ratings\" />
     <Folder Include="Views\Rating\" />
   </ItemGroup>
   <ItemGroup>
@@ -375,10 +376,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-
-    <EmbeddedResource Include="Migrations\201808081924222_newmig.resx">
-      <DependentUpon>201808081924222_newmig.cs</DependentUpon>
-
+    <EmbeddedResource Include="Migrations\201808091251080_newmig.resx">
+      <DependentUpon>201808091251080_newmig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
