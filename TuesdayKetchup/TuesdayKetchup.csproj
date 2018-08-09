@@ -217,9 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081405262_Jahneke22.cs" />
-    <Compile Include="Migrations\201808081405262_Jahneke22.Designer.cs">
-      <DependentUpon>201808081405262_Jahneke22.cs</DependentUpon>
+    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.cs" />
+    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.Designer.cs">
+      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -358,7 +358,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ratings\" />
     <Folder Include="Views\Rating\" />
   </ItemGroup>
   <ItemGroup>
@@ -375,8 +374,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808081405262_Jahneke22.resx">
-      <DependentUpon>201808081405262_Jahneke22.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.resx">
+      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

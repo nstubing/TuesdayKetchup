@@ -27,7 +27,7 @@ namespace TuesdayKetchup.Controllers
             var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
             var ShowIdTwo = Show.Id;
             var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
-            if(KetchupEpisode !=null)
+            if (KetchupEpisode != null)
             {
                 ViewBag.TuesdayKetchupEp = KetchupEpisode;
             }
@@ -35,7 +35,7 @@ namespace TuesdayKetchup.Controllers
             {
                 ViewBag.NickNightEp = NickEpisode;
             }
-            if (Announce !=null)
+            if (Announce != null)
             {
                 ViewBag.Announcement = Announce.Announcement;
             }
