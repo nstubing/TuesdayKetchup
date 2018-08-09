@@ -359,9 +359,18 @@ namespace TuesdayKetchup.Controllers
                         
                         
                     var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
+                if (myHome != null)
+                {
                     ViewBag.Picture1 = myHome.SliderPic1;
                     ViewBag.Picture2 = myHome.SliderPic2;
                     ViewBag.Picture3 = myHome.SliderPic3;
+                }
+                else
+                {
+                    HomeInfo myHomeNew = new HomeInfo();
+                    db.homeInfos.Add(myHomeNew);
+                    db.SaveChanges();
+                }
                     return View();
                                         // after successfully uploading redirect the user
                         
