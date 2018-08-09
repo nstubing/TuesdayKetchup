@@ -6,7 +6,14 @@
 
 </head>
 <h2>Index</h2>
-<div id="calender"></div>
+<div id="calender" 
+    style=
+     "color:ghostwhite; text-shadow:-0.5px -0.5px 0 #000,  
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+     0.5px 0.5px 0 #000; ">
+
+</div>
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -69,7 +76,7 @@
                         right: 'month,basicWeek,basicDay,agenda'
                     },
                     eventLimit: true,
-                    eventColor: '#378006',
+                    eventColor: '#1a1a1a',
                     events: events,
                     editable: true,
                     eventClick: function (calEvent) {
@@ -78,7 +85,7 @@
                     },
                     eventMouseover: function (data, event, view) {
 
-                        tooltip = '<div class="tooltiptopicevent" style="width:auto;height:auto;background:#feb811;position:absolute;z-index:10001;padding:10px 10px 10px 10px ;  line-height: 200%;">' + 'Click for details and map!';
+                        tooltip = '<div class="tooltiptopicevent" style="width:auto;height:auto;background:#1a1a1a;position:absolute;z-index:10001;padding:10px 10px 10px 10px ; color:aliceblue; line-height: 200%;">' + 'Click for details and map!';
 
 
                         $("body").append(tooltip);
