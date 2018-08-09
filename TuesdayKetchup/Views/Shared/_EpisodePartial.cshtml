@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label">
                     Your rating <span style="font-weight:normal;">(1 start is bad, 5 star is good)</span>
-
+                </label>
 
     <div id="new-rating-box">
         @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form", onload = "CRateSelected()" }))
@@ -94,10 +94,10 @@
             @Html.Hidden("EpisodeId", Model.episode.Id)
             @Html.Hidden("Rating")
             <p><input type="submit" value="Post" /></p>
-
+        }
                     </div>
                 </div>
-            </div>
+           
             <div>
                 <input type="submit" value="Rate" />
             </div>

@@ -1,9 +1,6 @@
 ﻿<style>
 
-    .loginLinks {
-        color: darkgray
-        padding-right: .7em;
-    }
+
 </style>
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
@@ -13,8 +10,9 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li style="color:white;">
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <li>
+                <a href="@Url.Action( "Index", "Manage")" style="color:white; padding-right: 20px;"> Account Settings 
+                   </a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()" style="color:white">Log off</a></li>
         </ul>
@@ -23,7 +21,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li class="loginLinks"><a href="@Url.Action("Register", "Account")" style="color:white;">Register</a></li>
+        <li class="loginLinks" style="padding-right: 20px;"><a href="@Url.Action("Register", "Account")" style="color:white;">Register</a></li>
         <li class="loginLinks"><a href="@Url.Action("Login", "Account")" style="color:white;">Log in</a></li>
     </ul>
 }

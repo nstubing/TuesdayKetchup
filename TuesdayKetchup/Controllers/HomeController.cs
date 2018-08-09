@@ -23,17 +23,18 @@ namespace TuesdayKetchup.Controllers
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
             var ShowId = Show.Id;
-            var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
+
+            var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).ToList(); ;
             var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
             var ShowIdTwo = Show.Id;
-            var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
-            if (KetchupEpisode != null)
+            var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).ToList(); ;
+            if (KetchupEpisode.Count > 0)
             {
-                ViewBag.TuesdayKetchupEp = KetchupEpisode;
+                ViewBag.TuesdayKetchupEp = KetchupEpisode[0];
             }
-            if (NickEpisode != null)
+            if (NickEpisode.Count > 0)
             {
-                ViewBag.NickNightEp = NickEpisode;
+                ViewBag.NickNightEp = NickEpisode[0];
             }
             if (Announce != null)
             {
