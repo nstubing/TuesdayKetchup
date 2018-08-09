@@ -115,7 +115,7 @@
 
 
     <div class="card border-secondary mb-3" style="width:100%; height:20em; overflow:auto;">
-        <div class="card-header"><h5>COMMENTS</h5></div>
+        <div class="card-header sticky-top" style="z-index:1; background-color:gold;"><h5>COMMENTS</h5></div>
         <div class="card-body">
             @if (User.Identity.IsAuthenticated)
             {
@@ -124,15 +124,17 @@
                 {
 
                     <div class="row" style="padding-top:2em;">
-                        <div class="col-md-6" style="text-align:center;">
-                            @Html.TextArea("CommentString")
+                        <div class="col-md-10" style="text-align:center;">
+                            @Html.TextArea("CommentString", htmlAttributes: new { style = "width:100%;max-width:100%;", @col = "100" })
                         </div>
-                        <div class="col-md-6" style="text-align:left; padding-top:.7em;">
+                        <div class="col-md-2" style="text-align:left; padding-top:.7em;">
                             <div>
                                 <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
                             </div>
                         </div>
                     </div>
+                    @Html.Hidden("userId", @User.Identity.GetUserId())
+                    @Html.Hidden("episodeId", Model.episode.Id)
                 }
             </div>
             }
