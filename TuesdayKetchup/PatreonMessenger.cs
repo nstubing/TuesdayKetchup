@@ -8,29 +8,29 @@ using System.Web;
 
 namespace TuesdayKetchup
 {
-    public class PatreonMessenger
+    public static class PatreonMessenger
     {
-        private string url;
-        private string accessToken;
+        private static string url;
+        private static string accessToken;
         
-        public PatreonMessenger()
+        static PatreonMessenger()
         {
             url = "https://www.patreon.com/api/oauth2/api/campaigns/1719233/pledges?include=patron.null";
             accessToken = "Bearer " + MyKeys.PatreonAccessToken;
         }
 
-        private async Task<JObject> GetPledgeJSONAsync()
+        private static async Task<JObject> GetPledgeJSONAsync()
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", accessToken);
-            HttpResponseMessage response =await client.GetAsync(url);
+            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             JObject json = JObject.Parse(responseBody);
             return json;
         }
 
-        public List<string> GetPatrons()
+        public static List<string> GetPatrons()
         {
             JObject json = GetPledgeJSONAsync().Result;
 

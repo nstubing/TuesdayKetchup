@@ -7,13 +7,13 @@ namespace TuesdayKetchup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class RatingsAreDonePostMerge : IMigrationMetadata
+    public sealed partial class BannerDone : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RatingsAreDonePostMerge));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BannerDone));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808091333582_RatingsAreDone-PostMerge"; }
+            get { return "201808091340345_BannerDone"; }
         }
         
         string IMigrationMetadata.Source

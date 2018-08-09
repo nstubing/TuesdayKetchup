@@ -17,6 +17,8 @@ namespace TuesdayKetchup
         {
             ConfigureAuth(app);
             CreateRolesandUsers();
+            //PatreonMessenger patreon = new PatreonMessenger();
+            //patreon.GetPatrons();
             //SeedPods();
 
         }

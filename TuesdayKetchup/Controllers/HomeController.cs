@@ -123,8 +123,11 @@ namespace TuesdayKetchup.Controllers
 
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
             showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            
             string userId = User.Identity.GetUserId();
             showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+
+            ViewBag.PatreonSupporters = PatreonMessenger.GetPatrons();
             return View(showVM);
         }
 
