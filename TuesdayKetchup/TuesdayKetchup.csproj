@@ -360,6 +360,7 @@
     <Content Include="Views\Admin\DeleteShow.cshtml" />
     <Content Include="Views\Admin\AddAnnouncement.cshtml" />
     <Content Include="Views\Home\FlagComment.cshtml" />
+    <Content Include="Views\Shared\_PatreonBannerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

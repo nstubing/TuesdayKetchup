@@ -12,6 +12,10 @@
 
 <h2>Tuesday</h2>
 
+<div>
+    @{ Html.RenderPartial("_PatreonBannerPartial");}
+</div>
+
 <div class="col-md-6">
     <img src=@ViewBag.Img style="border-color:#343a40; border-style:solid; border-width:1em; width:100%;" />
     <p style="color:white; border-color:#343a40; border-style:solid; border-width:1em; background-color:#343a40">@ViewBag.ShowDetails</p>
@@ -21,6 +25,7 @@
 
 <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+
 
 <div id="episode-section">
     @{Html.RenderPartial("_EpisodePartial", @Model.episodeVM);}
@@ -70,7 +75,7 @@
         <div class="card-body">
             <h4 class="card-title">Episodes</h4>
             <ul>
-                @foreach(Episode episode in Model.episodes)
+                @foreach (Episode episode in Model.episodes)
                 {
                     <li>
                         @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
