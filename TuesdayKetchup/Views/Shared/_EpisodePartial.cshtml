@@ -60,7 +60,12 @@
     }
 </div>
 
-<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) style="width:100%; padding-top:1em;" scrolling="no" frameborder="0"></iframe>
+<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) style="width:100%; padding-top:1em; border-bottom:solid " scrolling="no" frameborder="0"></iframe>
+<div class="card border-secondary mb-3" style="width:100%; max-height:250px; overflow:auto;">
+    <div class="card-body">
+        <p class="card-text">@Model.episode.Details</p>
+    </div>
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -97,55 +102,54 @@
     </div>
 }
 
-<div class="card border-secondary mb-3" style="width:100%; max-height:250px; overflow:auto;">
-    <div class="card-body">
-        <p class="card-text">@Model.episode.Details</p>
-    </div>
-</div>
-
-
-@if (User.Identity.IsAuthenticated)
-{
-    <div id="new-comment-box">
-        @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
-        {
-
-            @Html.TextArea("CommentString")
-            @Html.Hidden("UserId", User.Identity.GetUserId())
-            @Html.Hidden("EpisodeId", Model.episode.Id)
-
-            <div>
-                <input type="submit" value="Post" />
-            </div>
-        }
-    </div>
-}
 
 
 
-<h5>Comments</h5>
 
-<div>
-    @foreach (Comment comment in Model.comments)
-    {
-        <div>
-            @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
-        </div>
-        <div>
-            <font color="black">
-                @Html.DisplayFor(modelItem => comment.Message)
-            </font>
-        </div>
-        <div>
-            @if (User.IsInRole("Fan"))
+
+    <div class="card border-secondary mb-3" style="width:100%; height:20em; overflow:auto;">
+        <div class="card-header"><h5>COMMENTS</h5></div>
+        <div class="card-body">
+            @if (User.Identity.IsAuthenticated)
             {
-                <div>
-                    @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
+                <div id="new-comment-box">
+                    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
+                    {
+
+                        @Html.TextArea("CommentString")
+                        @Html.Hidden("UserId", User.Identity.GetUserId())
+                        @Html.Hidden("EpisodeId", Model.episode.Id)
+
+                        <div>
+                            <input type="submit" value="Post" />
+                        </div>
+                    }
                 </div>
             }
+            @foreach (Comment comment in Model.comments)
+            {
+                <div>
+                    @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
+                </div>
+                <div>
+                    <font color="black">
+                        @Html.DisplayFor(modelItem => comment.Message)
+                    </font>
+                </div>
+                <div>
+                    @if (User.IsInRole("Fan"))
+                    {
+                        <div>
+                            @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
+                        </div>
+                    }
+                </div>
+                <hr />
+            }
+
         </div>
-    }
-</div>
+    </div>
+
 
 
 
