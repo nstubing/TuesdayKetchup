@@ -21,16 +21,8 @@ namespace TuesdayKetchup.Controllers
         {
             var events = db.events.ToList();
             ViewBag.Events = events;
-            var startDates =
-                (from u in db.events
-                 where u.Start != null
-                 select u.Start).First();
-            ViewBag.StartDates = startDates;
-            var details =
-                (from u in db.events
-                 where u.Subject != null
-                 select u.Subject).First();
-            ViewBag.Details = details;
+            
+           
 
             return View();
         }
@@ -58,7 +50,7 @@ namespace TuesdayKetchup.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateEvent([Bind(Include = "Start, End, Description, Subject, Details, Image, StreetAddress, City, State, Zipcode")]Event eventEntered)
+        public ActionResult CreateEvent([Bind(Include = "Start, End, Description, EventTime, Subject, Details, Image, StreetAddress, City, State, Zipcode")]Event eventEntered)
         {
             try
             {
