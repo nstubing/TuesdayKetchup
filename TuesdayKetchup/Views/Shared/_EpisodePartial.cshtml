@@ -13,64 +13,44 @@
     }
 
     .starFade {
-
         background-image: url('https://i.imgur.com/NPoumic.png');
-        background-color: blue;
         min-width: 30px;
         min-height: 30px;
-
         content: url(https://i.imgur.com/NPoumic.png);
         width: 40px;
         height: 40px;
-        
-
         display: inline-block;
         cursor: pointer;
     }
 
     .starFadeN {
-
         background-image: url('https://i.imgur.com/NPoumic.png');
-        background-color: blue;
         min-width: 30px;
         min-height: 30px;
-
         content: url(https://i.imgur.com/NPoumic.png);
         width: 40px;
         height: 40px;
-       
-
     }
 
     .starGlow {
-
         background-image: url('https://i.imgur.com/cAYEnBR.png');
-        background-color: gold;
         min-width: 30px;
         min-height: 30px;
-
         content: url(https://i.imgur.com/cAYEnBR.png);
         width: 40px;
         height: 40px;
-        
-
         display: inline-block;
         cursor: pointer;
     }
 
     .starGlowN {
-
         background-image: url('https://i.imgur.com/cAYEnBR.png');
-        background-color: gold;
         min-width: 30px;
-
         content: url(https://i.imgur.com/cAYEnBR.png);
         width: 40px;
         height: 40px;
-
         display: inline-block;
     }
-
 </style>
 
 <div class="col-md-4">
@@ -85,79 +65,90 @@
 @if (User.Identity.IsAuthenticated)
 {
 
-<div id="new-rating-box">
-    @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form", onload = "CRateSelected()" }))
-    {
-        <div class="form-group">
-            <label class="col-md-4 control-label">
-                Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
-            </label>
-            <div class="col-md-7">
-                <div onmouseout="CRateSelected()">
-                    <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+    <div id="new-rating-box">
+        @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form", onload = "CRateSelected()" }))
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">
+                    Your rating <span style="font-weight:normal;">(1 star is bad, 5 star is good)</span>
+                </label>
+                <div class="col-md-7">
+                    <div onmouseout="CRateSelected()">
+                        <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <input type="submit" value="Rate" />
-        </div>
-        @Html.Hidden("userId", @User.Identity.GetUserId())
-        @Html.Hidden("episodeId", Model.episode.Id)
+            <div>
+                <input type="submit" value="Rate" />
+            </div>
+            @Html.Hidden("userId", @User.Identity.GetUserId())
+            @Html.Hidden("episodeId", Model.episode.Id)
 
-        if (Model.currentUserRating != null)
-        {
-            @Html.Hidden("score", Model.currentUserRating)
-            <span ></span>
+            if (Model.currentUserRating != null)
+            {
+                @Html.Hidden("score", Model.currentUserRating)
+                <span></span>
+            }
+            else
+            {
+                @Html.Hidden("score")
+            }
         }
-        else
-        {
-            @Html.Hidden("score")
-        }
-    }
-</div>
+    </div>
 }
+
+<div class="col-md-5">
+        <div class="card border-secondary mb-3" style="width:100%; max-height:250px;">
+            <div class="card-header">Episode Details</div>
+            <div class="card-body">
+                <p class="card-text">@Model.episode.Details</p>
+            </div>
+        </div>
+    </div>
+
 
 @if (User.Identity.IsAuthenticated)
 {
-<div id="new-comment-box">
-    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
-    {
-        
-        @Html.TextArea("CommentString")
-        @Html.Hidden("UserId", User.Identity.GetUserId())
-        @Html.Hidden("EpisodeId", Model.episode.Id)
-        
-    <div>
-        <input type="submit" value="Post" />
+    <div id="new-comment-box">
+        @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
+        {
+
+            @Html.TextArea("CommentString")
+            @Html.Hidden("UserId", User.Identity.GetUserId())
+            @Html.Hidden("EpisodeId", Model.episode.Id)
+
+            <div>
+                <input type="submit" value="Post" />
+            </div>
+        }
     </div>
-    }
-</div>
 }
 
 
 
 <h5>Comments</h5>
-<table class="table">
-        @foreach (Comment comment in Model.comments)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => comment.Message)
-            </td>
 
+<div>
+    @foreach (Comment comment in Model.comments)
+    {
+        <div>
+            @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
+        </div>
+        <div>
+           <font color="black">
+               @Html.DisplayFor(modelItem => comment.Message)
+           </font>
+        </div>
+        <div>
             @if (User.IsInRole("Fan"))
             {
-                <td>
-                    @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id})
-                </td>
+                <div>
+                    @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
+                </div>
             }
-        </tr>
-         }
-
-</table>
+        </div>
+    }
+    </div>
 
 
 
@@ -170,7 +161,7 @@
         function () {
             CRateSelected();
         });
-        
+
 </script>
 <script type="text/javascript">
     (function () {
@@ -198,7 +189,7 @@
             $("#sRate" + i).attr('class', 'starGlowN');
         }
     }
-    $(function(){
+    $(function () {
         SCRate();
     });
 </script>
