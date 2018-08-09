@@ -4,24 +4,23 @@
     ViewBag.Title = "CreatePost";
 }
 
-<h2>CreatePost</h2>
+<h2>Create Post</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Post</h4>
+    <div class="form-horizontal" style="width:100%; max-width:100%;">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
         @Html.HiddenFor(model => model.ThreadId)
         
-        <div class="form-group">
+        <div class="form-group" style="width:100%; max-width:100%;">
             @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="width:100%">
-                @Html.TextAreaFor(model => model.Message, 8, 100, new { htmlAttributes = new { style = "width:100%; max-width: 100%;" } })
+            <div class="col-md-10" style="width:100%; max-width:100%;">
+                @Html.TextAreaFor(model => model.Message, 4, 100, new { @class = "form-control", style = "width: 50%; max-width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
             </div>
         </div>
