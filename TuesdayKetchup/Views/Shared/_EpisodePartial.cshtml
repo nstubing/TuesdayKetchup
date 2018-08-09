@@ -127,27 +127,28 @@
 
 
 <h5>Comments</h5>
-<table class="table">
+
+<div>
     @foreach (Comment comment in Model.comments)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => comment.Message)
-            </td>
-
+        <div>
+            @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
+        </div>
+        <div>
+           <font color="black">
+               @Html.DisplayFor(modelItem => comment.Message)
+           </font>
+        </div>
+        <div>
             @if (User.IsInRole("Fan"))
             {
-                <td>
+                <div>
                     @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
-                </td>
+                </div>
             }
-        </tr>
+        </div>
     }
-
-</table>
+    </div>
 
 
 
