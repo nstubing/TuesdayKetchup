@@ -48,7 +48,6 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult ListEpisodes()
         {
-
             if(User.IsInRole("Admin"))
             {
                 ViewBag.Message = TempData["Message"];
@@ -60,10 +59,8 @@ namespace TuesdayKetchup.Controllers
                 return RedirectToAction("Index", "Home");
             }
            
-
-            ViewBag.Message = TempData["Message"];
-            var episodes = db.episodes.Select(u => u).Include(u => u.Show);
-            return View(episodes);
+            
+           
 
         }
         public ActionResult DeleteEpisode(int id)
@@ -359,15 +356,15 @@ namespace TuesdayKetchup.Controllers
 
          if (User.IsInRole("Admin"))
                     {
-                        if (file != null)
-                        {
-                            string pic = System.IO.Path.GetFileName(file.FileName);
-                            string path = System.IO.Path.Combine(
-                                                   Server.MapPath("~/Content"), pic);
-                            file.SaveAs(path);
-                        }
-                        // after successfully uploading redirect the user
-                        return RedirectToAction("actionname", "controller name");
+                        
+                        
+                    var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
+                    ViewBag.Picture1 = myHome.SliderPic1;
+                    ViewBag.Picture2 = myHome.SliderPic2;
+                    ViewBag.Picture3 = myHome.SliderPic3;
+                    return View();
+                                        // after successfully uploading redirect the user
+                        
                     }
             else
             {
@@ -376,11 +373,7 @@ namespace TuesdayKetchup.Controllers
 
 
 
-            var myHome = db.homeInfos.Select(h => h).FirstOrDefault();
-            ViewBag.Picture1 = myHome.SliderPic1;
-            ViewBag.Picture2 = myHome.SliderPic2;
-            ViewBag.Picture3 = myHome.SliderPic3;
-            return View();
+           
         }
         [HttpPost]
         public ActionResult EditBanner1(HomeInfo info, HttpPostedFileBase file1)
