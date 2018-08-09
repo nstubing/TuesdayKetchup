@@ -217,25 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081659490_CommentRating.cs" />
-    <Compile Include="Migrations\201808081659490_CommentRating.Designer.cs">
-      <DependentUpon>201808081659490_CommentRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808081834302_RatingsTable.cs" />
-    <Compile Include="Migrations\201808081834302_RatingsTable.Designer.cs">
-      <DependentUpon>201808081834302_RatingsTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808081901368_Rate.ScoreDataType.cs" />
-    <Compile Include="Migrations\201808081901368_Rate.ScoreDataType.Designer.cs">
-      <DependentUpon>201808081901368_Rate.ScoreDataType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808081954364_DetachRatingsFromComments.cs" />
-    <Compile Include="Migrations\201808081954364_DetachRatingsFromComments.Designer.cs">
-      <DependentUpon>201808081954364_DetachRatingsFromComments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.cs" />
-    <Compile Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.Designer.cs">
-      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
+    <Compile Include="Migrations\201808091333582_RatingsAreDone-PostMerge.cs" />
+    <Compile Include="Migrations\201808091333582_RatingsAreDone-PostMerge.Designer.cs">
+      <DependentUpon>201808091333582_RatingsAreDone-PostMerge.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -391,20 +375,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808081659490_CommentRating.resx">
-      <DependentUpon>201808081659490_CommentRating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081834302_RatingsTable.resx">
-      <DependentUpon>201808081834302_RatingsTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081901368_Rate.ScoreDataType.resx">
-      <DependentUpon>201808081901368_Rate.ScoreDataType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081954364_DetachRatingsFromComments.resx">
-      <DependentUpon>201808081954364_DetachRatingsFromComments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808082026563_JahnekeLateWednesdayAfternoon.resx">
-      <DependentUpon>201808082026563_JahnekeLateWednesdayAfternoon.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808091333582_RatingsAreDone-PostMerge.resx">
+      <DependentUpon>201808091333582_RatingsAreDone-PostMerge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
