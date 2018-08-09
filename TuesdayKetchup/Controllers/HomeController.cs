@@ -20,11 +20,17 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index(Episode episode)
         {
+            var HomeInfo = context.homeInfos.Select(h => h).FirstOrDefault();
+            ViewBag.Picture1 = HomeInfo.SliderPic1;
+            ViewBag.Picture2 = HomeInfo.SliderPic2;
+            ViewBag.Picture3 = HomeInfo.SliderPic3;
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
+            ViewBag.KetchupLogo = Show.Image;
             var ShowId = Show.Id;
             var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
             var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
+            ViewBag.NickLogo = ShowTwo.Image;
             var ShowIdTwo = Show.Id;
             var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).First();
             if (KetchupEpisode != null)
