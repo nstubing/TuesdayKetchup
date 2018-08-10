@@ -3,29 +3,33 @@
     ViewBag.Title = "ManageHome";
 }
 
-<h2>ManageHome</h2>
+<h2 style="padding-bottom:2em;">Manage</h2>
 
 <div>
     @Html.ActionLink("View Shows", "ListShows", "Admin")
 </div>
+<hr/>
 <div>
     @Html.ActionLink("Add An Episode", "AddEpisode", "Admin")
 </div>
 <div>
     @Html.ActionLink("View Episodes","ListEpisodes","Admin")
 </div>
+<hr/>
 <div>
     @Html.ActionLink("Add An Event", "CreateEvent", "Calendar")
 </div>
 <div>
     @Html.ActionLink("View Events", "EventList", "Calendar")
 </div>
+<hr/>
 <div>
     @Html.ActionLink("Add A HomePage Announcement", "AddAnnouncement", "Admin")
 </div>
 <div>
     @Html.ActionLink("Edit Homepage Banner Images","EditBanner","Admin")
 </div>
+<hr/>
 <div>
     @Html.ActionLink("Send Alert Text", "TextAlert", "Admin")
 </div>

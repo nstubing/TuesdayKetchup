@@ -19,16 +19,16 @@
             <div class="col-md-6" style="text-align:center;">
                 <a href="https://itunes.apple.com/us/podcast/the-tuesday-ketchup/id1398627480?mt=2" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/podcast-lrg.svg) no-repeat;width:100%;height:5em;background-size:contain;"></a>
             </div>
-            <div class="col-md-6" style="text-align:right;padding-top:.25em;">
+            <div class="col-md-6" style="text-align:right;">
                 @if (@ViewBag.SignedUp != null)
                 {
-                    <input type="submit" value="Already signed up for texts" class="btn btn-default text-center" style="width:100%; height:60px; text-align:left; border-radius:10px; border:1.17px solid #708090;" />
+                    <input type="submit" value="Already signed up for texts" class="btn btn-default text-center" style="width:100%; height:5.35em; text-align:center; border-radius:13px; border:.1em solid #708090; background-color:white;" />
                 }
                 else
                 {
                     using (Html.BeginForm("TextKetchup", "Home"))
                     {
-                        <input type="submit" value="Sign up for text alerts!" class="btn btn-default" style="width:90%;" />
+                        <input type="submit" value="Sign up for text alerts!" class="btn btn-default" style="width:100%; height:5.35em; text-align:center; border-radius:13px; border:.1em solid #708090; background-color:white;" />
                     }
                 }
             </div>

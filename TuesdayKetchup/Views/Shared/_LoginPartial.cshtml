@@ -11,7 +11,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="@Url.Action( "Index", "Manage")" style="color:white; padding-right: 20px;"> Account Settings 
+                <a href="@Url.Action( "Index", "Manage")" style="color:white; padding-right: 20px;">Welcome @User.Identity.GetUserName()!
                    </a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()" style="color:white">Log off</a></li>
