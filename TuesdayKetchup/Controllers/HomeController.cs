@@ -27,16 +27,17 @@ namespace TuesdayKetchup.Controllers
                 ViewBag.Picture2 = HomeInfo.SliderPic2;
                 ViewBag.Picture3 = HomeInfo.SliderPic3;
             }
+            var ReverseEpList = context.episodes.OrderByDescending(e => e.Id);
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
             ViewBag.KetchupLogo = Show.Image;
             var ShowId = Show.Id;
 
-            var KetchupEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).ToList(); ;
+            var KetchupEpisode = ReverseEpList.Where(e => e.ShowId == ShowId).ToList(); ;
             var ShowTwo = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
             ViewBag.NickLogo = ShowTwo.Image;
-            var ShowIdTwo = Show.Id;
-            var NickEpisode = context.episodes.OrderByDescending(e => e.ShowId == ShowId).ToList(); ;
+            var ShowIdTwo = ShowTwo.Id;
+            var NickEpisode = ReverseEpList.Where(e => e.ShowId == ShowIdTwo).ToList(); ;
             if (KetchupEpisode.Count > 0)
             {
                 ViewBag.TuesdayKetchupEp = KetchupEpisode[0];
@@ -98,7 +99,7 @@ namespace TuesdayKetchup.Controllers
             ShowViewModel showVM = new ShowViewModel();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
             var ShowId = Show.Id;
-            var Episodes = context.episodes.OrderByDescending(e => e.ShowId == ShowId);
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowId);
             //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
             //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
             //ViewBag.ShowUrl = showUrl;
@@ -164,7 +165,56 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult NickAtNight()
         {
-            return View();
+            ShowViewModel showVM = new ShowViewModel();
+            var Show = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
+            var ShowId = Show.Id;
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowId).ToList();
+            //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
+            //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
+            //ViewBag.ShowUrl = showUrl;
+            var previousShows = Episodes;
+            //ViewBag.PreviousShows
+            if(Show.TwitterAccount != null)
+            {
+                string twitterUrl = Show.TwitterAccount + "?ref_src = twsrc % 5Etfw";
+                ViewBag.Twitter = Show.TwitterAccount;
+            }
+            ViewBag.Itunes = Show.ItunesLink;
+            ViewBag.Img = Show.Image;
+            ViewBag.ShowDetails = Show.Details;
+            var UserId = User.Identity.GetUserId();
+            if (UserId != null)
+            {
+                var textSignups = context.texts.Where(t => t.UserId == UserId);
+                var isSignedUp = textSignups.Where(t => t.ShowId == ShowId).FirstOrDefault();
+                if (isSignedUp != null)
+                {
+                    ViewBag.SignedUp = true;
+                }
+            }
+            showVM.episodes = previousShows;
+            int EpisodeId = GetMostRecentEpisodeId(ShowId);
+            //List<Comment> episodeComments
+
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == EpisodeId).ToList();
+            int ratingSum = 0;
+            if (ratings.Count > 0)
+            {
+                foreach (Rating rating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                showVM.episodeVM.rating = ratingSum / ratings.Count;
+            }
+
+            showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+
+            string userId = User.Identity.GetUserId();
+            showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+
+            //ViewBag.PatreonSupporters = PatreonMessenger.GetPatrons();
+            return View(showVM);
         }
 
         public PartialViewResult GetEpisodePartial(int id)
@@ -261,6 +311,8 @@ namespace TuesdayKetchup.Controllers
             }
             else
             {
+                var thisUser = context.Users.FirstOrDefault(u => u.Id == currentUser).PhoneNumber;
+                TempData["Number"] = thisUser;
                 TempData["Show"] = "Ketchup";
                 return RedirectToAction("UpdatePhoneNumber", "Home");
             }
@@ -275,12 +327,15 @@ namespace TuesdayKetchup.Controllers
             }
             else
             {
+                var thisUser = context.Users.FirstOrDefault(u => u.Id == currentUser).PhoneNumber;
+                TempData["Number"] = thisUser;
                 TempData["Show"] = "Nick";
                 return RedirectToAction("UpdatePhoneNumber", "Home");
             }
         }
         public ActionResult UpdatePhoneNumber()
         {
+            ViewBag.Number = TempData["Number"];
             ViewBag.Show = TempData["Show"];
             return View();
         }

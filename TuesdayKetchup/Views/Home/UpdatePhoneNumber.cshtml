@@ -4,7 +4,7 @@
     ViewBag.Title = "UpdatePhoneNumber";
 }
 
-<h2>UpdatePhoneNumber</h2>
+<h2 style="padding-bottom:2em;">Update Phone Number</h2>
 
 @using (Html.BeginForm())
 {
@@ -16,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @Value=ViewBag.Number} })
                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
