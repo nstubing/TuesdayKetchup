@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using TuesdayKetchup.Models;
 using System.Net.Mail;
 using System.Net;
+using System.Data.Entity;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -258,7 +259,15 @@ namespace TuesdayKetchup.Controllers
             }
             context.Ratings.Add(rating);
             context.SaveChanges();
-            return RedirectToAction("Ketchup");
+            var episode = context.episodes.Where(e => e.Id == episodeId).Include(e=>e.Show).FirstOrDefault();
+            if(episode.Show.Title=="The Tuesday Ketchup")
+            {
+                return RedirectToAction("Ketchup");
+            }
+            else
+            {
+                return RedirectToAction("NickAtNight");
+            }
         }
         public ActionResult FlagComment(int? id)
         {
@@ -307,6 +316,7 @@ namespace TuesdayKetchup.Controllers
             var currentUser = User.Identity.GetUserId();
             if(currentUser==null)
             {
+                TempData["Message"] = "You must register before you can sign up for text alerts";
                 return RedirectToAction("Register", "Account");
             }
             else
@@ -323,6 +333,7 @@ namespace TuesdayKetchup.Controllers
             var currentUser = User.Identity.GetUserId();
             if (currentUser == null)
             {
+                TempData["Message"] = "You must register before you can sign up for text alerts";
                 return RedirectToAction("Register", "Account");
             }
             else

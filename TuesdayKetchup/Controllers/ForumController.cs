@@ -39,7 +39,25 @@ namespace TuesdayKetchup.Controllers
             ViewBag.IsFirstPost = true;
             return View(thread);
         }
+        [HttpPost]
+        public ActionResult Details(Thread thread,string Comment)
+        {
+            if(User.IsInRole("Admin")||User.IsInRole("Fan"))
+            {
+                var newPost = new Post { UserId = User.Identity.GetUserId(), ThreadId = thread.Id, Message = Comment };
+                newPost.UserName = db.Users.Where(u => u.Id == newPost.UserId).FirstOrDefault().UserName;
 
+                db.posts.Add(newPost);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = thread.Id });
+            }
+            else
+            {
+               TempData["Message"] = "You must register before you can comment.";
+               return RedirectToAction("Register", "Account");
+            }
+            
+        }
         // GET: Forum/Create
         public ActionResult Create()
         {

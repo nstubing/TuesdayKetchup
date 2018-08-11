@@ -4,14 +4,13 @@
     ViewBag.Title = "TextAlert";
 }
 
-<h2>TextAlert</h2>
+<h2>Text Alert</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TextAlert</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
