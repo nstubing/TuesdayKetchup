@@ -10,6 +10,10 @@ namespace TuesdayKetchup.Models
     {
         [Key]
         public int Id { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public string Title { get; set; }
+        public string ThreadDetails { get; set; }
     }
 }

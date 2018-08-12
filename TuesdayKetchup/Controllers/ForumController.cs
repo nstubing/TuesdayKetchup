@@ -18,8 +18,18 @@ namespace TuesdayKetchup.Controllers
         // GET: Forum
         public ActionResult Index()
         {
+            ViewBag.CurrentUserId = User.Identity.GetUserId();
+            ViewBag.Message = TempData["Message"];
             ViewBag.ActiveUserId = User.Identity.GetUserId();
             return View(db.threads.ToList());
+        }
+        public ActionResult DeleteThread(int id)
+        {
+            var thisThread = db.threads.FirstOrDefault(t => t.Id == id);
+            db.threads.Remove(thisThread);
+            db.SaveChanges();
+            TempData["Message"] = "Thread has been deleted.";
+            return RedirectToAction("Index");
         }
 
         // GET: Forum/Details/5
@@ -29,14 +39,14 @@ namespace TuesdayKetchup.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread thread = db.threads.Find(id);
+            Thread thread = db.threads.Where(t=>t.Id==id).Include(t=>t.ApplicationUser).FirstOrDefault();
             if (thread == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Posts = db.posts.Where(p => p.ThreadId == id).ToList();
             ViewBag.ActiveUserId = User.Identity.GetUserId();
-            ViewBag.IsFirstPost = true;
+            //ViewBag.IsFirstPost = true;
             return View(thread);
         }
         [HttpPost]
@@ -69,16 +79,17 @@ namespace TuesdayKetchup.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title")] Thread thread)
+        public ActionResult Create( Thread thread)
         {
             if (ModelState.IsValid)
             {
+                thread.UserId = User.Identity.GetUserId();
                 db.threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(thread);
+            return RedirectToAction("Details", new {id=thread.Id});
         }
 
         public ActionResult CreatePost()

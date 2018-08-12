@@ -41,11 +41,11 @@ namespace TuesdayKetchup.Controllers
             var NickEpisode = ReverseEpList.Where(e => e.ShowId == ShowIdTwo).ToList(); ;
             if (KetchupEpisode.Count > 0)
             {
-                ViewBag.TuesdayKetchupEp = KetchupEpisode[0];
+                ViewBag.TuesdayKetchupEp = KetchupEpisode[0].Title;
             }
             if (NickEpisode.Count > 0)
             {
-                ViewBag.NickNightEp = NickEpisode[0];
+                ViewBag.NickNightEp = NickEpisode[0].Title;
             }
             if (Announce != null)
             {
@@ -338,8 +338,8 @@ namespace TuesdayKetchup.Controllers
             }
             else
             {
-                var thisUser = context.Users.FirstOrDefault(u => u.Id == currentUser).PhoneNumber;
-                TempData["Number"] = thisUser;
+                var thisUserNumber = context.Users.FirstOrDefault(u => u.Id == currentUser).PhoneNumber;
+                TempData["Number"] = thisUserNumber;
                 TempData["Show"] = "Nick";
                 return RedirectToAction("UpdatePhoneNumber", "Home");
             }
@@ -372,7 +372,7 @@ namespace TuesdayKetchup.Controllers
                 newSignup.ShowId = nickId;
                 context.texts.Add(newSignup);
                 context.SaveChanges();
-                return RedirectToAction("Nick");
+                return RedirectToAction("NickAtNight");
             }
             
         }

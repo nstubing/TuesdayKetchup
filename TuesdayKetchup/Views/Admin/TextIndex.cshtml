@@ -20,13 +20,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @ViewBag.Usernames[ViewBag.Counter]
+            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
         </td>
         <td>
-            @ViewBag.ShowNames[ViewBag.Counter]
+            @Html.DisplayFor(modelItem => item.Show.Title)
         </td>
         <td>
-            @Html.ActionLink("Delete From Table", "DeleteUserFromTexts", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.ApplicationUser.PhoneNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Delete From Table", "DeleteUserFromTexts", new { id = item.Id })
         </td>
     </tr>
 

@@ -160,27 +160,28 @@ namespace TuesdayKetchup.Controllers
 
         public ActionResult TextIndex()
         {
-            ViewBag.Counter = 0;
+            //ViewBag.Counter = 0;
 
-            List<string> Usernames = new List<string>();
-            var userIds = db.texts.Select(t => t.UserId).ToList();
-            var users = db.Users;
-            foreach(var id in userIds)
-            {
-                Usernames.Add(users.Find(id).UserName);
-            }
-            ViewBag.Usernames = Usernames;
+            //List<string> Usernames = new List<string>();
+            //var userIds = db.texts.Select(t => t.UserId).ToList();
+            //var users = db.Users;
+            //foreach(var id in userIds)
+            //{
+            //    Usernames.Add(users.Find(id).UserName);
+            //}
+            //ViewBag.Usernames = Usernames;
 
-            List<string> ShowNames = new List<string>();
-            var showIds = db.texts.Select(t => t.ShowId).ToList();
-            var shows = db.shows;
-            foreach(var id in showIds)
-            {
-                ShowNames.Add(shows.Find(id).Title);
-            }
-            ViewBag.ShowNames = ShowNames;
+            //List<string> ShowNames = new List<string>();
+            //var showIds = db.texts.Select(t => t.ShowId).ToList();
+            //var shows = db.shows;
+            //foreach(var id in showIds)
+            //{
+            //    ShowNames.Add(shows.Find(id).Title);
+            //}
+            //ViewBag.ShowNames = ShowNames;
+            var textsSignUp = db.texts.Select(t => t).Include(e => e.Show).Include(e=>e.ApplicationUser);
 
-            return View(db.texts.ToList());
+            return View(textsSignUp);
         }
 
         public ActionResult DeleteUserFromTexts(int? id)

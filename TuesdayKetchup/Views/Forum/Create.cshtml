@@ -22,6 +22,12 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="col-md-10">
+            <p>Thread Details</p>
+            <div style="width:100%; max-width:100%;">
+                @Html.TextAreaFor(model=>model.ThreadDetails, 5, 300, new { @style = "width:100%;max-width:100%;" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

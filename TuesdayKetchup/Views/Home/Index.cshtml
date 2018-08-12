@@ -79,10 +79,13 @@
                                 <img src=@ViewBag.KetchupLogo style="border-radius:12px; height:400px; width:400px; " />
                                 <br>
                                 <br>
+                                @if (@ViewBag.TuesdayKetchupEp != null)
+                                {
+                                    <h5>
+                                        <a href="@Url.Action("Ketchup","Home")">@ViewBag.TuesdayKetchupEp</a>
+                                    </h5>
+                                }
 
-                                <h5>
-                                    <a href="@Url.Action("Ketchup","Home")">@ViewBag.TuesdayKetchupEp.Title</a>
-                                </h5>
                             </center>
                         </div>
 
@@ -92,10 +95,13 @@
                                 <img src=@ViewBag.NickLogo style="border-radius:12px; height:400px; width:400px; " />
                                 <br>
                                 <br>
-
-                                <h5>
-                                    <a href="@Url.Action("NickAtNight","Home")">@ViewBag.NickNightEp.Title</a>
-                                </h5>
+                                @if (@ViewBag.NickNightEp != null)
+                                {
+                                    <h5>
+                                        <a href="@Url.Action("NickAtNight","Home")">@ViewBag.NickNightEp</a>
+                                    </h5>
+                                }
+                                
                             </center>
                         </div>
                     </div>

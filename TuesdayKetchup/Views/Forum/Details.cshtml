@@ -8,74 +8,62 @@
     <h4>@Model.Title</h4>
     <hr />
 </div>
+<div class="card text-white bg-primary mb-3" style="max-width: 100%;">
+    <div class="card-header">@Model.ApplicationUser.UserName</div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.Title</h4>
+        <p class="card-text">@Model.ThreadDetails</p>
+    </div>
+</div>
+<font color="red">
+    @if (ViewBag.ActiveUserId == Model.UserId || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Delete", "DeleteThread", new { id = Model.Id })
+    }
+</font>
+@using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p>Comment</p>
+                            <div style="width:100%; max-width:100%;">
+                                @Html.TextArea("Comment", null, 5, 300, new { @style = "width:100%;max-width:100%;" })
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top:2.6em;">
+                            <div class="form-group">
+                                <input type="submit" value="Comment" class="btn btn-default" style="padding-top:2.2em; padding-bottom:2.2em; font-size:1.4em;" />
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+
 @foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
 {
-<div>
-    @if (!ViewBag.IsFirstPost)
-    {
-        <div>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </div>
-        <div>
-            <font color="black">
-                @Html.DisplayFor(modelItem => item.Message)
+    <div>
+            <div>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </div>
+            <div>
+                <font color="black">
+                    @Html.DisplayFor(modelItem => item.Message)
+                </font>
+            </div>
+            <font color="red">
+                @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
+                    @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
+                }
+                @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
+                {
+                    @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
+                }
             </font>
-        </div>
-        <font color="red">
-            @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
-            {
-                @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
-                @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
-            }
-            @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
-            {
-                @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
-            }
-        </font>
-    }
-    @if (ViewBag.IsFirstPost)
-    {
-        ViewBag.IsFirstPost = false;
-        <div class="card text-white bg-primary mb-3" style="max-width: 100%;">
-            <div class="card-header">@item.UserName</div>
-            <div class="card-body">
-                <h4 class="card-title">@Model.Title</h4>
-                <p class="card-text">@item.Message</p>
-            </div>
-        </div>
-        <font color="red">
-            @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
-            {
-                @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
-                @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
-            }
-            @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
-            {
-                @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
-            }
-        </font>
-        using (Html.BeginForm())
-        {
-            <div class="row">
-                <div class="col-md-10">
-                    <p>Comment</p>
-                    <div style="width:100%; max-width:100%;">
-                        @Html.TextArea("Comment", null, 5, 300, new { @style = "width:100%;max-width:100%;" })
-                    </div>
-                </div>
-                <div class="col-md-2" style="padding-top:2.6em;">
-                    <div class="form-group">
-                        <input type="submit" value="Comment" class="btn btn-default" style="padding-top:2.2em; padding-bottom:2.2em; font-size:1.4em;"/>
-                    </div>
-                </div>
-
-            </div>
-         }
-
-
-    }
-    <hr />
-</div>
+        <hr />
+    </div>
 }
 <font color="red">
     @Html.ActionLink("Back to Forums", "Index")
