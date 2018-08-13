@@ -1,35 +1,74 @@
-﻿@model IEnumerable<TuesdayKetchup.Models.Comment>
+﻿@using TuesdayKetchup.Models
+@using Microsoft.AspNet.Identity;
+@model EpisodeViewModel
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EpisodeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Message)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EpisodeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Message)
-        </td>
- 
-    </tr>
-}
 
-</table>
+
+<div class="card border-secondary mb-3" id="new-comment-box" style="width:100%; height:20em; overflow:auto;">
+    <div class="card-header sticky-top" style="z-index:1; background-color:gold;"><h5>COMMENTS</h5></div>
+    <div class="card-body">
+        @if (User.Identity.IsAuthenticated)
+        {
+        <div>
+            <div>
+                @using (Ajax.BeginForm("AddComment", "Home", new { @class = "my_form" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "new-comment-box", InsertionMode = InsertionMode.Replace, OnSuccess="Done()" }))
+                {
+
+                    <div class="row" style="padding-top:2em;">
+                        <div class="col-md-10" style="text-align:center;">
+                            @Html.TextArea("CommentString", htmlAttributes: new { style = "width:100%;max-width:100%;", @col = "100" })
+                        </div>
+                        <div class="col-md-2" style="text-align:left; padding-top:.7em;">
+                            <div>
+                                <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Hidden("userId", @User.Identity.GetUserId())
+                    @Html.Hidden("episodeId", Model.episode.Id)
+                }
+            </div>
+       </div>
+        }
+
+            @foreach (Comment comment in Model.comments)
+            {
+                <div>
+                    @Html.DisplayFor(modelItem => comment.ApplicationUser.UserName)
+                </div>
+                <div>
+                    <font color="black">
+                        @Html.DisplayFor(modelItem => comment.Message)
+                    </font>
+                </div>
+                <div>
+                    @if (User.IsInRole("Fan"))
+                    {
+                        <div>
+                            @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
+                        </div>
+                    }
+                </div>
+                <hr />
+            }
+</div>
+
+
+
+<script>
+    function SubmitComment() {
+
+        return true;
+        //if ($("#score").val() == "0") {
+        //    alert("Please rate this service provider.");
+        //    return false;
+        //}
+        //else {
+        //    return true;
+        //}
+    }
+    function Done() {
+        document.getElementById("CommentString").innerHTML = '';
+    }
+</script>

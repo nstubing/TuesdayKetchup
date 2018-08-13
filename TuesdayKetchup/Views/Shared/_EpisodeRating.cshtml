@@ -1,0 +1,26 @@
+﻿@using TuesdayKetchup.Models
+@using Microsoft.AspNet.Identity;
+@model EpisodeViewModel
+
+
+<style>
+
+    .starGlow {
+        background-image: url('https://i.imgur.com/cAYEnBR.png');
+        min-width: 30px;
+        min-height: 30px;
+        content: url(https://i.imgur.com/cAYEnBR.png);
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        cursor: pointer;
+    }
+</style>
+
+
+<div style="text-align:left;padding-top:1em;">
+    @for (int i = 0; i < Model.rating; i++)
+    {
+        <span class="starGlow"></span>
+    }
+</div>

@@ -237,8 +237,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentFlag.cs" />
+    <Compile Include="Models\CurrentUserRating.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Episode.cs" />
+    <Compile Include="Models\EpisodeRating.cs" />
     <Compile Include="Models\EpisodeViewModel.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\HomeInfo.cs" />
@@ -375,6 +377,8 @@
     <Content Include="Views\Admin\EditBanner.cshtml" />
     <Content Include="Views\Admin\TextIndex.cshtml" />
     <Content Include="Views\Admin\DeleteUserFromTexts.cshtml" />
+    <Content Include="Views\Shared\_EpisodeRating.cshtml" />
+    <Content Include="Views\Shared\_UserEpisodeRating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

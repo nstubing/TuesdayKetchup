@@ -53,12 +53,7 @@
     }
 </style>
 
-<div style="text-align:center;padding-top:3em;">
-    @for (int i = 0; i < Model.rating; i++)
-    {
-        <span class="starGlow"></span>
-    }
-</div>
+
 
 
 <iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) style="width:100%; padding-top:1em;" scrolling="no" frameborder="0"></iframe>
@@ -68,75 +63,41 @@
     </div>
 </div>
 
-@if (User.Identity.IsAuthenticated)
-{
-
-<div id="new-rating-box">
-    @using (Html.BeginForm("AddRating", "Home", FormMethod.Post, new { @class = "my_form", onload = "CRateSelected()" }))
-    {
-
-        <label class="col-md-4 control-label">
-            Your rating
-        </label>
-        <div class="row" style="padding-top:2em;">
-            <div class="col-md-6" style="text-align:center;">
-                <div class="form-group">
-                    <div onmouseout="CRateSelected()">
-                        <span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" style="text-align:left; padding-top:.6em;">
-                    <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Rate" />
-            </div>
-        </div>
-
-        @Html.Hidden("userId", @User.Identity.GetUserId())
-        @Html.Hidden("episodeId", Model.episode.Id)
-
-
-        if (Model.currentUserRating != null)
-        {
-            @Html.Hidden("score", Model.currentUserRating)
-            <span></span>
-        }
-        else
-        {
-            @Html.Hidden("score")
-        }
-    }
+<div id="episode-userrating">
+    @{Html.RenderPartial("_UserEpisodeRating", Model);}
 </div>
-}
+
+<div id="episode-comments">
+    @{Html.RenderPartial("_Comments", Model);}
+</div>
 
 
 
 
 
-
-
-    <div class="card border-secondary mb-3" style="width:100%; height:20em; overflow:auto;">
+@*<div class="card border-secondary mb-3" style="width:100%; height:20em; overflow:auto;">
         <div class="card-header sticky-top" style="z-index:1; background-color:gold;"><h5>COMMENTS</h5></div>
         <div class="card-body">
             @if (User.Identity.IsAuthenticated)
             {
-            <div id="new-comment-box">
-                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
-                {
+                <div id="new-comment-box">
+                    @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { @class = "my_form", onsubmit = "return SubmitComment()" }))
+                    {
 
-                    <div class="row" style="padding-top:2em;">
-                        <div class="col-md-10" style="text-align:center;">
-                            @Html.TextArea("CommentString", htmlAttributes: new { style = "width:100%;max-width:100%;", @col = "100" })
-                        </div>
-                        <div class="col-md-2" style="text-align:left; padding-top:.7em;">
-                            <div>
-                                <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
+                        <div class="row" style="padding-top:2em;">
+                            <div class="col-md-10" style="text-align:center;">
+                                @Html.TextArea("CommentString", htmlAttributes: new { style = "width:100%;max-width:100%;", @col = "100" })
+                            </div>
+                            <div class="col-md-2" style="text-align:left; padding-top:.7em;">
+                                <div>
+                                    <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @Html.Hidden("userId", @User.Identity.GetUserId())
-                    @Html.Hidden("episodeId", Model.episode.Id)
-                }
-            </div>
+                        @Html.Hidden("userId", @User.Identity.GetUserId())
+                        @Html.Hidden("episodeId", Model.episode.Id)
+                    }
+                </div>
             }
             @foreach (Comment comment in Model.comments)
             {
@@ -160,7 +121,7 @@
             }
 
         </div>
-    </div>
+    </div>*@
 
 
 
@@ -194,59 +155,4 @@
         });
 
     }());
-</script>
-
-<script>
-    function SCRate() {
-        for (var i = 1; i <= 5; i++) {
-            $("#sRate" + i).attr('class', 'starGlowN');
-        }
-    }
-    $(function () {
-        SCRate();
-    });
-</script>
-<script>
-    function SubmitComment() {
-
-        return true;
-        //if ($("#score").val() == "0") {
-        //    alert("Please rate this service provider.");
-        //    return false;
-        //}
-        //else {
-        //    return true;
-        //}
-    }
-
-    function CRate(r) {
-        $("#score").val(r);
-        for (var i = 1; i <= r; i++) {
-            $("#Rate" + i).attr('class', 'starGlow');
-        }
-        // unselect remaining
-        for (var i = r + 1; i <= 5; i++) {
-            $("#Rate" + i).attr('class', 'starFade');
-        }
-    }
-
-    function CRateOver(r) {
-        for (var i = 1; i <= r; i++) {
-            $("#Rate" + i).attr('class', 'starGlow');
-        }
-    }
-
-    function CRateOut(r) {
-        for (var i = 1; i <= r; i++) {
-            $("#Rate" + i).attr('class', 'starFade');
-        }
-    }
-
-    function CRateSelected() {
-        var setRating = $("#score").val();
-        for (var i = 1; i <= setRating; i++) {
-            $("#Rate" + i).attr('class', 'starGlow');
-        }
-        console.log("Ran CRateSelected")
-    }
 </script>

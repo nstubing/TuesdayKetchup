@@ -49,7 +49,24 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+@media-smartphone{
+    #BigTwitter{
+        display:none;
+    }
+    #smallTwitter{
+        display:block;
+    }
+}
+@media-desktop{
+    #BigTwitter{
+        display:block;
+    }
+    #smallTwitter{
+        display:none;
+    }
+}
 
+}
 html {
   font-family: sans-serif;
   line-height: 1.15;

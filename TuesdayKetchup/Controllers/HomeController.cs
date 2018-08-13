@@ -238,6 +238,7 @@ namespace TuesdayKetchup.Controllers
 
             return PartialView("_EpisodePartial", episodeVM);
         }
+        //public PartialViewResult RateEpisodePartial()
 
         [HttpPost]
         public ActionResult AddComment(string CommentString, string UserId, int EpisodeId)
@@ -247,9 +248,12 @@ namespace TuesdayKetchup.Controllers
             context.SaveChanges();
             return RedirectToAction("Ketchup");
         }
+        public PartialViewResult UpdateStars(EpisodeViewModel episodeVM)
+        {
+            return PartialView("_EpisodeRating", episodeVM);
+        }
 
-        [HttpPost]
-        public ActionResult AddRating(string userId, int episodeId, int score)
+        public PartialViewResult AddRating(string userId, int episodeId, int score)
         {
             Rating rating = new Rating() { UserId = userId, EpisodeId = episodeId, Score = score };
             Rating existingRating = context.Ratings.Where(r => r.EpisodeId == episodeId).Where(r => r.UserId == userId).FirstOrDefault();
@@ -260,14 +264,32 @@ namespace TuesdayKetchup.Controllers
             context.Ratings.Add(rating);
             context.SaveChanges();
             var episode = context.episodes.Where(e => e.Id == episodeId).Include(e=>e.Show).FirstOrDefault();
-            if(episode.Show.Title=="The Tuesday Ketchup")
+            EpisodeViewModel episodeVM = new EpisodeViewModel();
+            episodeVM.episode = context.episodes.Where(e => e.Id == episodeId).FirstOrDefault();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).ToList();
+            episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == episodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+            int ratingSum = 0;
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == episodeId).ToList();
+            if (ratings.Count > 0)
             {
-                return RedirectToAction("Ketchup");
+                foreach (Rating epRating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                episodeVM.rating = ratingSum / ratings.Count;
             }
-            else
-            {
-                return RedirectToAction("NickAtNight");
-            }
+            UpdateStars(episodeVM);
+            return PartialView("_UserEpisodeRating",episodeVM);
+        }
+        public PartialViewResult AddComment(string userId, int episodeId, string CommentString)
+        {
+            Comment comment = new Comment() { Message = CommentString, UserId = userId, EpisodeId = episodeId };
+            context.comments.Add(comment);
+            context.SaveChanges();
+            EpisodeViewModel episodeVM = new EpisodeViewModel();
+            episodeVM.episode = context.episodes.Where(e => e.Id == episodeId).FirstOrDefault();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).ToList();             
+            return PartialView("_Comments", episodeVM);
         }
         public ActionResult FlagComment(int? id)
         {
