@@ -46,10 +46,8 @@
             <div>
                 @Html.DisplayFor(modelItem => item.UserName)
             </div>
-            <div>
-                <font color="black">
-                    @Html.DisplayFor(modelItem => item.Message)
-                </font>
+            <div class="col-md-12" style="color:black; max-width:100%;">
+                @Html.DisplayFor(modelItem => item.Message)
             </div>
             <font color="red">
                 @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))

@@ -21,7 +21,8 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult Index(Episode episode)
         {
-            var HomeInfo = context.homeInfos.Select(h => h).FirstOrDefault();
+            var HomeInfo = context.homeInfos.Where(h => h.Id == 2).FirstOrDefault();
+            //var HomeInfo = context.homeInfos.Select(h => h).FirstOrDefault();
             if (HomeInfo != null)
             {
                 ViewBag.Picture1 = HomeInfo.SliderPic1;
@@ -100,12 +101,13 @@ namespace TuesdayKetchup.Controllers
             ShowViewModel showVM = new ShowViewModel();
             var Show = context.shows.FirstOrDefault(s => s.Title == "The Tuesday Ketchup");
             var ShowId = Show.Id;
-            var Episodes = context.episodes.Where(e => e.ShowId == ShowId);
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowId).OrderByDescending(e=>e.Id);
             //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
             //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
             //ViewBag.ShowUrl = showUrl;
             var previousShows = Episodes.ToList();
             //ViewBag.PreviousShows
+            showVM.ShowTitle = "The Tuesday Ketchup";
             ViewBag.Img = Show.Image;
             ViewBag.ShowDetails = Show.Details;
             var UserId = User.Identity.GetUserId();
@@ -134,7 +136,7 @@ namespace TuesdayKetchup.Controllers
             }
 
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
-            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).OrderByDescending(e=>e.Id).ToList();
             
             string userId = User.Identity.GetUserId();
             showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
@@ -169,7 +171,7 @@ namespace TuesdayKetchup.Controllers
             ShowViewModel showVM = new ShowViewModel();
             var Show = context.shows.FirstOrDefault(s => s.Title == "Nick @ Night");
             var ShowId = Show.Id;
-            var Episodes = context.episodes.Where(e => e.ShowId == ShowId).ToList();
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowId).OrderByDescending(e=>e.Id).ToList();
             //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
             //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
             //ViewBag.ShowUrl = showUrl;
@@ -194,6 +196,7 @@ namespace TuesdayKetchup.Controllers
                 }
             }
             showVM.episodes = previousShows;
+            showVM.ShowTitle = "Nick @ Night";
             int EpisodeId = GetMostRecentEpisodeId(ShowId);
             //List<Comment> episodeComments
 
@@ -209,7 +212,7 @@ namespace TuesdayKetchup.Controllers
             }
 
             showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
-            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).ToList();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).OrderByDescending(e => e.Id).ToList();
 
             string userId = User.Identity.GetUserId();
             showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
@@ -221,11 +224,17 @@ namespace TuesdayKetchup.Controllers
         public PartialViewResult GetEpisodePartial(int id)
         {
             int ratingSum = 0;
-            EpisodeViewModel episodeVM = new EpisodeViewModel();
-            episodeVM.episode = context.episodes.Where(e => e.Id == id).FirstOrDefault();
-            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).ToList();
+            ShowViewModel ShowVM = new ShowViewModel();
+            //EpisodeViewModel episodeVM = new EpisodeViewModel();
+            var thisEpisode= context.episodes.Include("Show").Where(e => e.Id == id).FirstOrDefault();
+            ShowVM.episodeVM.episode = thisEpisode;
+            ShowVM.ShowTitle = thisEpisode.Show.Title;
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowVM.episodeVM.episode.ShowId).OrderByDescending(e => e.Id);
+            var previousShows = Episodes.ToList();
+            ShowVM.episodes = previousShows;
+            ShowVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == id).OrderByDescending(e => e.Id).ToList();
             string userId = User.Identity.GetUserId();
-            episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId ==id).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+            ShowVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId ==id).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
             List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == id).ToList();
             if (ratings.Count > 0)
             {
@@ -233,10 +242,9 @@ namespace TuesdayKetchup.Controllers
                 {
                     ratingSum += rating.Score;
                 }
-                episodeVM.rating = ratingSum / ratings.Count;
+                ShowVM.episodeVM.rating = ratingSum / ratings.Count;
             }
-
-            return PartialView("_EpisodePartial", episodeVM);
+            return PartialView("_EpisodePartial", ShowVM);
         }
         //public PartialViewResult RateEpisodePartial()
 
@@ -248,10 +256,7 @@ namespace TuesdayKetchup.Controllers
             context.SaveChanges();
             return RedirectToAction("Ketchup");
         }
-        public PartialViewResult UpdateStars(EpisodeViewModel episodeVM)
-        {
-            return PartialView("_EpisodeRating", episodeVM);
-        }
+
 
         public PartialViewResult AddRating(string userId, int episodeId, int score)
         {
@@ -266,7 +271,7 @@ namespace TuesdayKetchup.Controllers
             var episode = context.episodes.Where(e => e.Id == episodeId).Include(e=>e.Show).FirstOrDefault();
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == episodeId).FirstOrDefault();
-            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).ToList();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).OrderByDescending(f=>f.Id).ToList();
             episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == episodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
             int ratingSum = 0;
             List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == episodeId).ToList();
@@ -274,11 +279,10 @@ namespace TuesdayKetchup.Controllers
             {
                 foreach (Rating epRating in ratings)
                 {
-                    ratingSum += rating.Score;
+                    ratingSum += epRating.Score;
                 }
                 episodeVM.rating = ratingSum / ratings.Count;
             }
-            UpdateStars(episodeVM);
             return PartialView("_UserEpisodeRating",episodeVM);
         }
         public PartialViewResult AddComment(string userId, int episodeId, string CommentString)
@@ -288,10 +292,10 @@ namespace TuesdayKetchup.Controllers
             context.SaveChanges();
             EpisodeViewModel episodeVM = new EpisodeViewModel();
             episodeVM.episode = context.episodes.Where(e => e.Id == episodeId).FirstOrDefault();
-            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).ToList();             
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == episodeId).OrderByDescending(f=>f.Id).ToList();             
             return PartialView("_Comments", episodeVM);
         }
-        public ActionResult FlagComment(int? id)
+        public ActionResult FlagPost(int? id)
         {
             if (id == null)
             {
@@ -306,7 +310,7 @@ namespace TuesdayKetchup.Controllers
         }
 
         [HttpPost]
-        public ActionResult FlagComment(int id)
+        public ActionResult FlagPost(int id)
         {
             CommentFlag flag = new CommentFlag { CommentID = id, UserID = User.Identity.GetUserId() };
             CommentFlag originalFlag = context.commentFlags.Where(p => p.CommentID == id && p.UserID != flag.UserID).FirstOrDefault();
@@ -348,6 +352,16 @@ namespace TuesdayKetchup.Controllers
                 TempData["Show"] = "Ketchup";
                 return RedirectToAction("UpdatePhoneNumber", "Home");
             }
+        }
+        public ActionResult DeletePost(int id)
+        {
+            var comment = context.comments.FirstOrDefault(c => c.Id == id);
+            context.comments.Remove(comment);
+            context.SaveChanges();
+            EpisodeViewModel episodeVM = new EpisodeViewModel();
+            episodeVM.episode = context.episodes.Where(e => e.Id == comment.EpisodeId).FirstOrDefault();
+            episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == comment.EpisodeId).OrderByDescending(f => f.Id).ToList();
+            return PartialView("_Comments", episodeVM);
         }
         [HttpPost]
         public ActionResult TextNick()

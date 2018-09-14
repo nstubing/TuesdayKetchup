@@ -1,9 +1,11 @@
 namespace TuesdayKetchup.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using TuesdayKetchup.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TuesdayKetchup.Models.ApplicationDbContext>
     {
@@ -14,10 +16,7 @@ namespace TuesdayKetchup.Migrations
 
         protected override void Seed(TuesdayKetchup.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+     
         }
     }
 }

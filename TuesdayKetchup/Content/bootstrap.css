@@ -49,22 +49,6 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-@media-smartphone{
-    #BigTwitter{
-        display:none;
-    }
-    #smallTwitter{
-        display:block;
-    }
-}
-@media-desktop{
-    #BigTwitter{
-        display:block;
-    }
-    #smallTwitter{
-        display:none;
-    }
-}
 
 }
 html {
@@ -581,8 +565,8 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right:0;
+  padding-left:0;
   margin-right: auto;
   margin-left: auto;
 }
@@ -591,11 +575,17 @@ pre code {
   .container {
     max-width: 540px;
   }
+  .BigTwitter{
+      display:none;
+  }
 }
 
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
+  }
+  .BigTwitter{
+      display:none;
   }
 }
 
@@ -4211,6 +4201,8 @@ input[type="button"].btn-block {
   border-top-right-radius: 0;
 }
 
+
+
 .nav-pills .nav-link {
   border-radius: 0;
 }
@@ -4637,15 +4629,15 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-text {
-  color: rgba(0, 0, 0, 0.3);
+  color: gray;
 }
 
 .navbar-light .navbar-text a {
-  color: #1a1a1a;
+  color: gray;
 }
 
 .navbar-light .navbar-text a:hover, .navbar-light .navbar-text a:focus {
-  color: #1a1a1a;
+  color: gray;
 }
 
 .navbar-dark .navbar-brand {
@@ -4657,16 +4649,18 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    opacity: 1;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
   color: #fff;
 }
 
-.navbar-dark .navbar-nav .nav-link.disabled {
-  color: rgba(255, 255, 255, 0.25);
-}
+    .navbar-dark .navbar-nav .nav-link.disabled {
+        color: gray;
+        opacity: 1;
+    }
 
 .navbar-dark .navbar-nav .show > .nav-link,
 .navbar-dark .navbar-nav .active > .nav-link,
@@ -4676,8 +4670,9 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-toggler {
-  color: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.1);
+  color: gray;
+  border-color: gray;
+  opacity:1;
 }
 
 .navbar-dark .navbar-toggler-icon {
@@ -4685,7 +4680,8 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-text {
-  color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    opacity: 1;
 }
 
 .navbar-dark .navbar-text a {
@@ -9634,4 +9630,7 @@ th {
 
 .card-title, .card-header {
   color: inherit;
+}
+.navbar-collapse.collapse.in {
+    display: block !important;
 }

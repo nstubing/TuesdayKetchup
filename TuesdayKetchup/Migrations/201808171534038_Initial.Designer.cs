@@ -7,13 +7,13 @@ namespace TuesdayKetchup.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class detailsthread : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(detailsthread));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808120333192_detailsthread"; }
+            get { return "201808171534038_Initial"; }
         }
         
         string IMigrationMetadata.Source

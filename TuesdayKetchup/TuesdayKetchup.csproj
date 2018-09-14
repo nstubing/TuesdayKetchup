@@ -217,21 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808120332392_InitialCreate.cs" />
-    <Compile Include="Migrations\201808120332392_InitialCreate.Designer.cs">
-      <DependentUpon>201808120332392_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808120333192_detailsthread.cs" />
-    <Compile Include="Migrations\201808120333192_detailsthread.Designer.cs">
-      <DependentUpon>201808120333192_detailsthread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808120334537_thesedeets.cs" />
-    <Compile Include="Migrations\201808120334537_thesedeets.Designer.cs">
-      <DependentUpon>201808120334537_thesedeets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808120349220_threadstuff.cs" />
-    <Compile Include="Migrations\201808120349220_threadstuff.Designer.cs">
-      <DependentUpon>201808120349220_threadstuff.cs</DependentUpon>
+    <Compile Include="Migrations\201808171534038_Initial.cs" />
+    <Compile Include="Migrations\201808171534038_Initial.Designer.cs">
+      <DependentUpon>201808171534038_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -268,6 +256,8 @@
     <Content Include="Content\gravyDrip.png" />
     <Content Include="Content\gravytrainBanner.jpg" />
     <Content Include="Content\greenDrip.png" />
+    <Content Include="Content\headphone-icon.png" />
+    <Content Include="Content\headphone-silhouette-8.png" />
     <Content Include="Content\ketchupred.png" />
     <Content Include="Content\NickAtNight.PNG" />
     <Content Include="Content\nicknightbanner.jpg" />
@@ -283,6 +273,22 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile10.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile11.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile12.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile13.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile14.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile4.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile5.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile6.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile7.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile8.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile9.pubxml" />
+    <None Include="Properties\PublishProfiles\gravytrain-productions.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -297,7 +303,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\script-custom-calendar.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -353,7 +361,6 @@
     <Content Include="Views\Admin\ManageHome.cshtml" />
     <Content Include="Views\Admin\TextAlert.cshtml" />
     <Content Include="Views\Admin\AddEpisode.cshtml" />
-    <Content Include="Views\Admin\lissst.cshtml" />
     <Content Include="Views\Shared\_EpisodePlayer.cshtml" />
     <Content Include="Views\Shared\_EpisodePartial.cshtml" />
     <Content Include="Views\Forum\FlagPost.cshtml" />
@@ -361,7 +368,6 @@
     <Content Include="Views\Home\greenLayout.cshtml" />
     <Content Include="Views\Admin\ListEpisodes.cshtml" />
     <Content Include="Views\Admin\EditEpisode.cshtml" />
-    <Content Include="Views\Ratings\_RatingsControl.cshtml" />
     <Content Include="Views\Forum\EditPost.cshtml" />
     <Content Include="Views\Forum\DeletePost.cshtml" />
     <Content Include="Views\Admin\ListShows.cshtml" />
@@ -382,6 +388,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\NatePortfolio\" />
     <Folder Include="Views\Rating\" />
   </ItemGroup>
   <ItemGroup>
@@ -398,17 +405,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808120332392_InitialCreate.resx">
-      <DependentUpon>201808120332392_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808120333192_detailsthread.resx">
-      <DependentUpon>201808120333192_detailsthread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808120334537_thesedeets.resx">
-      <DependentUpon>201808120334537_thesedeets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808120349220_threadstuff.resx">
-      <DependentUpon>201808120349220_threadstuff.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808171534038_Initial.resx">
+      <DependentUpon>201808171534038_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

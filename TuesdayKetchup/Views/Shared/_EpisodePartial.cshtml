@@ -1,6 +1,6 @@
 ﻿@using TuesdayKetchup.Models
 @using Microsoft.AspNet.Identity;
-@model EpisodeViewModel
+@model ShowViewModel
 
 
 
@@ -55,22 +55,37 @@
 
 
 
-
-<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episode.SoundCloudLink) style="width:100%; padding-top:1em;" scrolling="no" frameborder="0"></iframe>
+<iframe id="sc-widget" src=@("https://w.soundcloud.com/player/?url=" + Model.episodeVM.episode.SoundCloudLink) style="width:100%; padding-top:1em;" scrolling="no" frameborder="0"></iframe>
 <div class="card border-secondary mb-3" style="width:100%; max-height:250px; overflow:auto;">
     <div class="card-body">
-        <p class="card-text">@Model.episode.Details</p>
+        <p class="card-text">@Model.episodeVM.episode.Details</p>
     </div>
 </div>
 
 <div id="episode-userrating">
-    @{Html.RenderPartial("_UserEpisodeRating", Model);}
+    @{Html.RenderPartial("_UserEpisodeRating", Model.episodeVM);}
 </div>
 
 <div id="episode-comments">
-    @{Html.RenderPartial("_Comments", Model);}
+    @{Html.RenderPartial("_Comments", Model.episodeVM);}
 </div>
-
+<div style="padding-top:2em;">
+    <div class="card text-white bg-primary mb-3" style="max-height:800px; width:100%; overflow:auto;">
+        <div class="card-header">More from @Model.ShowTitle</div>
+        <div class="card-body">
+            <h4 class="card-title">Episodes</h4>
+            <ul>
+                @foreach (Episode episode in Model.episodes)
+                {
+                    <li>
+                        @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
+                        <hr />
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
 
 
 

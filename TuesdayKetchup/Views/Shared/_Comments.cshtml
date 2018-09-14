@@ -8,8 +8,6 @@
 <div class="card border-secondary mb-3" id="new-comment-box" style="width:100%; height:20em; overflow:auto;">
     <div class="card-header sticky-top" style="z-index:1; background-color:gold;"><h5>COMMENTS</h5></div>
     <div class="card-body">
-        @if (User.Identity.IsAuthenticated)
-        {
         <div>
             <div>
                 @using (Ajax.BeginForm("AddComment", "Home", new { @class = "my_form" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "new-comment-box", InsertionMode = InsertionMode.Replace, OnSuccess="Done()" }))
@@ -21,7 +19,16 @@
                         </div>
                         <div class="col-md-2" style="text-align:left; padding-top:.7em;">
                             <div>
-                                <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <input class="btn-warning" style="border-radius: 6px;" type="submit" value="Post" />
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Register","Account")">
+                                        <input type="button" class="btn-warning" style="border-radius: 6px" value="Post" />
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -30,7 +37,6 @@
                 }
             </div>
        </div>
-        }
 
             @foreach (Comment comment in Model.comments)
             {
@@ -43,12 +49,17 @@
                     </font>
                 </div>
                 <div>
-                    @if (User.IsInRole("Fan"))
-                    {
-                        <div>
-                            @Html.ActionLink("Flag Comment", "FlagComment", new { id = comment.Id })
-                        </div>
-                    }
+                    <font color="red">
+                        @if (User.Identity.GetUserId() == comment.UserId || User.IsInRole("Admin"))
+                        {
+                            @Ajax.ActionLink("Delete", "DeletePost", new { id = comment.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "new-comment-box", InsertionMode = InsertionMode.Replace })
+                        }
+                        @if (User.Identity.GetUserId() != comment.UserId && User.Identity.GetUserId() != null && User.IsInRole("Fan"))
+                        {
+                            @Html.ActionLink("Flag Post", "FlagPost", new { id = comment.Id })
+                        }
+
+                    </font>
                 </div>
                 <hr />
             }

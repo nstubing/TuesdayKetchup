@@ -7,6 +7,7 @@ namespace TuesdayKetchup.Models
 {
     public class ShowViewModel
     {
+        public string ShowTitle;
         public EpisodeViewModel episodeVM;
         public List<Episode> episodes;
 

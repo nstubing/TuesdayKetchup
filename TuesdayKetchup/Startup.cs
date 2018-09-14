@@ -17,29 +17,32 @@ namespace TuesdayKetchup
         {
             ConfigureAuth(app);
             CreateRolesandUsers();
-            
             //SeedPods();
 
         }
         private void SeedPods()
         {
-
-            Show Ttk = new Show();
-            Ttk.Title = "The Tuesday Ketchup";
-            Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
-            Ttk.Image = "~/Content/TuesdayKetchup.jpg";
-            Ttk.TwitterAccount = "@Tuesday_Ketchup";
-            Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
-            Ttk.NavImage = "~/Content/ketchupred.png";
-            context.shows.Add(Ttk);
-            Show Nick = new Show();
-            Nick.Title = "Nick @ Night";
-            Nick.Details = "Just laugh a little bit.";
-            Nick.Image = "~/Content/NickAtNight.PNG";
-            Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
-            Nick.NavImage = "~/Content/greenDrip.png";
-            context.shows.Add(Nick);
-            context.SaveChanges();
+            //var show = context.shows.Where(s => s.Title == "The Tuesday Ketchup");
+            //if(show==null)
+            //{
+            //    Show Ttk = new Show();
+            //    Ttk.Title = "The Tuesday Ketchup";
+            //    Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
+            //    Ttk.Image = "/Content/TuesdayKetchup.jpg";
+            //    Ttk.TwitterAccount = "@Tuesday_Ketchup";
+            //    Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
+            //    Ttk.NavImage = "~/Content/ketchupred.png";
+            //    context.shows.Add(Ttk);
+            //    Show Nick = new Show();
+            //    Nick.Title = "Nick @ Night";
+            //    Nick.Details = "Just laugh a little bit.";
+            //    Nick.Image = "/Content/NickAtNight.PNG";
+            //    Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
+            //    Nick.NavImage = "~/Content/greenDrip.png";
+            //    context.shows.Add(Nick);
+            //    context.SaveChanges();
+            //}
+            
         }
 
         private void CreateRolesandUsers()
@@ -55,7 +58,7 @@ namespace TuesdayKetchup
                 var user = new ApplicationUser();
                 user.UserName = "Admin";
                 user.Email = "admin@trashcollector.com";
-                string userPWD = "poiuyt";
+                string userPWD = "Ketchup123!";
 
                 var chkUser = UserManager.Create(user, userPWD);
 
@@ -63,6 +66,22 @@ namespace TuesdayKetchup
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
                 }
+                Show Ttk = new Show();
+                Ttk.Title = "The Tuesday Ketchup";
+                Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
+                Ttk.Image = "/Content/TuesdayKetchup.jpg";
+                Ttk.TwitterAccount = "@Tuesday_Ketchup";
+                Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
+                Ttk.NavImage = "~/Content/ketchupred.png";
+                context.shows.Add(Ttk);
+                Show Nick = new Show();
+                Nick.Title = "Nick @ Night";
+                Nick.Details = "Just laugh a little bit.";
+                Nick.Image = "/Content/NickAtNight.PNG";
+                Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
+                Nick.NavImage = "~/Content/greenDrip.png";
+                context.shows.Add(Nick);
+                context.SaveChanges();
             }
             if (!roleManager.RoleExists("Fan"))
             {
