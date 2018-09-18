@@ -145,6 +145,61 @@ namespace TuesdayKetchup.Controllers
             return View(showVM);
         }
 
+        public ActionResult Yardline()
+        {
+            ShowViewModel showVM = new ShowViewModel();
+            var Show = context.shows.FirstOrDefault(s => s.Title == "The 60 Yard Line");
+            var ShowId = Show.Id;
+            var Episodes = context.episodes.Where(e => e.ShowId == ShowId).OrderByDescending(e => e.Id).ToList();
+            //var latestShowLink = Episodes.FirstOrDefault().SoundCloudLink;
+            //string showUrl = "https://w.soundcloud.com/player/?url=" + latestShowLink;
+            //ViewBag.ShowUrl = showUrl;
+            var previousShows = Episodes;
+            //ViewBag.PreviousShows
+            if (Show.TwitterAccount != null)
+            {
+                string twitterUrl = Show.TwitterAccount + "?ref_src = twsrc % 5Etfw";
+                ViewBag.Twitter = Show.TwitterAccount;
+            }
+            ViewBag.Itunes = Show.ItunesLink;
+            ViewBag.Img = Show.Image;
+            ViewBag.ShowDetails = Show.Details;
+            var UserId = User.Identity.GetUserId();
+            if (UserId != null)
+            {
+                var textSignups = context.texts.Where(t => t.UserId == UserId);
+                var isSignedUp = textSignups.Where(t => t.ShowId == ShowId).FirstOrDefault();
+                if (isSignedUp != null)
+                {
+                    ViewBag.SignedUp = true;
+                }
+            }
+            showVM.episodes = previousShows;
+            showVM.ShowTitle = "Nick @ Night";
+            int EpisodeId = GetMostRecentEpisodeId(ShowId);
+            //List<Comment> episodeComments
+
+            List<Rating> ratings = context.Ratings.Where(r => r.EpisodeId == EpisodeId).ToList();
+            int ratingSum = 0;
+            if (ratings.Count > 0)
+            {
+                foreach (Rating rating in ratings)
+                {
+                    ratingSum += rating.Score;
+                }
+                showVM.episodeVM.rating = ratingSum / ratings.Count;
+            }
+
+            showVM.episodeVM.episode = context.episodes.Where(e => e.Id == EpisodeId).FirstOrDefault();
+            showVM.episodeVM.comments = context.comments.Include("ApplicationUser").Where(c => c.EpisodeId == EpisodeId).OrderByDescending(e => e.Id).ToList();
+
+            string userId = User.Identity.GetUserId();
+            showVM.episodeVM.currentUserRating = context.Ratings.Where(c => c.EpisodeId == EpisodeId).Where(c => c.UserId == userId).Select(c => c.Score).FirstOrDefault();
+
+            //ViewBag.PatreonSupporters = PatreonMessenger.GetPatrons();
+            return View(showVM);
+        }
+
         private int GetMostRecentEpisodeId(int showId)
         {
 
@@ -336,7 +391,6 @@ namespace TuesdayKetchup.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult TextKetchup()
         {
             var currentUser = User.Identity.GetUserId();
@@ -411,6 +465,10 @@ namespace TuesdayKetchup.Controllers
                 return RedirectToAction("NickAtNight");
             }
             
+        }
+        public ActionResult VideoPlayer()
+        {
+            return View();
         }
     }
 }

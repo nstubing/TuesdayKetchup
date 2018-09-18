@@ -9,7 +9,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
-<body>
+<body style="padding-top:0; background-color:#dcdcdc ">
     <style>
         .navbar-collapse.collapse.in {
             display: block !important;
@@ -21,7 +21,7 @@
             bottom: 1.8px;
         }
     </style>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-top:5px; padding-bottom:5px;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-top:5px; padding-bottom:5px; background-image:url(/Content/gravyDrip.png); background-size:contain; background-repeat:no-repeat;">
         <div class="col-md-2">
             <a><img class="img-fluid" src="~/Content/truegravytrain.png" /></a>
         </div>
@@ -32,47 +32,61 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Index","Home")">Home</a>
+                    <a class="nav-link" style="font-size:2em" href="@Url.Action("Index","Home")">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Podcasts</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item" href="@Url.Action("Ketchup","Home")">Tuesday Ketchup</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("NickAtNight","Home")">Nick @@ Night</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("Yardline","Home")">60 Yard Line</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Blogs</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item" href="#">Nick @@ Night in Words</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">2 High Guys</a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Ketchup","Home")">Tuesday Ketchup</a>
+                    <a class="nav-link" style="font-size:2em" href="@Url.Action("CalendarIndex","Calendar")">Videos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("NickAtNight","Home")">Nick @@ Night</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Other</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item" href="@Url.Action("CalendarIndex","Calendar")">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("Index","Forum")">Forums</a>
+                        <div class="dropdown-divider"></div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="dropdown-item" href="@Url.Action("ManageHome","Admin")">Manage</a>
+                        }
+                        else
+                        {
+                            <a class="dropdown-item" href="@Url.Action("Contact","Home")">Contact Us</a>
+                        }
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("CalendarIndex","Calendar")">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Index","Forum")">Forums</a>
-                </li>
-                @if (User.IsInRole("Admin"))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" style="font-size:1.2em" href="@Url.Action("ManageHome","Admin")">Manage</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Contact","Home")">Contact Us</a>
-                    </li>
-                }
+
+
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
-    <span>
 
-        <img src="~/Content/ketchupred.png" style="width:100%;" class="navdripimg"/>
-    </span>
-    <div class="container body-content">
+    <div class="pl-sm-5 pr-sm-5 pt-sm-3" style="padding-left:1em;padding-right:1em; padding-top:1em;">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Made by Henry Hill, Jake Jahneke, Zack Scherrer, and Nate Stubing</p>
         </footer>
     </div>
+
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

@@ -2,7 +2,7 @@
 @model ShowViewModel
 @{
     ViewBag.Title = "NickNight";
-    Layout = "greenLayout.cshtml";
+    Layout = "redLayout.cshtml";
 }
 
 <style>
@@ -25,14 +25,11 @@
             <div class="col-md-6" style="max-width:100%;padding-top:2em;">
                 @if (@ViewBag.SignedUp != null)
                 {
-                    <input type="submit" value="Already signed up for texts" class="btn btn-default text-center" style="width:100%;border-radius:14px; border:.1em solid #708090; background-color:white; padding:1.65em" />
+                    <a style="text-align:center; "><h3 style="font-weight:bold; background-color:white; border-style:solid; border-width:2px; border-color:#727272; border-radius:24px;margin-top:2px; padding-top:1.6em;padding-bottom:1.62em;">Signed up for text alerts</h3></a>
                 }
                 else
                 {
-                    using (Html.BeginForm("TextNick", "Home"))
-                    {
-                        <input type="submit" value="Sign up for text alerts!" class="btn btn-default" style="max-width:100%;width:100%;border-radius:14px; border:.1em solid #708090; background-color:white; padding:1.65em" />
-                    }
+                    <a href="@Url.Action("TextNick","Home")" style="text-align:center; "><h3 style="font-weight:bold; background-color:white; border-style:solid; border-width:2px; border-color:#727272; border-radius:24px;margin-top:2px; padding-top:1.6em;padding-bottom:1.62em;">Sign up for text alerts</h3></a>
                 }
             </div>
         </div>
@@ -45,11 +42,11 @@
         }
 
     </div>
-    <div class="col-md-6" style="padding-top:2em; padding-left:1em;">
+    <div class="col-md-6" style="padding-top:1em; padding-left:1em;">
 
         <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="~/Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
-        <h4 style="text-align:center;">Latest Episode</h4>
+        <h1 style="text-align:center; background-color:darkslategray; padding-top:.5em;padding-bottom:.5em; color:azure">Latest Episode</h1>
 
 
         <div id="episode-section">

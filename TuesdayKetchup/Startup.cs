@@ -17,32 +17,23 @@ namespace TuesdayKetchup
         {
             ConfigureAuth(app);
             CreateRolesandUsers();
-            //SeedPods();
+            SeedPods();
 
         }
         private void SeedPods()
         {
-            //var show = context.shows.Where(s => s.Title == "The Tuesday Ketchup");
-            //if(show==null)
-            //{
-            //    Show Ttk = new Show();
-            //    Ttk.Title = "The Tuesday Ketchup";
-            //    Ttk.Details = "6 good friends & guests getting together every week to Ketch-up, talk about life, current events, and Kurt Russell movies. Come Ketch-up with us.";
-            //    Ttk.Image = "/Content/TuesdayKetchup.jpg";
-            //    Ttk.TwitterAccount = "@Tuesday_Ketchup";
-            //    Ttk.SoundCloudLink = "https://soundcloud.com/user-226156957";
-            //    Ttk.NavImage = "~/Content/ketchupred.png";
-            //    context.shows.Add(Ttk);
-            //    Show Nick = new Show();
-            //    Nick.Title = "Nick @ Night";
-            //    Nick.Details = "Just laugh a little bit.";
-            //    Nick.Image = "/Content/NickAtNight.PNG";
-            //    Nick.SoundCloudLink = "https://soundcloud.com/nick-argall-493249104";
-            //    Nick.NavImage = "~/Content/greenDrip.png";
-            //    context.shows.Add(Nick);
-            //    context.SaveChanges();
-            //}
-            
+            var show = context.shows.Where(s => s.Title == "The 60 Yard Line").FirstOrDefault();
+            if (show == null)
+            {
+                Show yardline = new Show();
+                yardline.Title = "The 60 Yard Line";
+                yardline.Details = "Gavin talks about sports and many other things";
+                yardline.Image = "/Content/60yardline.jpg";
+                yardline.TwitterAccount = "@smithgavin50";
+                context.shows.Add(yardline);
+                context.SaveChanges();
+            }
+
         }
 
         private void CreateRolesandUsers()

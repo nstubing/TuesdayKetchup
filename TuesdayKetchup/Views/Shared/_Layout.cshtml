@@ -33,16 +33,44 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Index","Home")">Home</a>
+                    <a class="nav-link" style="font-size:2em" href="@Url.Action("Index","Home")">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:1.5em;">Podcasts</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Podcasts</a>
                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                        <a class="dropdown-item" href="#">Tuesday Ketchup</a>
+                        <a class="dropdown-item" href="@Url.Action("Ketchup","Home")">Tuesday Ketchup</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Nick @@ Night</a>
+                        <a class="dropdown-item" href="@Url.Action("NickAtNight","Home")">Nick @@ Night</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">60 Yard Line</a>
+                        <a class="dropdown-item" href="@Url.Action("Yardline","Home")">60 Yard Line</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Blogs</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item" href="#">Nick @@ Night in Words</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">2 High Guys</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size:2em" href="@Url.Action("VideoPlayer","Home")">Videos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Other</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item" href="@Url.Action("CalendarIndex","Calendar")">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="@Url.Action("Index","Forum")">Forums</a>
+                        <div class="dropdown-divider"></div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="dropdown-item"  href="@Url.Action("ManageHome","Admin")">Manage</a>
+                        }
+                        else
+                        {
+                            <a class="dropdown-item" href="@Url.Action("Contact","Home")">Contact Us</a>
+                        }
                     </div>
                 </li>
                 @*<li class="nav-item">
@@ -51,7 +79,7 @@
         <li class="nav-item">
             <a class="nav-link" style="font-size:1.2em" href="@Url.Action("NickAtNight","Home")">Nick @@ Night</a>
         </li>*@
-                <li class="nav-item">
+                @*<li class="nav-item">
                     <a class="nav-link" style="font-size:1.2em" href="@Url.Action("CalendarIndex","Calendar")">Events</a>
                 </li>
                 <li class="nav-item">
@@ -60,16 +88,12 @@
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <li class="nav-item">
                         <a class="nav-link" style="font-size:1.2em" href="@Url.Action("ManageHome","Admin")">Manage</a>
-                    </li>
                 }
                 else
                 {
-                    <li class="nav-item">
                         <a class="nav-link" style="font-size:1.2em" href="@Url.Action("Contact","Home")">Contact Us</a>
-                    </li>
-                }
+                }*@
 
 
             </ul>
