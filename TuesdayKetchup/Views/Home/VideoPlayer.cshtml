@@ -1,12 +1,70 @@
-﻿
+﻿@using TuesdayKetchup.Models;
+@model VideosViewModel    
 @{
     ViewBag.Title = "VideoPlayer";
+    Layout = "redLayout.cshtml";
 }
+<style>
+    .videoWrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+        padding-left: 1em;
+    }
 
-<h2>VideoPlayer</h2>
+        .videoWrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 65%;
+        }
+</style>
+<style media="screen and (max-width:768px)">
+    .videoTitle {
+        color: azure;
+        font-size: 4em;
+    }
 
-<div class="col-sm-8" style="float:left">
-    <video style="width:100%" controls>
-        <source src="https://www.youtube.com/watch?v=W00vEaxH23A" type="video/mp4" />
-    </video>
+    .videoWrapper {
+        position: relative;
+        padding-bottom: 76.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+        padding-left: 1em;
+    }
+</style>
+<style media="screen and (min-width:767px)">
+    .videoTitle {
+        color: azure;
+        font-size: 8em;
+    }
+</style>
+<div>
+    <div style="text-align:center; background-color:darkslategray; padding-left:0;">
+        <h1 class="videoTitle">Gravy Train Videos</h1>
+    </div>
+    <div class="row" style="padding-left:1.1em; padding-right:1.05em; display:inline-block;">
+        <div class="col-md-8" id="VideoPlayer" style="display:inline-block">
+            @{Html.RenderPartial("_videoPartial", Model.PinnedVideo);}
+        </div>
+        <div class="col-md-4" style="display:inline-block;">
+            <div class="card text-white bg-primary" style="max-height:400px; width:100%; overflow:auto;">
+                <div class="card-header">More Videos</div>
+                <div class="card-body">
+                    <ul>
+                        @foreach (Video video in Model.Videos)
+                        {
+                            <li>
+                                @Ajax.ActionLink(video.Title, "GetVideoPartial", new { id = video.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "VideoPlayer", InsertionMode = InsertionMode.Replace })
+                                <hr />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>

@@ -45,7 +45,6 @@
                 }
                 else
                 {
-                    @*<input type="submit" value="Sign up for text alerts!" class="btn btn-default" style="max-width:100%;width:100%;border-radius:14px; border:.1em solid #708090; background-color:white; padding:1.65em" />*@
                     <a href="@Url.Action("TextKetchup","Home")" style="text-align:center; "><h3 style="font-weight:bold; background-color:white; border-style:solid; border-width:2px; border-color:#727272; border-radius:24px;margin-top:2px; padding-top:1.6em;padding-bottom:1.62em;">Sign up for text alerts</h3></a>
                 }
             </div>
@@ -100,57 +99,10 @@
 
 
         </script>
-        @*<div style="padding-top:2em;">
-            <div class="card text-white bg-primary mb-3" style="max-height:800px; width:100%; overflow:auto;">
-                <div class="card-header">More from The Tuesday Ketchup</div>
-                <div class="card-body">
-                    <h4 class="card-title">Episodes</h4>
-                    <ul>
-                        @foreach (Episode episode in Model.episodes)
-                        {
-                            <li>
-                                @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
-                                <hr />
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>*@
+     
         <div style="text-align:center; padding-top:2em;" class="LilTwitter">
             <a class="twitter-timeline" style="width:100%" data-height="600" href="https://twitter.com/Tuesday_Ketchup?ref_src=twsrc%5Etfw">Tweets by Tuesday_Ketchup</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
     </div>
 </div>
-
-
-
-
-@*@if (@ViewBag.SignedUp != null)
-    {
-        <div class="col-md-4">
-            <input type="submit" value="Already signed up for text alerts" class="btn btn-default" />
-        </div>
-    }
-    else
-    {
-        using (Html.BeginForm("TextKetchup", "Home"))
-        {
-            <div class="col-md-4">
-                <input type="submit" value="Sign up for text alerts!" class="btn btn-default" />
-            </div>
-        }
-    }
-
-
-
-
-    <div class="col-md-4">
-        <a class="twitter-timeline" data-width="400" data-height="465" href="https://twitter.com/Tuesday_Ketchup?ref_src=twsrc%5Etfw">Tweets by Tuesday_Ketchup</a>
-    </div>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    <a href="https://itunes.apple.com/us/podcast/the-tuesday-ketchup/id1398627480?mt=2" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/podcast-lrg.svg) no-repeat;width:133px;height:34px;background-size:contain;"></a>*@
-
-

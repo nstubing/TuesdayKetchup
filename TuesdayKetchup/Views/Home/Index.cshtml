@@ -88,11 +88,13 @@
                 }
             </div>
             <div class="col-sm-4" style="display:inline-block; padding-right:0; text-align:center;">
-                <img src=@ViewBag.KetchupLogo style="border-radius:4px; width:95%; display:inline-block;" />
-                @if (@ViewBag.TuesdayKetchupEp != null)
+                <a href="@Url.Action("Yardline","Home")">
+                    <img src=@ViewBag.YardLineLogo style="border-radius:4px; width:95%; display:inline-block;" />
+                </a>
+                @if (@ViewBag.YardLineEp != null)
                 {
                     <h5 style="margin-top:.7em;">
-                        <a href="@Url.Action("Ketchup","Home")">@ViewBag.TuesdayKetchupEp</a>
+                        <a href="@Url.Action("Yardline","Home")">@ViewBag.YardLineEp</a>
                     </h5>
                 }
             </div>

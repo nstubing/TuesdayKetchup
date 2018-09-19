@@ -43,6 +43,6 @@ namespace TuesdayKetchup.Models
         public DbSet<HomeInfo> homeInfos { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Email> emails { get; set; }
-
+        public DbSet<Video> videos { get; set; }
     }
 }

@@ -83,23 +83,6 @@
 
 
         </script>
-        @*<div style="padding-top:2em;">
-            <div class="card text-white bg-primary mb-3" style="max-height:800px; width:100%; overflow:auto;">
-                <div class="card-header">More from Nick @@ Night</div>
-                <div class="card-body">
-                    <h4 class="card-title">Episodes</h4>
-                    <ul>
-                        @foreach (Episode episode in Model.episodes)
-                        {
-                            <li>
-                                @Ajax.ActionLink(episode.Title, "GetEpisodePartial", new { id = episode.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "episode-section", InsertionMode = InsertionMode.Replace })
-                                <hr />
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>*@
         @if (ViewBag.Twitter != null)
         {
             <div style="text-align:center; padding-top:2em;" class="LilTwitter">
@@ -108,6 +91,8 @@
             </div>
         }
     </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
 </div>
 
 

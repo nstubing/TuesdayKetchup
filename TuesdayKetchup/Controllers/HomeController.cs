@@ -40,6 +40,10 @@ namespace TuesdayKetchup.Controllers
             ViewBag.NickLogo = ShowTwo.Image;
             var ShowIdTwo = ShowTwo.Id;
             var NickEpisode = ReverseEpList.Where(e => e.ShowId == ShowIdTwo).ToList(); ;
+            var ShowThree = context.shows.FirstOrDefault(s => s.Title == "The 60 Yard Line");
+            ViewBag.YardLineLogo = ShowThree.Image;
+            var ShowIdThree = ShowThree.Id;
+            var YardLineEpisode = ReverseEpList.Where(e => e.ShowId == ShowIdThree).ToList(); ;
             if (KetchupEpisode.Count > 0)
             {
                 ViewBag.TuesdayKetchupEp = KetchupEpisode[0].Title;
@@ -47,6 +51,10 @@ namespace TuesdayKetchup.Controllers
             if (NickEpisode.Count > 0)
             {
                 ViewBag.NickNightEp = NickEpisode[0].Title;
+            }
+            if (YardLineEpisode.Count > 0)
+            {
+                ViewBag.YardLineEp = YardLineEpisode[0].Title;
             }
             if (Announce != null)
             {
@@ -468,7 +476,12 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult VideoPlayer()
         {
-            return View();
+            VideosViewModel TheseVids = new VideosViewModel();
+            var AllVids = context.videos.Select(v => v).ToList();
+            TheseVids.Videos = AllVids;
+            var PinnedVid = context.videos.Where(v => v.Pinned == true).FirstOrDefault();
+            TheseVids.PinnedVideo = PinnedVid;
+            return View(TheseVids);
         }
     }
 }

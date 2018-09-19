@@ -217,9 +217,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808171534038_Initial.cs" />
-    <Compile Include="Migrations\201808171534038_Initial.Designer.cs">
-      <DependentUpon>201808171534038_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201809192119308_witvids.cs" />
+    <Compile Include="Migrations\201809192119308_witvids.Designer.cs">
+      <DependentUpon>201809192119308_witvids.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809192156265_pinnedadded.cs" />
+    <Compile Include="Migrations\201809192156265_pinnedadded.Designer.cs">
+      <DependentUpon>201809192156265_pinnedadded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -243,6 +247,8 @@
     <Compile Include="Models\Texts.cs" />
     <Compile Include="Models\TextAlert.cs" />
     <Compile Include="Models\Thread.cs" />
+    <Compile Include="Models\Video.cs" />
+    <Compile Include="Models\VideosViewModel.cs" />
     <Compile Include="MyKeys.cs" />
     <Compile Include="PatreonMessenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -388,6 +394,7 @@
     <Content Include="Views\Shared\_UserEpisodeRating.cshtml" />
     <Content Include="Views\Home\Yardline.cshtml" />
     <Content Include="Views\Home\VideoPlayer.cshtml" />
+    <Content Include="Views\Home\_VideoPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -408,8 +415,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808171534038_Initial.resx">
-      <DependentUpon>201808171534038_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809192119308_witvids.resx">
+      <DependentUpon>201809192119308_witvids.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809192156265_pinnedadded.resx">
+      <DependentUpon>201809192156265_pinnedadded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

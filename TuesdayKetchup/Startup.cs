@@ -18,7 +18,25 @@ namespace TuesdayKetchup
             ConfigureAuth(app);
             CreateRolesandUsers();
             SeedPods();
-
+            SeedVids();
+        }
+        private void SeedVids()
+        {
+            var vids = context.videos.Select(v => v).ToList();
+            if(vids.Count()==0)
+            {
+                Video firstVideo = new Video();
+                firstVideo.Pinned = true;
+                firstVideo.Title = "Hot Wing Promo";
+                firstVideo.YoutubeLink = "https://www.youtube.com/embed/W00vEaxH23A?rel=0";
+                Video sVideo = new Video();
+                sVideo.Pinned = false;
+                sVideo.Title = "Tuesday Ketchup Promo";
+                sVideo.YoutubeLink = "https://www.youtube.com/embed/UbKXfZhQiCU?rel=0";
+                context.videos.Add(firstVideo);
+                context.videos.Add(sVideo);
+                context.SaveChanges();
+            }
         }
         private void SeedPods()
         {
