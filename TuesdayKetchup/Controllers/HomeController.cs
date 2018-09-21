@@ -229,6 +229,11 @@ namespace TuesdayKetchup.Controllers
             podcastURL = "https://w.soundcloud.com/player/?url=" + podcastURL;
             return PartialView("_EpisodePlayer", podcastURL);
         }
+        public PartialViewResult GetVideoPartial(int id)
+        {
+            var newEp = context.videos.Where(v => v.Id == id).FirstOrDefault();
+            return PartialView("_VideoPartial", newEp);
+        }
         public ActionResult NickAtNight()
         {
             ShowViewModel showVM = new ShowViewModel();

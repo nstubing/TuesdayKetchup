@@ -225,8 +225,14 @@
     <Compile Include="Migrations\201809192156265_pinnedadded.Designer.cs">
       <DependentUpon>201809192156265_pinnedadded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809210123159_blogssss.cs" />
+    <Compile Include="Migrations\201809210123159_blogssss.Designer.cs">
+      <DependentUpon>201809210123159_blogssss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentFlag.cs" />
     <Compile Include="Models\CurrentUserRating.cs" />
@@ -395,6 +401,10 @@
     <Content Include="Views\Home\Yardline.cshtml" />
     <Content Include="Views\Home\VideoPlayer.cshtml" />
     <Content Include="Views\Home\_VideoPartial.cshtml" />
+    <Content Include="Views\Admin\ListVideos.cshtml" />
+    <Content Include="Views\Admin\EditVideo.cshtml" />
+    <Content Include="Views\Admin\DeleteVideo.cshtml" />
+    <Content Include="Views\Admin\AddVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -420,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809192156265_pinnedadded.resx">
       <DependentUpon>201809192156265_pinnedadded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809210123159_blogssss.resx">
+      <DependentUpon>201809210123159_blogssss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

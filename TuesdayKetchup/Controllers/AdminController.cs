@@ -32,6 +32,65 @@ namespace TuesdayKetchup.Controllers
             }
 
         }
+        public ActionResult ListVideos()
+        {
+            var videos = db.videos.Select(v => v);
+            return View(videos);
+        }
+        public ActionResult EditVideo(int id)
+        {
+            var thisEp = db.videos.Where(v => v.Id == id).FirstOrDefault();
+            return View(thisEp);
+        }
+        [HttpPost]
+        public ActionResult EditVideo(Video myVideo)
+        {
+            if (myVideo.Pinned == true)
+            {
+                var PreviousPinned = db.videos.Where(v => v.Pinned == true).FirstOrDefault();
+                if(PreviousPinned != null)
+                {
+                    PreviousPinned.Pinned = false;
+                }
+            }
+            var editedVideo = db.videos.Where(v => v.Id == myVideo.Id).FirstOrDefault();
+            editedVideo.Pinned=myVideo.Pinned;
+            editedVideo.Title = myVideo.Title;
+            editedVideo.YoutubeLink = myVideo.YoutubeLink;
+            db.SaveChanges();
+            return RedirectToAction("ListVideos");
+        }
+        public ActionResult DeleteVideo(int id)
+        {
+            var thisVideo = db.videos.Where(v => v.Id == id).FirstOrDefault();
+            return View(thisVideo);
+
+        }
+        [HttpPost]
+        public ActionResult DeleteVideo(Video DeleteVideo)
+        {
+            var vidToDelete = db.videos.Where(v => v.Id == DeleteVideo.Id).FirstOrDefault();
+            db.videos.Remove(vidToDelete);
+            db.SaveChanges();
+            return RedirectToAction("ListVideos");
+        }
+        public ActionResult AddVideo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddVideo(Video newVideo)
+        {
+            Video vidTOAdd = new Video();
+            vidTOAdd.Title = newVideo.Title;
+            var youtubeSplitLink = newVideo.YoutubeLink.Split('=');
+            string embedLink = "https://www.youtube.com/embed/" + youtubeSplitLink[1] + "?rel=0";
+            vidTOAdd.YoutubeLink = embedLink;
+            vidTOAdd.Pinned = false;
+            db.videos.Add(vidTOAdd);
+            db.SaveChanges();
+            return View();
+        }
         public ActionResult TextAlert()
         {
             if (User.IsInRole("Admin"))

@@ -44,5 +44,7 @@ namespace TuesdayKetchup.Models
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Email> emails { get; set; }
         public DbSet<Video> videos { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogPost> BlogPosts { get; set; }
     }
 }
