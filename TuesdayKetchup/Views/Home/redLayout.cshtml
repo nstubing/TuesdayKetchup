@@ -47,13 +47,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Blogs</a>
                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                        <a class="dropdown-item" href="#">Nick @@ Night in Words</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">2 High Guys</a>
+                        <a class="dropdown-item" href="@Url.Action("BlogView","Home")">Nick @@ Night in Words</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size:2em" href="@Url.Action("CalendarIndex","Calendar")">Videos</a>
+                    <a class="nav-link" style="font-size:2em" href="@Url.Action("VideoPlayer","Home")">Videos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:2em;">Other</a>
@@ -87,6 +85,7 @@
         </footer>
     </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

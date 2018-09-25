@@ -2,20 +2,10 @@
 
 @{
     ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
 }
 <h3>@ViewBag.Message</h3>
 
-@*<address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>*@
-
-@*<address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>*@
 
 @if (User.IsInRole("Fan"))
 {
@@ -53,9 +43,11 @@
                 </div>
             </div>
         </div>
-        }
     }
-    @if (!User.IsInRole("Fan"))
-    {
-        <h4>Sign in to send us an email!</h4>
-    }
+}
+@if (!User.IsInRole("Fan"))
+{
+    <h4>Sign in to send us an email!</h4>
+}
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

@@ -8,6 +8,7 @@ using TuesdayKetchup.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Data.Entity;
+using System.Text;
 
 namespace TuesdayKetchup.Controllers
 {
@@ -19,15 +20,65 @@ namespace TuesdayKetchup.Controllers
         {
             return RedirectToAction("GetCalendarIndex", "Calendar");
         }
+        public ActionResult BlogView()
+        {
+            BlogViewModel myPage = new BlogViewModel();
+            var NickBlog = context.Blogs.Where(b => b.Title == "Nick @ Night in Words").FirstOrDefault();
+            myPage.Title = NickBlog.Title;
+            myPage.Description = NickBlog.Description;
+            myPage.Image = NickBlog.Image;
+            var AllPosts = context.BlogPosts.Where(b => b.BlogId == NickBlog.Id).OrderByDescending(b=>b.Id).ToList();
+            myPage.CurrentPost = AllPosts[0];
+            return View(myPage);
+        }
+        public PartialViewResult PreviousPostPartial(int id)
+        {
+            var NickBlog = context.Blogs.Where(b => b.Title == "Nick @ Night in Words").FirstOrDefault();
+            var AllPosts = context.BlogPosts.Where(b => b.BlogId == NickBlog.Id).ToList();
+            var nextPost = AllPosts.Where(b => b.Id > id);
+            if (nextPost.Count() > 0)
+            {
+                return PartialView("_BlogPostPartial", nextPost.FirstOrDefault());
+            }
+            else
+            {
+                var currentPost = context.BlogPosts.Where(p => p.Id == id).FirstOrDefault();
+                return PartialView("_BLogPostPartial", currentPost);
+
+            }
+        }
+        public PartialViewResult NextPostPartial(int id)
+        {
+           
+
+            var NickBlog = context.Blogs.Where(b => b.Title == "Nick @ Night in Words").FirstOrDefault();
+            var AllPosts = context.BlogPosts.Where(b => b.BlogId == NickBlog.Id).ToList();
+            var previousPost = AllPosts.Where(b => b.Id < id).OrderByDescending(b => b.Id);
+            if (previousPost.Count() > 0)
+            {
+                return PartialView("_BlogPostPartial", previousPost.FirstOrDefault());
+            }
+            else
+            {
+                var currentPost = context.BlogPosts.Where(p => p.Id == id).FirstOrDefault();
+                return PartialView("_BLogPostPartial", currentPost);
+
+            }
+        }
         public ActionResult Index(Episode episode)
         {
             var HomeInfo = context.homeInfos.Where(h => h.Id == 2).FirstOrDefault();
             //var HomeInfo = context.homeInfos.Select(h => h).FirstOrDefault();
             if (HomeInfo != null)
             {
-                ViewBag.Picture1 = HomeInfo.SliderPic1;
-                ViewBag.Picture2 = HomeInfo.SliderPic2;
-                ViewBag.Picture3 = HomeInfo.SliderPic3;
+                var PathSplit1 = HomeInfo.SliderPic1.Split('/');
+                var PathSplit2 = HomeInfo.SliderPic2.Split('/');
+                var PathSplit3 = HomeInfo.SliderPic3.Split('/');
+                var string1 = PathSplit1[1] + "/" + PathSplit1[2];
+                var string2 = PathSplit2[1] + "/" + PathSplit2[2];
+                ViewBag.Picture1 = string1;
+                ViewBag.Picture2 = string2;
+                ViewBag.Picture3 = PathSplit3[1] + "/" + PathSplit3[2];
             }
             var ReverseEpList = context.episodes.OrderByDescending(e => e.Id);
             var Announce = context.homeInfos.Select(h => h).FirstOrDefault();

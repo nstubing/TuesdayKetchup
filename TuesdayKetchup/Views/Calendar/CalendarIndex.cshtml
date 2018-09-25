@@ -1,14 +1,15 @@
 ﻿@{
     ViewBag.Title = "Event Calendar";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 <head>
     <link rel='stylesheet' type='text/css' href='~/Scripts/jquery-3.3.1.js' />
 
 </head>
 <h2>Events</h2>
-<div id="calender" 
-    style=
-     "color:#1a1a1a; /*text-shadow:-0.5px -0.5px 0 #000,  
+<div id="calender"
+     style="color:#1a1a1a; /*text-shadow:-0.5px -0.5px 0 #000,
     0.5px -0.5px 0 #000,
     -0.5px 0.5px 0 #000,
      0.5px 0.5px 0 #000;*/ ">
@@ -38,6 +39,7 @@
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
     <script>
         $(document).ready(function () {

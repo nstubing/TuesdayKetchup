@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "DeleteEvent";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 
 <h2>Delete Event</h2>
@@ -53,7 +55,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
@@ -62,3 +65,4 @@
         </div>
     }
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

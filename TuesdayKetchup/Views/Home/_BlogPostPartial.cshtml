@@ -1,0 +1,8 @@
+﻿@using TuesdayKetchup.Models;
+@model BlogPost
+<h1 style="text-align:center; font-size:4em;padding-top:.5em;">@Model.Title</h1>
+@if (Model.Title!=null)
+{
+    <img src=@Model.Picture style="float:left; padding:2em; max-width:500px" />
+}
+<p style="padding:2em;">@Model.Message1</p>

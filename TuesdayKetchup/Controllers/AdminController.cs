@@ -20,6 +20,37 @@ namespace TuesdayKetchup.Controllers
         {
             return View();
         }
+        public ActionResult AddBlogPost()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddBlogPost(string Title, string Message, HttpPostedFileBase file)
+        {
+            BlogPost myBlogPost = new BlogPost();
+
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content"), pic);
+                file.SaveAs(path);
+                 myBlogPost.Picture= "/Content/" + pic;
+            }
+            myBlogPost.Message1 = Message;
+            myBlogPost.Title = Title;
+            var blogToPost = db.Blogs.Where(b => b.Title == "Nick @ Night in Words").FirstOrDefault();
+            myBlogPost.BlogId = blogToPost.Id;
+            db.BlogPosts.Add(myBlogPost);
+            db.SaveChanges();
+            return View();
+        }
+        public ActionResult ListBlogPosts()
+        {
+            var posts = db.BlogPosts.Select(b => b);
+            return View(posts);
+        }
+        
         public ActionResult ManageHome()
         {
             if (User.IsInRole("Admin"))
@@ -34,18 +65,35 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult ListVideos()
         {
-            var videos = db.videos.Select(v => v);
+            if (User.IsInRole("Admin"))
+            {
+                var videos = db.videos.Select(v => v);
             return View(videos);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
         public ActionResult EditVideo(int id)
         {
-            var thisEp = db.videos.Where(v => v.Id == id).FirstOrDefault();
+                if (User.IsInRole("Admin"))
+                {
+                    var thisEp = db.videos.Where(v => v.Id == id).FirstOrDefault();
             return View(thisEp);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult EditVideo(Video myVideo)
         {
-            if (myVideo.Pinned == true)
+            if (User.IsInRole("Admin"))
+            {
+                if (myVideo.Pinned == true)
             {
                 var PreviousPinned = db.videos.Where(v => v.Pinned == true).FirstOrDefault();
                 if(PreviousPinned != null)
@@ -59,11 +107,23 @@ namespace TuesdayKetchup.Controllers
             editedVideo.YoutubeLink = myVideo.YoutubeLink;
             db.SaveChanges();
             return RedirectToAction("ListVideos");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult DeleteVideo(int id)
         {
-            var thisVideo = db.videos.Where(v => v.Id == id).FirstOrDefault();
+                if (User.IsInRole("Admin"))
+                {
+                    var thisVideo = db.videos.Where(v => v.Id == id).FirstOrDefault();
             return View(thisVideo);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
         }
         [HttpPost]
@@ -76,7 +136,14 @@ namespace TuesdayKetchup.Controllers
         }
         public ActionResult AddVideo()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult AddVideo(Video newVideo)

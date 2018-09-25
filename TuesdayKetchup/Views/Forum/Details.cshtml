@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 
 <div>
@@ -22,47 +24,48 @@
     }
 </font>
 @using (Html.BeginForm())
-                {
-                    <div class="row">
-                        <div class="col-md-10">
-                            <p>Comment</p>
-                            <div style="width:100%; max-width:100%;">
-                                @Html.TextArea("Comment", null, 5, 300, new { @style = "width:100%;max-width:100%;" })
-                            </div>
-                        </div>
-                        <div class="col-md-2" style="padding-top:2.6em;">
-                            <div class="form-group">
-                                <input type="submit" value="Comment" class="btn btn-default" style="padding-top:2.2em; padding-bottom:2.2em; font-size:1.4em;" />
-                            </div>
-                        </div>
+{
+    <div class="row">
+        <div class="col-md-10">
+            <p>Comment</p>
+            <div style="width:100%; max-width:100%;">
+                @Html.TextArea("Comment", null, 5, 300, new { @style = "width:100%;max-width:100%;" })
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-top:2.6em;">
+            <div class="form-group">
+                <input type="submit" value="Comment" class="btn btn-default" style="padding-top:2.2em; padding-bottom:2.2em; font-size:1.4em;" />
+            </div>
+        </div>
 
-                    </div>
-                }
+    </div>
+}
 
 
 @foreach (var item in (ViewBag.Posts as List<TuesdayKetchup.Models.Post>))
 {
     <div>
-            <div>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </div>
-            <div class="col-md-12" style="color:black; max-width:100%;">
-                @Html.DisplayFor(modelItem => item.Message)
-            </div>
-            <font color="red">
-                @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
-                    @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
-                }
-                @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
-                {
-                    @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
-                }
-            </font>
+        <div>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </div>
+        <div class="col-md-12" style="color:black; max-width:100%;">
+            @Html.DisplayFor(modelItem => item.Message)
+        </div>
+        <font color="red">
+            @if (ViewBag.ActiveUserId == item.UserId || User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) @: |
+                @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
+            }
+            @if (ViewBag.ActiveUserId != item.UserId && ViewBag.ActiveUserId != null && User.IsInRole("Fan"))
+            {
+                @Html.ActionLink("Flag Post", "FlagPost", new { id = item.Id })
+            }
+        </font>
         <hr />
     </div>
 }
 <font color="red">
     @Html.ActionLink("Back to Forums", "Index")
 </font>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

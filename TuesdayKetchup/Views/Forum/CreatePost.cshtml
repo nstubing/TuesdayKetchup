@@ -2,21 +2,23 @@
 
 @{
     ViewBag.Title = "CreatePost";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 
 <h2>Create Post</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal" style="width:100%; max-width:100%;">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
         @Html.HiddenFor(model => model.ThreadId)
-        
+
         <div class="form-group" style="width:100%; max-width:100%;">
             @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="width:100%; max-width:100%;">
@@ -39,4 +41,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
 }

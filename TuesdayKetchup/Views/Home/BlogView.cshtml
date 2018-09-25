@@ -1,0 +1,42 @@
+﻿@using TuesdayKetchup.Models;
+@model BlogViewModel
+@{
+    ViewBag.Title = "BlogView";
+}
+<style>
+    .ajaxshit{
+        background-color:purple;
+    }
+</style>
+
+<div class="row" style="padding-top:1em; padding-bottom:1em; background-color:darkslategray;  padding-right:0;padding-left:0; margin:0; ">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <img src=@Model.Image style="width:100%" />
+    </div>
+    <div class="col-md-8" style="text-align:center;">
+        <h1 style="font-size:6em; color:azure; margin-top:.2em;">@Model.Title</h1>
+        <h5 style="color:azure;">@Model.Description</h5>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<div class="row" style="padding-top:1em; padding-right:0; padding-left:0; margin:0;">
+    <div class="col-md-1"></div>
+    <div class="col-md-8" style="background-color:azure; max-height:600px; overflow:auto; padding:0; margin:0;" id="postSection">
+        @{ Html.RenderPartial("_BlogPostPartial", Model.CurrentPost); }
+    </div>
+    <div class="col-md-2" style="padding-top:1em;">
+        <div class="row">
+            <div class="col-md-6">
+                <a class="ajaxshit">@Ajax.ActionLink("Previous Post", "PreviousPostPartial", new { id = Model.CurrentPost.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "postSection", InsertionMode = InsertionMode.Replace }) </a>
+            </div>
+            <div class="col-md-6">
+                @Ajax.ActionLink("Next Post", "NextPostPartial", new { id = Model.CurrentPost.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "postSection", InsertionMode = InsertionMode.Replace })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

@@ -2,15 +2,16 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
 }
 
 @if (User.IsInRole("Fan") || User.IsInRole("Admin"))
 {
-<p>
-    @Html.ActionLink("Create New Thread", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New Thread", "Create")
+    </p>
 }
-@if(ViewBag.Message !=null)
+@if (ViewBag.Message != null)
 {
     <h5>@ViewBag.Messages</h5>
 }
@@ -21,21 +22,23 @@
         </th>
         <th></th>
     </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <font color="black">
-                @Html.DisplayFor(modelItem => item.Title)
-            </font>
-        </td>
-        <td>
-            @Html.ActionLink("View Thread", "Details", new { id = item.Id }) 
-            @if (User.IsInRole("Admin")||item.UserId==ViewBag.CurrentUserId)
-            {
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <font color="black">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </font>
+            </td>
+            <td>
+                @Html.ActionLink("View Thread", "Details", new { id = item.Id })
+                @if (User.IsInRole("Admin") || item.UserId == ViewBag.CurrentUserId)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
 
 </table>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

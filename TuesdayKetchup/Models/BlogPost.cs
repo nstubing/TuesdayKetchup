@@ -11,7 +11,9 @@ namespace TuesdayKetchup.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Message { get; set; }
+        public string Title { get; set; }
+        public string Message1 { get; set; }
+        public string Message2 { get; set; }
         public string Picture { get; set; }
         [ForeignKey("Blog")]
         public int BlogId { get; set; }

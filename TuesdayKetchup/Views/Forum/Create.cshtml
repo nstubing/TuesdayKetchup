@@ -2,15 +2,17 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Thread</h4>
         <hr />
@@ -25,7 +27,7 @@
         <div class="col-md-10">
             <p>Thread Details</p>
             <div style="width:100%; max-width:100%;">
-                @Html.TextAreaFor(model=>model.ThreadDetails, 5, 300, new { @style = "width:100%;max-width:100%;" })
+                @Html.TextAreaFor(model => model.ThreadDetails, 5, 300, new { @style = "width:100%;max-width:100%;" })
             </div>
         </div>
 
@@ -43,4 +45,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
 }

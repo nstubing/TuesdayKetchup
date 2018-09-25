@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/secondLayout.cshtml";
+
 }
 <div class="container">
     <div class="row">
@@ -109,25 +111,25 @@
                 <div id="modal-map2" style="height: 76%;width: 80%;min-height:300px; position: absolute; overflow: hidden;"></div>
             }
             else
-            { 
+            {
                 <br />
                 <br />
                 <center>
                     <h4><i>No map for this event<br />Stay tuned for details!</i></h4>
                 </center>
-            
+
             }
-           
+
         </div>
     </div>
- 
+
     <div>
-        
+
     </div>
     <div>
         @Html.ActionLink("Back to Event Calendar", "CalendarIndex", "Calendar")
     </div>
- 
+
     <script>
         var geocoder;
 
@@ -166,3 +168,4 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.APIKey&callback=initMap"
             async defer type="text/javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

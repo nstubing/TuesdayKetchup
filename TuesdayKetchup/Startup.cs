@@ -19,6 +19,20 @@ namespace TuesdayKetchup
             CreateRolesandUsers();
             SeedPods();
             SeedVids();
+            SeedBlogs();
+        }
+        private void SeedBlogs()
+        {
+            var blogs = context.Blogs.Where(b => b.Title == "Nick @ Night in Words").FirstOrDefault();
+            if (blogs == null)
+            {
+                Blog nickBlog = new Blog();
+                nickBlog.Title = "Nick @ Night in Words";
+                nickBlog.Image = "/Content/NickAtNight.PNG";
+                nickBlog.Description = "I am nick and every day I Write some stuff about myself or whatever I want.";
+                context.Blogs.Add(nickBlog);
+                context.SaveChanges();
+            }
         }
         private void SeedVids()
         {
